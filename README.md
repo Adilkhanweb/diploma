@@ -1,5 +1,5 @@
 # Diploma Project
-Education Platform
+Educational platform for preparing for the 𝙐𝙉𝙏 in 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗰𝘀
 ## Team
 | Member      | Role            |
 | ----------- | --------------- |
