@@ -25,7 +25,7 @@ Some info here
 | ----------- | --------------- |
 | Alua        | Project Manager |
 | Assem       | UI/UX Designer  |
-| Tangsholpan | UI/UX Designer  |
+| Tangsholpan | Backend Dev.    |
 | Timur       | Frontend Dev.   |
 | Adilkhan    | Backend Dev.    |
 
