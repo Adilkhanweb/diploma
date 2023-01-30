@@ -21,13 +21,13 @@
 Some info here
 
 ## Team
-| Member      | Role            |
-| ----------- | --------------- |
-| Alua        | Project Manager |
-| Assem       | UI/UX Designer  |
-| Tangsholpan | Backend Dev.    |
-| Timur       | Frontend Dev.   |
-| Adilkhan    | Backend Dev.    |
+| Member      | Role                             |
+| ----------- | ---------------------------------|
+| Alua        | Project Manager + UI/UX Designer |
+| Assem       | UI/UX Designer                   |
+| Tangsholpan | Frontend Developer               |
+| Timur       | Frontend Developer               |
+| Adilkhan    | Backend Developer                |
 
 ## Screenshots
 
