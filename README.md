@@ -4,10 +4,9 @@
 <h1 align="center">Diploma Project</h1>
 <p align="center" style='margin-top: -12px; font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif'>Educational platform for preparing for the 𝙐𝙉𝙏 in 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗰𝘀</p>
 
-## Figma Link: https://figma.com/
+## Figma Link: [Click](https://www.figma.com/file/JXVNQgH82SgZvHIxjydD7g/informatics-team-library?t=PzxlmLzcFH0nkkcx-0)
 
 ## Table of contents
-- [Figma Link: https://figma.com/](#figma-link-httpsfigmacom)
 - [Table of contents](#table-of-contents)
 - [General Info](#general-info)
 - [Team](#team)
@@ -26,7 +25,6 @@ Some info here
 | Alua        | Project Manager + UI/UX Designer |
 | Assem       | UI/UX Designer                   |
 | Tangsholpan | Frontend Developer               |
-| Timur       | Frontend Developer               |
 | Adilkhan    | Backend Developer                |
 
 ## Screenshots
