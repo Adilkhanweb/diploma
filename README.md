@@ -20,10 +20,10 @@ Some info here
 ## Team
 | Member      | Role                             |
 | ----------- | ---------------------------------|
-| Alua        | Project Manager + UI/UX Designer |
-| Assem       | UI/UX Designer                   |
-| Tangsholpan | Frontend Developer               |
-| Adilkhan    | Backend Developer                |
+| Alua Otezhan        | Project Manager + UI/UX Designer |
+| Assem Koilanova       | UI/UX Designer                   |
+| Tangsholpan Abdipaiyz | Frontend Developer               |
+| Adilkhan Kuchkarov    | Backend Developer                |
 
 ## Screenshots
 
