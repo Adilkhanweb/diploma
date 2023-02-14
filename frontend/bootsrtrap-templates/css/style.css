@@ -1,0 +1,113 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+
+#sidebar.active {
+    margin-left: -300px;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -300px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar {
+    position: relative;
+    min-width: 300px;
+    max-width: 400px;
+    min-height: 100vh;
+    background: #0A4368;
+    color: #fff;
+    transition: all 0.2s;
+}
+
+#sidebar .sidebar-header {
+    align-items: center;
+    text-align: center;
+    padding-bottom: 52px;
+    background: #0A4368;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+#sidebar ul li a {
+    padding: 16px 16px 16px 36px;
+    font-size: 1em;
+    display: block;
+}
+#sidebar ul li a img {
+    padding-right: 24px;
+}
+#sidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+
+#sidebar ul li a:hover img {
+    color: #0A4368;
+    filter: invert(56%) sepia(42%) saturate(568%) hue-rotate(191deg) brightness(88%) contrast(89%);
+}
+
+#sidebar ul li.active > a {
+    color: #0A4368;
+    background: #fff;
+}
+
+#sidebar ul {
+    margin: 0;
+}
+#sidebar ul.onbottom {
+    position: absolute;
+    bottom: 52px;
+    width: 100%;
+}
+
+#sidebarCollapse {
+    background-color: #0A4368;
+    color: #fff;
+}
+
+.section {
+    padding: 52px 0;
+}

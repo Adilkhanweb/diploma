@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% load wagtailsettings_tags %}
+{% load wagtailimages_tags wagtailcore_tags static %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+    {% include "navigation/navbar.html" %}
+    <main class="hero-section">
+        <div class="container col-xl-9 py-5">
+            <div class="row align-items-center g-lg-5 py-5">
+                <div class="title col-lg-6 text-center text-lg-start mb-3">
+                    <h1 class="display-4 fw-bold lh-1 mb-3">{{ settings.website_settings.WebsiteSettings.slogan }}</h1>
+                    <p class="col-lg-10 fs-4">Joo High School - 10-11 сыныптарға арналған ҰБТ-ға дайындық мектебі</p>
+                    <a class="btn btn-success btn-lg px-4 me-sm-3"><i class="bi bi-whatsapp pe-2"></i>Whatsapp-қа
+                        жазу</a>
+                </div>
+                <div class="col-lg-6 col-md-10 mx-auto col-lg-5">
+                    {% if "Student" in request.user.groups.first.name %}
+                        <h1>aslasd</h1>
+                    {% endif %}
+                    <form class="contact-form p-4 p-md-5" autocomplete="off">
+                        <h3 class="text-center">Консультацияға жазылу</h3>
+                        <hr class="my-4">
+                        <div class="mb-3">
+                            <label for="floatingInput">Аты-жөніңіз:</label>
+                            <input type="text" class="form-control" id="floatingInput" placeholder="John">
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone-mask">Номеріңіз:</label>
+                            <input type="tel" class="form-control" id="phone-mask">
+                        </div>
+                        <label for="time">Консультацияға қай уақытта келген ыңғайлы?</label>
+                        <select class="form-select form-select-lg mb-3" name="" id="time">
+                            <option value="Сағат 10:00-да">Сағат 10:00-да</option>
+                            <option value="Сағат 10:30-да">Сағат 10:30-да</option>
+                            <option value="Сағат 11:00-де">Сағат 11:00-де</option>
+                            <option value="Сағат 11:30-да">Сағат 11:30-да</option>
+                            <option value="Сағат 12:00-де">Сағат 12:00-де</option>
+                            <option value="Сағат 12:30-да">Сағат 12:30-да</option>
+                            <option value="Сағат 14:00-де">Сағат 14:00-де</option>
+                            <option value="Сағат 14:30-да">Сағат 14:30-да</option>
+                            <option value="Сағат 15:00-те">Сағат 15:00-те</option>
+                            <option value="Сағат 15:30-да">Сағат 15:30-да</option>
+                            <option value="Сағат 16:00-те">Сағат 16:00-те</option>
+                            <option value="Сағат 16:30-да">Сағат 16:30-да</option>
+                            <option value="Сағат 17:00-те">Сағат 17:00-те</option>
+                            <option value="Сағат 17:30-да">Сағат 17:30-да</option>
+                            <option value="Сағат 18:00-да">Сағат 18:00-да</option>
+                            <option value="Сағат 18:30-да">Сағат 18:30-да</option>
+                            <option value="Сағат 19:00-да">Сағат 19:00-да</option>
+                        </select>
+                        <label for="week-day">Аптаның қай күнін таңдайсыз?</label>
+                        <select class="form-select form-select-lg mb-3" name="" id="week-day">
+                            <option value="Дүйсенбі">Дүйсенбі</option>
+                            <option value="Сейсенбі">Сейсенбі</option>
+                            <option value="Сәрсенбі">Сәрсенбі</option>
+                            <option value="Бейсенбі">Бейсенбі</option>
+                            <option value="Жұма">Жұма</option>
+                            <option value="Сенбі">Сенбі</option>
+                            <option value="Жексенбі">Жексенбі</option>
+                        </select>
+                        <button class="w-100 btn btn-lg btn-warning" type="submit">КОНСУЛЬТАЦИЯ АЛАМЫН</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="container my-5">
+        <div class="row g-0">
+            <div class="col-lg-6 col-md-10 col-lg-5">
+                <form class="contact-form p-4 p-md-5" autocomplete="off">
+                    <h3 class="text-center">Консультацияға жазылу</h3>
+                    <hr class="my-4">
+                    <div class="mb-3">
+                        <label for="floatingInput">Аты-жөніңіз:</label>
+                        <input type="text" class="form-control" id="floatingInput" placeholder="John">
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone-mask">Номеріңіз:</label>
+                        <input type="tel" class="form-control" id="phone-mask">
+                    </div>
+                    <label for="time">Консультацияға қай уақытта келген ыңғайлы?</label>
+                    <select class="form-select form-select-lg mb-3" name="" id="time">
+                        <option value="Сағат 10:00-да">Сағат 10:00-да</option>
+                        <option value="Сағат 10:30-да">Сағат 10:30-да</option>
+                        <option value="Сағат 11:00-де">Сағат 11:00-де</option>
+                        <option value="Сағат 11:30-да">Сағат 11:30-да</option>
+                        <option value="Сағат 12:00-де">Сағат 12:00-де</option>
+                        <option value="Сағат 12:30-да">Сағат 12:30-да</option>
+                        <option value="Сағат 14:00-де">Сағат 14:00-де</option>
+                        <option value="Сағат 14:30-да">Сағат 14:30-да</option>
+                        <option value="Сағат 15:00-те">Сағат 15:00-те</option>
+                        <option value="Сағат 15:30-да">Сағат 15:30-да</option>
+                        <option value="Сағат 16:00-те">Сағат 16:00-те</option>
+                        <option value="Сағат 16:30-да">Сағат 16:30-да</option>
+                        <option value="Сағат 17:00-те">Сағат 17:00-те</option>
+                        <option value="Сағат 17:30-да">Сағат 17:30-да</option>
+                        <option value="Сағат 18:00-да">Сағат 18:00-да</option>
+                        <option value="Сағат 18:30-да">Сағат 18:30-да</option>
+                        <option value="Сағат 19:00-да">Сағат 19:00-да</option>
+                    </select>
+                    <label for="week-day">Аптаның қай күнін таңдайсыз?</label>
+                    <select class="form-select form-select-lg mb-3" name="" id="week-day">
+                        <option value="Дүйсенбі">Дүйсенбі</option>
+                        <option value="Сейсенбі">Сейсенбі</option>
+                        <option value="Сәрсенбі">Сәрсенбі</option>
+                        <option value="Бейсенбі">Бейсенбі</option>
+                        <option value="Жұма">Жұма</option>
+                        <option value="Сенбі">Сенбі</option>
+                        <option value="Жексенбі">Жексенбі</option>
+                    </select>
+                    <button class="w-100 btn btn-lg btn-warning" type="submit">КОНСУЛЬТАЦИЯ АЛАМЫН</button>
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner h-100">
+                        <div class="carousel-item active">
+                            <img src="{% static 'images/11.webp' %}" class="d-block w-100 h-100" alt="..."
+                                 style="object-fit: cover;">
+                        </div>
+                        <div class="carousel-item h-100">
+                            <img src="{% static 'images/13.webp' %}" class="d-block w-100 h-100" alt="...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="pt-5 pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="mb-3">Testimonials</h3>
+                </div>
+                <div class="col-6 d-flex justify-content-end">
+                    <button class="btn btn-primary mx-1" type="button" data-bs-target="#carouselExampleIndicators2"
+                            data-bs-slide="prev">
+                        <i class="bi bi-arrow-left"></i>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="btn btn-primary mx-1" type="button" data-bs-target="#carouselExampleIndicators2"
+                            data-bs-slide="next">
+                        <i class="bi bi-arrow-right"></i>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+
+                </div>
+                <div class="col-12 pt-3">
+                    <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel"
+                         data-ride="carousel">
+
+                        <div class="carousel-inner">
+                            {% for group in testims %}
+                                <div class="carousel-item{% if forloop.first %} active{% endif %} ">
+                                    <div class="row">
+                                        {% for item in group %}
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card">
+                                                    {% image item.student_photo width-200 as im %}
+                                                    <img class="img-fluid" alt="100%x280"
+                                                         src="{{ im.url }}">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">{{ item.student_name }}</h4>
+                                                        <p class="card-text">{{ item.body|richtext }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% for te in testims %}
+        {% for item in te %}
+            {{ item.student_name }}
+        {% endfor %}
+        <br>
+    {% endfor %}
+
+    <h1>{{ self.title }}</h1>
+    {{ self.body|richtext }}
+    {% include 'footer/footer.html' %}
+{% endblock content %}
