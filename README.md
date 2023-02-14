@@ -1,6 +1,4 @@
-<p align="center"> 
-<img src="storage/temp_logo.svg" width="60%">
-</p>
+
 <h1 align="center">Diploma Project</h1>
 <p align="center" style='margin-top: -12px; font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif'>Educational platform for preparing for the 𝙐𝙉𝙏 in 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗰𝘀</p>
 
@@ -22,10 +20,10 @@ Some info here
 ## Team
 | Member      | Role                             |
 | ----------- | ---------------------------------|
-| Alua        | Project Manager + UI/UX Designer |
-| Assem       | UI/UX Designer                   |
-| Tangsholpan | Frontend Developer               |
-| Adilkhan    | Backend Developer                |
+| Alua Otezhan        | Project Manager + UI/UX Designer |
+| Assem Koilanova       | UI/UX Designer                   |
+| Tangsholpan Abdipaiyz | Frontend Developer               |
+| Adilkhan Kuchkarov    | Backend Developer                |
 
 ## Screenshots
 
