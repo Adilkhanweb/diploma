@@ -1,0 +1,38 @@
+{% load i18n %}
+{% if previous.answers %}
+
+{% if user_was_incorrect %}
+<div class="alert alert-error">
+    <strong>Сіз жоғарыдағы сұраққа қате жауап бердіңіз</strong>
+</div>
+{% endif %}
+
+<table class="table table-bordered">
+    <tbody>
+    {% for answer in previous.answers %}
+    {% if answer.correct %}
+    <tr class="bg-success-lt text-light">
+        <td>{{ answer.content }}</td>
+        <td><strong>Дұрыс жауап</strong></td>
+    </tr>
+    {% elif guess == answer.id %}
+    <tr class="bg-danger-lt text-light">
+        <td>{{ answer.content }}</td>
+        <td><strong>Қате жауап</strong></td>
+    </tr>
+    {% else %}
+    <tr>
+        <td>{{ answer.content }}</td>
+        <td>
+            {% if previous.question_type.MCQuestion %}
+                {% if answer.id|add:"0" == previous.previous_answer|add:"0" %}
+                    Бұл сіздің жауабыңыз
+                {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}

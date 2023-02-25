@@ -1,0 +1,84 @@
+{% extends "account/base.html" %}
+{% load account socialaccount %}
+
+{% load i18n static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+{% endblock %}
+{% block content %}
+    {% get_providers as socialaccount_providers %}
+
+    <div class="container" id="container">
+
+        <div class="container1">
+            <img src="{% static 'images/rec1.png' %}" width="440px" alt=""/>
+            <div class="left">
+                <div class="texts">
+                    <div class="text1">
+                        <h1>JOO INFORMATICS
+                        </h1>
+                    </div>
+                    <div class="text2">
+                        <h3>ҰБТ-ға
+                            дайындық
+                            платформасы
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-container sign-up-container">
+
+            <form class="login" method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                <img src="{% static 'images/logo-dark.svg' %}" alt="" height="120px"/>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <label for="id_login"></label>
+                <input type="email" id="id_login" name="login" autocomplete="email"
+                       placeholder="Электрондық пошта" required/>
+
+                <label for="id_password"></label>
+                <input type="password" name="password" autocomplete="current-password" required id="id_password"
+                       placeholder="Құпиясөз"/>
+
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                {% endif %}
+                <div class="chb">
+                    <div class="inp">
+                        <input type="checkbox" name="remember" id="id_remember">
+                    </div>
+                    <label for="id_remember">Сақтау</label><a href="{% url 'account_reset_password' %}"
+                                                              style="text-decoration: unset"><span>Құпиясөзді қалпына келтіру</span></a>
+
+                </div>
+
+                <button type="submit">Кіру</button>
+                <a>Немесе</a>
+                {% for provider in socialaccount_providers %}
+                    {% if provider.id == "openid" %}
+                        {% for brand in provider.get_brands %}
+                            <a title="{{ brand.name }}"
+                               class="socialaccount_provider {{ provider.id }} {{ brand.id }}"
+                               href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
+                            >{{ brand.name }}</a>
+                        {% endfor %}
+                    {% endif %}
+                    <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }}"
+                       style="margin-top:1rem; text-decoration: unset; color: black; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; border: 2px solid gray; border-radius: 8px; padding: 0.5rem 1rem; width: 100%"
+                       href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><img
+                            src="{% static 'images/google_icon.png' %}" alt=""/> {{ provider.name }} арқылы кіру</a>
+                {% endfor %}
+                <a href="{{ signup_url }}" style="text-decoration: unset; color: black;">Тіркелу</a>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

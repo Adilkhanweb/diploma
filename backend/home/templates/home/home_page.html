@@ -1,195 +1,100 @@
-{% extends "base.html" %}
-{% load wagtailsettings_tags %}
-{% load wagtailimages_tags wagtailcore_tags static %}
-
-{% block body_class %}template-homepage{% endblock %}
-
-{% block extra_css %}
-
-{% endblock extra_css %}
-
+{% extends 'base.html' %}
+{% load static %}
 {% block content %}
-    {% include "navigation/navbar.html" %}
-    <main class="hero-section">
-        <div class="container col-xl-9 py-5">
-            <div class="row align-items-center g-lg-5 py-5">
-                <div class="title col-lg-6 text-center text-lg-start mb-3">
-                    <h1 class="display-4 fw-bold lh-1 mb-3">{{ settings.website_settings.WebsiteSettings.slogan }}</h1>
-                    <p class="col-lg-10 fs-4">Joo High School - 10-11 сыныптарға арналған ҰБТ-ға дайындық мектебі</p>
-                    <a class="btn btn-success btn-lg px-4 me-sm-3"><i class="bi bi-whatsapp pe-2"></i>Whatsapp-қа
-                        жазу</a>
-                </div>
-                <div class="col-lg-6 col-md-10 mx-auto col-lg-5">
-                    {% if "Student" in request.user.groups.first.name %}
-                        <h1>aslasd</h1>
-                    {% endif %}
-                    <form class="contact-form p-4 p-md-5" autocomplete="off">
-                        <h3 class="text-center">Консультацияға жазылу</h3>
-                        <hr class="my-4">
-                        <div class="mb-3">
-                            <label for="floatingInput">Аты-жөніңіз:</label>
-                            <input type="text" class="form-control" id="floatingInput" placeholder="John">
-                        </div>
-                        <div class="mb-3">
-                            <label for="phone-mask">Номеріңіз:</label>
-                            <input type="tel" class="form-control" id="phone-mask">
-                        </div>
-                        <label for="time">Консультацияға қай уақытта келген ыңғайлы?</label>
-                        <select class="form-select form-select-lg mb-3" name="" id="time">
-                            <option value="Сағат 10:00-да">Сағат 10:00-да</option>
-                            <option value="Сағат 10:30-да">Сағат 10:30-да</option>
-                            <option value="Сағат 11:00-де">Сағат 11:00-де</option>
-                            <option value="Сағат 11:30-да">Сағат 11:30-да</option>
-                            <option value="Сағат 12:00-де">Сағат 12:00-де</option>
-                            <option value="Сағат 12:30-да">Сағат 12:30-да</option>
-                            <option value="Сағат 14:00-де">Сағат 14:00-де</option>
-                            <option value="Сағат 14:30-да">Сағат 14:30-да</option>
-                            <option value="Сағат 15:00-те">Сағат 15:00-те</option>
-                            <option value="Сағат 15:30-да">Сағат 15:30-да</option>
-                            <option value="Сағат 16:00-те">Сағат 16:00-те</option>
-                            <option value="Сағат 16:30-да">Сағат 16:30-да</option>
-                            <option value="Сағат 17:00-те">Сағат 17:00-те</option>
-                            <option value="Сағат 17:30-да">Сағат 17:30-да</option>
-                            <option value="Сағат 18:00-да">Сағат 18:00-да</option>
-                            <option value="Сағат 18:30-да">Сағат 18:30-да</option>
-                            <option value="Сағат 19:00-да">Сағат 19:00-да</option>
-                        </select>
-                        <label for="week-day">Аптаның қай күнін таңдайсыз?</label>
-                        <select class="form-select form-select-lg mb-3" name="" id="week-day">
-                            <option value="Дүйсенбі">Дүйсенбі</option>
-                            <option value="Сейсенбі">Сейсенбі</option>
-                            <option value="Сәрсенбі">Сәрсенбі</option>
-                            <option value="Бейсенбі">Бейсенбі</option>
-                            <option value="Жұма">Жұма</option>
-                            <option value="Сенбі">Сенбі</option>
-                            <option value="Жексенбі">Жексенбі</option>
-                        </select>
-                        <button class="w-100 btn btn-lg btn-warning" type="submit">КОНСУЛЬТАЦИЯ АЛАМЫН</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </main>
-    <div class="container my-5">
-        <div class="row g-0">
-            <div class="col-lg-6 col-md-10 col-lg-5">
-                <form class="contact-form p-4 p-md-5" autocomplete="off">
-                    <h3 class="text-center">Консультацияға жазылу</h3>
-                    <hr class="my-4">
-                    <div class="mb-3">
-                        <label for="floatingInput">Аты-жөніңіз:</label>
-                        <input type="text" class="form-control" id="floatingInput" placeholder="John">
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone-mask">Номеріңіз:</label>
-                        <input type="tel" class="form-control" id="phone-mask">
-                    </div>
-                    <label for="time">Консультацияға қай уақытта келген ыңғайлы?</label>
-                    <select class="form-select form-select-lg mb-3" name="" id="time">
-                        <option value="Сағат 10:00-да">Сағат 10:00-да</option>
-                        <option value="Сағат 10:30-да">Сағат 10:30-да</option>
-                        <option value="Сағат 11:00-де">Сағат 11:00-де</option>
-                        <option value="Сағат 11:30-да">Сағат 11:30-да</option>
-                        <option value="Сағат 12:00-де">Сағат 12:00-де</option>
-                        <option value="Сағат 12:30-да">Сағат 12:30-да</option>
-                        <option value="Сағат 14:00-де">Сағат 14:00-де</option>
-                        <option value="Сағат 14:30-да">Сағат 14:30-да</option>
-                        <option value="Сағат 15:00-те">Сағат 15:00-те</option>
-                        <option value="Сағат 15:30-да">Сағат 15:30-да</option>
-                        <option value="Сағат 16:00-те">Сағат 16:00-те</option>
-                        <option value="Сағат 16:30-да">Сағат 16:30-да</option>
-                        <option value="Сағат 17:00-те">Сағат 17:00-те</option>
-                        <option value="Сағат 17:30-да">Сағат 17:30-да</option>
-                        <option value="Сағат 18:00-да">Сағат 18:00-да</option>
-                        <option value="Сағат 18:30-да">Сағат 18:30-да</option>
-                        <option value="Сағат 19:00-да">Сағат 19:00-да</option>
-                    </select>
-                    <label for="week-day">Аптаның қай күнін таңдайсыз?</label>
-                    <select class="form-select form-select-lg mb-3" name="" id="week-day">
-                        <option value="Дүйсенбі">Дүйсенбі</option>
-                        <option value="Сейсенбі">Сейсенбі</option>
-                        <option value="Сәрсенбі">Сәрсенбі</option>
-                        <option value="Бейсенбі">Бейсенбі</option>
-                        <option value="Жұма">Жұма</option>
-                        <option value="Сенбі">Сенбі</option>
-                        <option value="Жексенбі">Жексенбі</option>
-                    </select>
-                    <button class="w-100 btn btn-lg btn-warning" type="submit">КОНСУЛЬТАЦИЯ АЛАМЫН</button>
-                </form>
-            </div>
-            <div class="col-lg-6">
-                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner h-100">
-                        <div class="carousel-item active">
-                            <img src="{% static 'images/11.webp' %}" class="d-block w-100 h-100" alt="..."
-                                 style="object-fit: cover;">
-                        </div>
-                        <div class="carousel-item h-100">
-                            <img src="{% static 'images/13.webp' %}" class="d-block w-100 h-100" alt="...">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <section class="pt-5 pb-5">
+    <section class="bg-primary-lt">
         <div class="container">
-            <div class="row">
-                <div class="col-6">
-                    <h3 class="mb-3">Testimonials</h3>
-                </div>
-                <div class="col-6 d-flex justify-content-end">
-                    <button class="btn btn-primary mx-1" type="button" data-bs-target="#carouselExampleIndicators2"
-                            data-bs-slide="prev">
-                        <i class="bi bi-arrow-left"></i>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="btn btn-primary mx-1" type="button" data-bs-target="#carouselExampleIndicators2"
-                            data-bs-slide="next">
-                        <i class="bi bi-arrow-right"></i>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
 
-                </div>
-                <div class="col-12 pt-3">
-                    <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel"
-                         data-ride="carousel">
 
-                        <div class="carousel-inner">
-                            {% for group in testims %}
-                                <div class="carousel-item{% if forloop.first %} active{% endif %} ">
-                                    <div class="row">
-                                        {% for item in group %}
-                                            <div class="col-md-4 mb-3">
-                                                <div class="card">
-                                                    {% image item.student_photo width-200 as im %}
-                                                    <img class="img-fluid" alt="100%x280"
-                                                         src="{{ im.url }}">
-                                                    <div class="card-body">
-                                                        <h4 class="card-title">{{ item.student_name }}</h4>
-                                                        <p class="card-text">{{ item.body|richtext }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            {% endfor %}
+                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="#" class="nav-link px-2 link-secondary">Басты бет</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark">Кеңес беру</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark">Жетістіктер</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark">Жиі қойылатын сұрақтар</a></li>
+                </ul>
+
+                {% if user.is_authenticated %}
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
+                           aria-label="Open user menu" aria-expanded="false">
+                            {#                            <span class="avatar avatar-sm"#}
+                            {#                                  style="background-image: none"></span>#}
+                            <div class="d-none d-xl-block ps-2">
+                                <div>{{ user.first_name }} {{ user.last_name }}</div>
+                                <div class="mt-1 small text-muted">{% if user.is_teacher %}
+                                    Мұғалім
+                                {% elif user.is_superuser %}
+                                    Админ
+                                {% else %}
+                                    Оқушы
+                                {% endif %} </div>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <a href="/dashboard/" class="dropdown-item">Портал</a>
+                            <span class="divide-x"></span>
+                            <a href="{% url 'account_logout' %}" class="dropdown-item">Шығу</a>
                         </div>
-
                     </div>
-                </div>
-            </div>
+                {% else %}
+                    <div class="col-md-3 text-end">
+                        <a href="{% url 'account_login' %}" type="button" class="btn btn-outline-primary me-2">Кіру</a>
+                        <a href="{% url 'account_signup' %}" type="button" class="btn btn-primary">Тіркелу</a>
+                    </div>
+                {% endif %}
+            </header>
         </div>
     </section>
-    {% for te in testims %}
-        {% for item in te %}
-            {{ item.student_name }}
+    <div class="px-4 py-5 my-5 text-center">
+        <img class="d-block mx-auto mb-4" src="{% static 'images/logo-dark.svg' %}" alt="">
+        <h1 class="display-5 fw-bold">ҰБТ-ға дайындық платформасы</h1>
+        <div class="col-lg-6 mx-auto">
+            <h2 class="mb-4">Өз болашағыңның авторы бол!</h2>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                {#                <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Primary button</button>#}
+                {#                <button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button>#}
+            </div>
+        </div>
+        {% for message in messages %}
+            <div class="toast-container position-absolute" style="top: 80px; right: 40px">
+                <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="icon icon-tabler icon-tabler-info-square-rounded-filled" width="40"
+                             height="40" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M12 2c-.218 0 -.432 .002 -.642 .005l-.616 .017l-.299 .013l-.579 .034l-.553 .046c-4.785 .464 -6.732 2.411 -7.196 7.196l-.046 .553l-.034 .579c-.005 .098 -.01 .198 -.013 .299l-.017 .616l-.004 .318l-.001 .324c0 .218 .002 .432 .005 .642l.017 .616l.013 .299l.034 .579l.046 .553c.464 4.785 2.411 6.732 7.196 7.196l.553 .046l.579 .034c.098 .005 .198 .01 .299 .013l.616 .017l.642 .005l.642 -.005l.616 -.017l.299 -.013l.579 -.034l.553 -.046c4.785 -.464 6.732 -2.411 7.196 -7.196l.046 -.553l.034 -.579c.005 -.098 .01 -.198 .013 -.299l.017 -.616l.005 -.642l-.005 -.642l-.017 -.616l-.013 -.299l-.034 -.579l-.046 -.553c-.464 -4.785 -2.411 -6.732 -7.196 -7.196l-.553 -.046l-.579 -.034a28.058 28.058 0 0 0 -.299 -.013l-.616 -.017l-.318 -.004l-.324 -.001zm.01 5a1 1 0 0 1 .117 1.993l-.127 .007a1 1 0 0 1 -.117 -1.993l.127 -.007zm-.01 4a1 1 0 0 1 .993 .883l.007 .117v3l.117 .007a1 1 0 0 1 .876 .876l.007 .117a1 1 0 0 1 -.883 .993l-.117 .007h-1a1 1 0 0 1 -.993 -.883l-.007 -.117v-3a1 1 0 0 1 -.117 -1.993l.117 -.007h1z"
+                                  fill="currentColor" stroke-width="0"></path>
+                        </svg>
+                        <strong class="me-auto">JOO High School</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        {{ message }}
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-        <br>
-    {% endfor %}
+    </div>
+    {#    <div class="section section-light pt-6 pb-6">#}
+    {#        <div class="container img-overlap-padding">#}
+    {#            <div class="row items-center text-center lg:g-6">#}
+    {#                <div class="col-md-6 col-lg">#}
+    {#                    <h2 class="h3">Free and open source</h2>#}
+    {#                    <p class="text-muted">A big choice of free UI elements and layouts in one efficient, open source#}
+    {#                        solution</p></div>#}
+    {#                <div class="col-md-6 col-lg" data-aos="fade-up" data-aos-delay="150">#}
+    {#                    <h2 class="h3">Based on Bootstrap 5</h2>#}
+    {#                    <p class="text-muted">Based on the latest version of Bootstrap, Tabler is a UI Kit of the future</p>#}
+    {#                </div>#}
+    {#                <div class="col-md-6 col-lg">#}
+    {#                    <h2 class="h3">Modern design</h2>#}
+    {#                    <p class="text-muted">Beautiful, fully responsive UI elements that will make your design modern and#}
+    {#                        user-friendly</p></div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
 
-    <h1>{{ self.title }}</h1>
-    {{ self.body|richtext }}
-    {% include 'footer/footer.html' %}
-{% endblock content %}
+{% endblock %}

@@ -1,63 +1,37 @@
-import itertools
+import datetime
 
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, InlinePanel
-from wagtail.api import APIField
-
-from wagtail.models import Page, Orderable
+from wagtail.admin.panels import InlinePanel, FieldPanel
+from wagtail.documents.models import Document
 from wagtail.fields import RichTextField
 
+from wagtail.models import Page, Orderable
+#
+# from course.forms import AssignmentSubmissionForm
+from course.models import Lesson
 
-def grouper(n, iterable, fillvalue=None):
-    "grouper(3, 'ABCDEFG', 'x') --> ABC DEF Gxx"
-    args = [iter(iterable)] * n
-    return itertools.zip_longest(*args, fillvalue=fillvalue)
+
+# from home.forms import AssignmentForm
 
 
 class HomePage(Page):
-    body = RichTextField(null=True)
+    pass
 
-    content_panels = Page.content_panels + [
-        FieldPanel('body'),
-        InlinePanel('testimonials', label="Testimonials"),
-    ]
 
-    api_fields = [
-        APIField("body"),
-        APIField("testimonials"),
-    ]
+class Dashboard(Page):
+    pass
 
     def get_context(self, request, *args, **kwargs):
-        context = super().get_context(request)
-        test = grouper(3, self.testimonials.all())
-        context['testims'] = test
+        context = super().get_context(request, *args, **kwargs)
+        context['lessons'] = Lesson.objects.filter(type='lesson')
+        context['books'] = Lesson.objects.filter(type='book')
         return context
 
+    def serve(self, request, *args, **kwargs):
+        return super(Dashboard, self).serve(request, *args, **kwargs)
 
-class Testimonial(Orderable):
-    page = ParentalKey(HomePage, on_delete=models.SET_NULL, null=True, related_name="testimonials")
-    student_name = models.CharField(max_length=128)
-    student_photo = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-    university = models.CharField(max_length=128, help_text="Place of study of the graduating student")
-    body = RichTextField(features=["bold", "italic"])
-
-    panels = [
-        FieldPanel('student_name'),
-        FieldPanel('student_photo'),
-        FieldPanel('university'),
-        FieldPanel('body'),
-    ]
-
-    api_fields = [
-        APIField("student_name"),
-        APIField("student_photo"),
-        APIField("university"),
-        APIField("body"),
-    ]
+#
+# class Homework(Page):
+#     template = "course/templates/homework.html"
+#     pass

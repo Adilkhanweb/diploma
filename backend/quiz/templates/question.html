@@ -1,0 +1,80 @@
+{% extends "dashboard.html" %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% load quiz_tags %}
+
+{% block title %} {{ quiz.title }} {% endblock %}
+{% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
+
+{% block quiz_content %}
+
+    {% if previous.answers %}
+
+        <p class="muted"><small>{% trans "The previous question" %}:</small></p>
+        <p>{{ previous.previous_question }}</p>
+
+        {% if previous.previous_outcome %}
+            <div class="alert alert-success">
+        {% else %}
+            <div class="alert alert-warning">
+        {% endif %}
+    <p><small>
+        {% trans "Your answer was" %} </small>
+        <strong>
+            {{ previous.previous_outcome|yesno:"correct,incorrect" }}
+        </strong>
+    </p>
+
+    </div>
+
+    {% include 'correct_answer.html' %}
+
+    <p><strong>{% trans "Explanation" %}:</strong></p>
+    <div class="well " style="background-color: #fcf8e3;">
+        <p>{{ previous.previous_question.explanation }}</p>
+    </div>
+
+    <hr>
+    </div>
+
+    {% endif %}
+    <br/>
+
+    {% if question %}
+
+        {% if progress %}
+            <div style="float: right;">
+                {{ progress.1 }}-дан {{ progress.0|add:1 }} сұрақ
+            </div>
+        {% endif %}
+
+        <!--<p>-->
+        <!--  <small class="muted">{% trans "Question category" %}:</small>-->
+        <!--  <strong>{{ question.category }}</strong>-->
+        <!--</p>-->
+
+        <p class="lead" style="font-size: 1.2rem;">{{ progress.0|add:1 }}. {{ question.content }}</p>
+
+        {% if question.figure %}
+            <img src="{{ question.figure.url }}" alt="{{ question.content }}" width="300px" class="mb-4"/>
+        {% endif %}
+
+        <form action="" method="POST">{% csrf_token %}
+            <input type=hidden name="question_id" value="{{ question.id }}">
+
+            <ol class="list-group pb-2" type="A">
+                {% for answer in form.answers %}
+                    <li class="list-group-item">{{ answer }}</li>
+                {% endfor %}
+            </ol>
+
+            <input type="submit" value="{% if progress.1 == progress.0|add:1 %}Тесті аяқтау{% else %}Сақтау{% endif %}"
+                   class="btn btn-large btn-block {% if progress.1 == progress.0|add:1 %}btn-danger{% else %}btn-warning{% endif %}">
+
+        </form>
+
+    {% endif %}
+
+    <hr>
+
+{% endblock %}

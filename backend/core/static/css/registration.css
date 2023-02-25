@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #f6f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+    margin: -20px 0 50px;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+}
+
+
+.sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+
+.sign-up-container {
+    left: 50%;
+    width: 50%;
+
+    z-index: 1;
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+
+}
+
+button {
+    border-radius: 5px;
+    border: 1px solid #FF4B2B;
+    background-color: #FF4B2B;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 45px;
+    letter-spacing: 1px;
+    width: 100%;
+    margin: 6px 0;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
+
+form {
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+}
+
+input {
+    background-color: #eee;
+    border: none;
+    padding: 10px 13px;
+    margin: 6px 0;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+}
+
+.social-container {
+    margin: 20px 0;
+}
+
+.container1 {
+    position: relative;
+
+    height: 50%;
+    width: 200%;
+
+}
+
+
+.left {
+
+    position: absolute;
+    bottom: -150px;
+    left: 40px;
+    background: #FED88D;
+    width: 300px;
+    height: 300px;
+
+
+}
+
+.texts {
+    position: relative;
+    top: 40px;
+    left: 10px;
+}
+
+.text1 {
+    color: #0A4368;
+}
+
+.text2 {
+    color: #FFFFFF;
+
+}
+
+a {
+    font-size: 13px;
+}
+
+label {
+    font-size: 7px;
+    position: relative;
+    left: -50%;
+    top: 9px;
+
+
+}
+
+span {
+    font-size: 7px;
+    position: relative;
+    left: 50%;
+    top: 7px;
+    color: orange;
+
+}
+
+.chb {
+    position: relative;
+    display: flex;
+}
+
+.inp {
+    margin-left: 10px;
+}
+
+.google {
+    position: relative;
+    top: -7px;
+}
