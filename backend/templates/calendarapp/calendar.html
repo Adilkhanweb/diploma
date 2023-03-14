@@ -1,0 +1,89 @@
+{% extends 'base/content.html' %}
+{% load static %}
+{% block title %}Event Calendar{% endblock title %}
+
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile row">
+                <div class="col-md-3">
+                    <div id="external-events">
+                        <h4 class="mb-4">Ағымдағы оқиғалар</h4>
+                        {% for event in events_month %}
+                            <div class="fc-event">
+                                {% if event.url %}
+                                    <h3><a href="{{ event.url }}">{{ event.title }}</a></h3>
+                                {% else %}
+                                    <h3>{{ event.title }}</h3>
+                                {% endif %}
+                                <p>Басталу уақыты: {{ event.start_time }}</p>
+                                <p>Аяқталу уақыты: {{ event.end_time }}</p>
+
+                            </div>
+                        {% empty %}
+                            <p>Ағымдағы оқиғалар табылған жоқ</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block extrascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var today = new Date();
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+                },
+                locale: 'kk',
+                initialDate: today,
+                navLinks: true, // can click day/week names to navigate views
+                selectable: true,
+                selectMirror: true,
+                editable: false,
+                slotDuration: '01:00:00',
+                slotMinTime: "09:00:00",
+                slotMaxTime: "24:00:00",
+                dayMaxEvents: true, // allow "more" link when too many events
+                events: {{ events|safe }},
+                // events: 'https://fullcalendar.io/api/demo-feeds/events.json'
+
+                // events: [
+                //   {
+                //     title: 'All Day Event',
+                //     start: '2021-06-26'
+                //   },
+                //   {
+                //     groupId: 999,
+                //     title: 'Repeating Event',
+                //     start: '2020-09-16T16:00:00'
+                //   },
+                //   {
+                //     title: 'Conference',
+                //     start: '2020-09-11',
+                //     end: '2020-09-13'
+                //   },
+                //   {
+                //     title: 'Click for Google',
+                //     url: 'http://google.com/',
+                //     start: '2020-09-28'
+                //   }
+                // ]
+            });
+
+            calendar.render();
+        });
+    </script>
+{% endblock extrascripts %}

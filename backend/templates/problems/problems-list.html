@@ -1,0 +1,29 @@
+{% extends 'base/content.html' %}
+{% block body %}
+    <h1>Бағдарламалау Тапсырмалары</h1>
+    <div class="card">
+        <div class="table-responsive">
+            <table
+                    class="table table-vcenter card-table">
+                <thead>
+                <tr>
+                    <th>Атауы</th>
+                    <th>Атауы</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for problem in problems %}
+                    <tr>
+                        <td>{{ problem.title }}</td>
+                        <td>
+                            <a href="{% url 'problems:problem-detail' problem.slug %}"
+                               class="btn btn-outline-azure">
+                                Тапсыру
+                            </a>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

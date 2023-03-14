@@ -1,9 +1,0 @@
-{% extends 'problems/problems_base.html' %}
-{% block problem_content %}
-    <h1>Python coding problems</h1>
-    <ol>
-        {% for problem in problems %}
-            <li><a href="{% url 'problem-detail' problem.slug %}">{{ problem.title }}</a></li>
-        {% endfor %}
-    </ol>
-{% endblock %}

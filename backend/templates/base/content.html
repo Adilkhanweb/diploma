@@ -1,0 +1,155 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="wrapper">
+        <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <h1 class="navbar-brand navbar-brand-autodark">
+                    <a href="/">
+                        <img src="{% static 'images/logo-light.svg' %}" width="110" height="110" alt="Tabler"
+                             class="navbar-brand-image">
+                    </a>
+                </h1>
+                <div class="navbar-nav flex-row d-lg-none">
+                    <div class="nav-item dropdown d-none d-md-flex me-3">
+                        <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1"
+                           aria-label="Show notifications">
+                            <!-- Download SVG icon from http://tabler-icons.io/i/bell -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path
+                                        d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/>
+                                <path d="M9 17v1a3 3 0 0 0 6 0v-1"/>
+                            </svg>
+                            <span class="badge bg-red"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet
+                                    consectetur exercitationem fugiat in ipsa ipsum, natus odio quidem quod repudiandae
+                                    sapiente. Amet debitis et magni maxime necessitatibus ullam.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
+                           aria-label="Open user menu">
+                            <span class="avatar avatar-sm"
+                                  style="background-image: url({% static 'Tabler/static/avatars/000m.jpg' %})"></span>
+                            <div class="d-none d-xl-block ps-2">
+                                <div>Paweł Kuna</div>
+                                <div class="mt-1 small text-muted">UI Designer</div>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <a href="#" class="dropdown-item">Set status</a>
+                            <a href="#" class="dropdown-item">Profile & account</a>
+                            <a href="#" class="dropdown-item">Feedback</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="#" class="dropdown-item">Logout</a>
+                        </div>
+                    </div>
+                </div>
+                {% include 'base/sidebar.html' %}
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <!-- Page title -->
+
+            </div>
+            <div class="page-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col px-4">
+                            <div class="page-header d-print-none">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <!-- Page pre-title -->
+                                        <div class="page-pretitle">
+                                            Joo high school
+                                        </div>
+                                        <h2 class="page-title">
+                                            Студенттік Басқару тақтасы
+                                        </h2>
+                                    </div>
+
+                                    <!-- <div class="col-auto ms-auto d-print-none">
+
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="">
+                                    <div class="card-body">
+                                        <div class="row g-3 align-items-start">
+                                            <div class="col-auto">
+                                                <span class="avatar avatar-md avatar-rounded bg-cyan"
+                                                      style="background-image: none"></span>
+                                            </div>
+                                            <div class="col">
+                                                <h2 class="m-0">
+                                                    <a href="#">{{ user.first_name }} {{ user.last_name }}</a>
+                                                </h2>
+                                                <div class="text-muted">
+                                                    {% if not user.is_teacher %}
+                                                        Оқушы
+                                                    {% else %}
+                                                        Мұғалім
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="input-group mb-2 search-bar">
+                                                    <input type="text" class="form-control" placeholder="Іздеу...">
+                                                    <a class="btn p-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                             class="icon icon-tabler icon-tabler-search m-0" width="40"
+                                                             height="40" viewBox="0 0 24 24" stroke-width="2"
+                                                             stroke="#fff" fill="none" stroke-linecap="round"
+                                                             stroke-linejoin="round">
+                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                                                            <path d="M21 21l-6 -6"></path>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col mt-4">
+                                {% block body %}
+
+                                {% endblock %}
+                            </div>
+                        </div>
+                        <div class="col-auto right-sidebar">
+                            <h2>Күнтізбе</h2>
+                            <div class="d-flex align-items-center justify-content-end">
+                                <div class="w-100 vanilla-calendar" id="calendar-kz-lang">
+
+                                </div>
+                            </div>
+                            <h2 class="mt-2">Тапсырмалар</h2>
+                            <div class="card tasks">
+                                <div id="calendar-tasks">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

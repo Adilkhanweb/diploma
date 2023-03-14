@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="db.sqlite3">
-  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.32">
+  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.45">
     <root id="1">
       <ServerVersion>3.39.2</ServerVersion>
     </root>
@@ -1388,43 +1388,43 @@ title</Arguments>
       <ModuleName>fts5</ModuleName>
     </virtual-table>
     <column id="543" parent="482" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="544" parent="482" name="name">
-      <DataType>varchar(150)|0s</DataType>
+      <DasType>varchar(150)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <index id="545" parent="482" name="sqlite_autoindex_auth_group_1">
       <ColNames>name</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
     <key id="546" parent="482">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <key id="547" parent="482">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_auth_group_1</UnderlyingIndexName>
     </key>
     <column id="548" parent="483" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="549" parent="483" name="group_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="550" parent="483" name="permission_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
@@ -1445,40 +1445,37 @@ title</Arguments>
     <index id="553" parent="483" name="auth_group_permissions_group_id_permission_id_0cd325b0_uniq">
       <ColNames>group_id
 permission_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="554" parent="483" name="auth_group_permissions_group_id_b120cbf9">
       <ColNames>group_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="555" parent="483" name="auth_group_permissions_permission_id_84c5c92e">
       <ColNames>permission_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="556" parent="483">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="557" parent="484" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="558" parent="484" name="content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="559" parent="484" name="codename">
-      <DataType>varchar(100)|0s</DataType>
+      <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="560" parent="484" name="name">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
@@ -1492,43 +1489,41 @@ permission_id</ColNames>
     <index id="562" parent="484" name="auth_permission_content_type_id_codename_01ab375a_uniq">
       <ColNames>content_type_id
 codename</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="563" parent="484" name="auth_permission_content_type_id_2f476e4b">
       <ColNames>content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="564" parent="484">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <check id="565" parent="485">
       <Predicate>(JSON_VALID(&quot;content&quot;) OR &quot;content&quot; IS NULL)</Predicate>
     </check>
     <column id="566" parent="485" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="567" parent="485" name="title">
-      <DataType>varchar(128)|0s</DataType>
+      <DasType>varchar(128)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="568" parent="485" name="content">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="569" parent="485" name="teacher_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="570" parent="485" name="course_code">
-      <DataType>varchar(10)|0s</DataType>
+      <DasType>varchar(10)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
@@ -1541,17 +1536,16 @@ codename</ColNames>
     </foreign-key>
     <index id="572" parent="485" name="sqlite_autoindex_course_course_1">
       <ColNames>course_code</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
     <index id="573" parent="485" name="course_course_teacher_id_f04a37b5">
       <ColNames>teacher_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="574" parent="485">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <key id="575" parent="485">
       <ColNames>course_code</ColNames>
@@ -1561,41 +1555,41 @@ codename</ColNames>
       <Predicate>&quot;action_flag&quot; &gt;= 0</Predicate>
     </check>
     <column id="577" parent="486" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="578" parent="486" name="object_id">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="579" parent="486" name="object_repr">
-      <DataType>varchar(200)|0s</DataType>
+      <DasType>varchar(200)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="580" parent="486" name="action_flag">
-      <DataType>smallint unsigned|0s</DataType>
+      <DasType>smallint unsigned|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="581" parent="486" name="change_message">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="582" parent="486" name="content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="583" parent="486" name="user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
     <column id="584" parent="486" name="action_time">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
@@ -1615,92 +1609,89 @@ codename</ColNames>
     </foreign-key>
     <index id="587" parent="486" name="django_admin_log_content_type_id_c4bce8eb">
       <ColNames>content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="588" parent="486" name="django_admin_log_user_id_c564eba6">
       <ColNames>user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="589" parent="486">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="590" parent="487" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="591" parent="487" name="app_label">
-      <DataType>varchar(100)|0s</DataType>
+      <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="592" parent="487" name="model">
-      <DataType>varchar(100)|0s</DataType>
+      <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <index id="593" parent="487" name="django_content_type_app_label_model_76bd3d3b_uniq">
       <ColNames>app_label
 model</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="594" parent="487">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="595" parent="488" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="596" parent="488" name="app">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="597" parent="488" name="name">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="598" parent="488" name="applied">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <key id="599" parent="488">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="600" parent="489" name="session_key">
-      <DataType>varchar(40)|0s</DataType>
+      <DasType>varchar(40)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="601" parent="489" name="session_data">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="602" parent="489" name="expire_date">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <index id="603" parent="489" name="sqlite_autoindex_django_session_1">
       <ColNames>session_key</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
     <index id="604" parent="489" name="django_session_expire_date_a5c62663">
       <ColNames>expire_date</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="605" parent="489">
       <ColNames>session_key</ColNames>
@@ -1708,7 +1699,7 @@ model</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_django_session_1</UnderlyingIndexName>
     </key>
     <column id="606" parent="490" name="page_ptr_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
@@ -1722,25 +1713,26 @@ model</ColNames>
     <key id="608" parent="490">
       <ColNames>page_ptr_id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>page_ptr_id</UnderlyingIndexColNames>
     </key>
     <column id="609" parent="491" name="type">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <Position>1</Position>
     </column>
     <column id="610" parent="491" name="name">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="611" parent="491" name="tbl_name">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="612" parent="491" name="rootpage">
-      <DataType>INT|0s</DataType>
+      <DasType>INT|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="613" parent="491" name="sql">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="614" parent="492" name="name">
@@ -1750,36 +1742,35 @@ model</ColNames>
       <Position>2</Position>
     </column>
     <column id="616" parent="493" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="617" parent="493" name="name">
-      <DataType>varchar(100)|0s</DataType>
+      <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="618" parent="493" name="slug">
-      <DataType>varchar(100)|0s</DataType>
+      <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <index id="619" parent="493" name="sqlite_autoindex_taggit_tag_1">
       <ColNames>name</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
     <index id="620" parent="493" name="sqlite_autoindex_taggit_tag_2">
       <ColNames>slug</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
     <key id="621" parent="493">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <key id="622" parent="493">
       <ColNames>name</ColNames>
@@ -1790,23 +1781,23 @@ model</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_taggit_tag_2</UnderlyingIndexName>
     </key>
     <column id="624" parent="494" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="625" parent="494" name="object_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="626" parent="494" name="content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="627" parent="494" name="tag_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
@@ -1828,114 +1819,107 @@ model</ColNames>
       <ColNames>content_type_id
 object_id
 tag_id</ColNames>
-      <ColumnCollations>
-
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="631" parent="494" name="taggit_taggeditem_object_id_e2d7d1df">
       <ColNames>object_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="632" parent="494" name="taggit_taggeditem_content_type_id_object_id_196cc965_idx">
       <ColNames>content_type_id
 object_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
     </index>
     <index id="633" parent="494" name="taggit_taggeditem_content_type_id_9957a03c">
       <ColNames>content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="634" parent="494" name="taggit_taggeditem_tag_id_f4f5b767">
       <ColNames>tag_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="635" parent="494">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="636" parent="495" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="637" parent="495" name="password">
-      <DataType>varchar(128)|0s</DataType>
+      <DasType>varchar(128)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="638" parent="495" name="last_login">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="639" parent="495" name="is_superuser">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="640" parent="495" name="first_name">
-      <DataType>varchar(150)|0s</DataType>
+      <DasType>varchar(150)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="641" parent="495" name="last_name">
-      <DataType>varchar(150)|0s</DataType>
+      <DasType>varchar(150)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="642" parent="495" name="is_staff">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
     <column id="643" parent="495" name="is_active">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
     <column id="644" parent="495" name="date_joined">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
     <column id="645" parent="495" name="email">
-      <DataType>varchar(254)|0s</DataType>
+      <DasType>varchar(254)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>10</Position>
     </column>
     <column id="646" parent="495" name="is_teacher">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <Position>11</Position>
     </column>
     <index id="647" parent="495" name="sqlite_autoindex_users_user_1">
       <ColNames>email</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
     <key id="648" parent="495">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <key id="649" parent="495">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_users_user_1</UnderlyingIndexName>
     </key>
     <column id="650" parent="496" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="651" parent="496" name="user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="652" parent="496" name="group_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
@@ -1956,35 +1940,32 @@ object_id</ColNames>
     <index id="655" parent="496" name="users_user_groups_user_id_group_id_b88eab82_uniq">
       <ColNames>user_id
 group_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="656" parent="496" name="users_user_groups_user_id_5f6f5a90">
       <ColNames>user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="657" parent="496" name="users_user_groups_group_id_9afc8d0e">
       <ColNames>group_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="658" parent="496">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="659" parent="497" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="660" parent="497" name="user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="661" parent="497" name="permission_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
@@ -2005,31 +1986,29 @@ group_id</ColNames>
     <index id="664" parent="497" name="users_user_user_permissions_user_id_permission_id_43338c45_uniq">
       <ColNames>user_id
 permission_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="665" parent="497" name="users_user_user_permissions_user_id_20aca447">
       <ColNames>user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="666" parent="497" name="users_user_user_permissions_permission_id_0b93982e">
       <ColNames>permission_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="667" parent="497">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="668" parent="498" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <key id="669" parent="498">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <check id="670" parent="499">
       <Predicate>&quot;depth&quot; &gt;= 0</Predicate>
@@ -2038,63 +2017,63 @@ permission_id</ColNames>
       <Predicate>&quot;numchild&quot; &gt;= 0</Predicate>
     </check>
     <column id="672" parent="499" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="673" parent="499" name="path">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="674" parent="499" name="depth">
-      <DataType>integer unsigned|0s</DataType>
+      <DasType>integer unsigned|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="675" parent="499" name="numchild">
-      <DataType>integer unsigned|0s</DataType>
+      <DasType>integer unsigned|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="676" parent="499" name="name">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <index id="677" parent="499" name="sqlite_autoindex_wagtailcore_collection_1">
       <ColNames>path</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
     <key id="678" parent="499">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <key id="679" parent="499">
       <ColNames>path</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_wagtailcore_collection_1</UnderlyingIndexName>
     </key>
     <column id="680" parent="500" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="681" parent="500" name="restriction_type">
-      <DataType>varchar(20)|0s</DataType>
+      <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="682" parent="500" name="password">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="683" parent="500" name="collection_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
@@ -2107,25 +2086,25 @@ permission_id</ColNames>
     </foreign-key>
     <index id="685" parent="500" name="wagtailcore_collectionviewrestriction_collection_id_761908ec">
       <ColNames>collection_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="686" parent="500">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="687" parent="501" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="688" parent="501" name="collectionviewrestriction_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="689" parent="501" name="group_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
@@ -2146,73 +2125,70 @@ permission_id</ColNames>
     <index id="692" parent="501" name="wagtailcore_collectionviewrestriction_groups_collectionviewrestriction_id_group_id_988995ae_uniq">
       <ColNames>collectionviewrestriction_id
 group_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="693" parent="501" name="wagtailcore_collectionviewrestriction_groups_collectionviewrestriction_id_47320efd">
       <ColNames>collectionviewrestriction_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="694" parent="501" name="wagtailcore_collectionviewrestriction_groups_group_id_1823f2a3">
       <ColNames>group_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="695" parent="501">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="696" parent="502" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="697" parent="502" name="text">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="698" parent="502" name="contentpath">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="699" parent="502" name="position">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="700" parent="502" name="created_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="701" parent="502" name="updated_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="702" parent="502" name="resolved_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <Position>7</Position>
     </column>
     <column id="703" parent="502" name="page_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
     <column id="704" parent="502" name="resolved_by_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>9</Position>
     </column>
     <column id="705" parent="502" name="user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>10</Position>
     </column>
     <column id="706" parent="502" name="revision_created_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>11</Position>
     </column>
     <foreign-key id="707" parent="502">
@@ -2245,52 +2221,49 @@ group_id</ColNames>
     </foreign-key>
     <index id="711" parent="502" name="wagtailcore_comment_page_id_108444b5">
       <ColNames>page_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="712" parent="502" name="wagtailcore_comment_resolved_by_id_a282aa0e">
       <ColNames>resolved_by_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="713" parent="502" name="wagtailcore_comment_user_id_0c577ca6">
       <ColNames>user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="714" parent="502" name="wagtailcore_comment_revision_created_id_1d058279">
       <ColNames>revision_created_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="715" parent="502">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="716" parent="503" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="717" parent="503" name="text">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="718" parent="503" name="created_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="719" parent="503" name="updated_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="720" parent="503" name="comment_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="721" parent="503" name="user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
@@ -2310,18 +2283,17 @@ group_id</ColNames>
     </foreign-key>
     <index id="724" parent="503" name="wagtailcore_commentreply_comment_id_afc7e027">
       <ColNames>comment_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="725" parent="503" name="wagtailcore_commentreply_user_id_d0b3b9c3">
       <ColNames>user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="726" parent="503">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="727" parent="504" name="task_ptr_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
@@ -2335,20 +2307,21 @@ group_id</ColNames>
     <key id="729" parent="504">
       <ColNames>task_ptr_id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>task_ptr_id</UnderlyingIndexColNames>
     </key>
     <column id="730" parent="505" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="731" parent="505" name="groupapprovaltask_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="732" parent="505" name="group_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
@@ -2369,40 +2342,37 @@ group_id</ColNames>
     <index id="735" parent="505" name="wagtailcore_groupapprovaltask_groups_groupapprovaltask_id_group_id_bb5ee7eb_uniq">
       <ColNames>groupapprovaltask_id
 group_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="736" parent="505" name="wagtailcore_groupapprovaltask_groups_groupapprovaltask_id_9a9255ea">
       <ColNames>groupapprovaltask_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="737" parent="505" name="wagtailcore_groupapprovaltask_groups_group_id_2e64b61f">
       <ColNames>group_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="738" parent="505">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="739" parent="506" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="740" parent="506" name="collection_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="741" parent="506" name="group_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="742" parent="506" name="permission_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
@@ -2431,45 +2401,40 @@ group_id</ColNames>
       <ColNames>group_id
 collection_id
 permission_id</ColNames>
-      <ColumnCollations>
-
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="747" parent="506" name="wagtailcore_groupcollectionpermission_collection_id_5423575a">
       <ColNames>collection_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="748" parent="506" name="wagtailcore_groupcollectionpermission_group_id_05d61460">
       <ColNames>group_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="749" parent="506" name="wagtailcore_groupcollectionpermission_permission_id_1b626275">
       <ColNames>permission_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="750" parent="506">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="751" parent="507" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="752" parent="507" name="permission_type">
-      <DataType>varchar(20)|0s</DataType>
+      <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="753" parent="507" name="group_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="754" parent="507" name="page_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
@@ -2491,43 +2456,39 @@ permission_id</ColNames>
       <ColNames>group_id
 page_id
 permission_type</ColNames>
-      <ColumnCollations>
-
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="758" parent="507" name="wagtailcore_grouppagepermission_group_id_fc07e671">
       <ColNames>group_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="759" parent="507" name="wagtailcore_grouppagepermission_page_id_710b114a">
       <ColNames>page_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="760" parent="507">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="761" parent="508" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="762" parent="508" name="language_code">
-      <DataType>varchar(100)|0s</DataType>
+      <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <index id="763" parent="508" name="sqlite_autoindex_wagtailcore_locale_1">
       <ColNames>language_code</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
     <key id="764" parent="508">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <key id="765" parent="508">
       <ColNames>language_code</ColNames>
@@ -2537,60 +2498,60 @@ permission_type</ColNames>
       <Predicate>(JSON_VALID(&quot;data&quot;) OR &quot;data&quot; IS NULL)</Predicate>
     </check>
     <column id="767" parent="509" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="768" parent="509" name="label">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="769" parent="509" name="action">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="770" parent="509" name="timestamp">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="771" parent="509" name="content_changed">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="772" parent="509" name="deleted">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="773" parent="509" name="object_id">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
     <column id="774" parent="509" name="content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>8</Position>
     </column>
     <column id="775" parent="509" name="user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>9</Position>
     </column>
     <column id="776" parent="509" name="uuid">
-      <DataType>char(32)|0s</DataType>
+      <DasType>char(32)|0s</DasType>
       <Position>10</Position>
     </column>
     <column id="777" parent="509" name="data">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>11</Position>
     </column>
     <column id="778" parent="509" name="revision_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>12</Position>
     </column>
     <foreign-key id="779" parent="509">
@@ -2602,35 +2563,29 @@ permission_type</ColNames>
     </foreign-key>
     <index id="780" parent="509" name="wagtailcore_modellogentry_action_d2d856ee">
       <ColNames>action</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="781" parent="509" name="wagtailcore_modellogentry_timestamp_9694521b">
       <ColNames>timestamp</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="782" parent="509" name="wagtailcore_modellogentry_content_changed_8bc39742">
       <ColNames>content_changed</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="783" parent="509" name="wagtailcore_modellogentry_object_id_e0e7d4ef">
       <ColNames>object_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="784" parent="509" name="wagtailcore_modellogentry_content_type_id_68849e77">
       <ColNames>content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="785" parent="509" name="wagtailcore_modellogentry_user_id_0278d1bf">
       <ColNames>user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="786" parent="509" name="wagtailcore_modellogentry_revision_id_df6ca33a">
       <ColNames>revision_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="787" parent="509">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <check id="788" parent="510">
       <Predicate>&quot;depth&quot; &gt;= 0</Predicate>
@@ -2639,138 +2594,138 @@ permission_type</ColNames>
       <Predicate>&quot;numchild&quot; &gt;= 0</Predicate>
     </check>
     <column id="790" parent="510" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="791" parent="510" name="path">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="792" parent="510" name="depth">
-      <DataType>integer unsigned|0s</DataType>
+      <DasType>integer unsigned|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="793" parent="510" name="numchild">
-      <DataType>integer unsigned|0s</DataType>
+      <DasType>integer unsigned|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="794" parent="510" name="title">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="795" parent="510" name="slug">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="796" parent="510" name="live">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
     <column id="797" parent="510" name="has_unpublished_changes">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
     <column id="798" parent="510" name="url_path">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
     <column id="799" parent="510" name="seo_title">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>10</Position>
     </column>
     <column id="800" parent="510" name="show_in_menus">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>11</Position>
     </column>
     <column id="801" parent="510" name="search_description">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>12</Position>
     </column>
     <column id="802" parent="510" name="go_live_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <Position>13</Position>
     </column>
     <column id="803" parent="510" name="expire_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <Position>14</Position>
     </column>
     <column id="804" parent="510" name="expired">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>15</Position>
     </column>
     <column id="805" parent="510" name="content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>16</Position>
     </column>
     <column id="806" parent="510" name="owner_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>17</Position>
     </column>
     <column id="807" parent="510" name="locked">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>18</Position>
     </column>
     <column id="808" parent="510" name="latest_revision_created_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <Position>19</Position>
     </column>
     <column id="809" parent="510" name="first_published_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <Position>20</Position>
     </column>
     <column id="810" parent="510" name="live_revision_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>21</Position>
     </column>
     <column id="811" parent="510" name="last_published_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <Position>22</Position>
     </column>
     <column id="812" parent="510" name="draft_title">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>23</Position>
     </column>
     <column id="813" parent="510" name="locked_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <Position>24</Position>
     </column>
     <column id="814" parent="510" name="locked_by_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>25</Position>
     </column>
     <column id="815" parent="510" name="locale_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>26</Position>
     </column>
     <column id="816" parent="510" name="translation_key">
-      <DataType>char(32)|0s</DataType>
+      <DasType>char(32)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>27</Position>
     </column>
     <column id="817" parent="510" name="alias_of_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>28</Position>
     </column>
     <column id="818" parent="510" name="latest_revision_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>29</Position>
     </column>
     <foreign-key id="819" parent="510">
@@ -2824,56 +2779,45 @@ permission_type</ColNames>
     </foreign-key>
     <index id="826" parent="510" name="sqlite_autoindex_wagtailcore_page_1">
       <ColNames>path</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
     <index id="827" parent="510" name="wagtailcore_page_translation_key_locale_id_9b041bad_uniq">
       <ColNames>translation_key
 locale_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="828" parent="510" name="wagtailcore_page_slug_e7c11b8f">
       <ColNames>slug</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="829" parent="510" name="wagtailcore_page_content_type_id_c28424df">
       <ColNames>content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="830" parent="510" name="wagtailcore_page_owner_id_fbf7c332">
       <ColNames>owner_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="831" parent="510" name="wagtailcore_page_first_published_at_2b5dd637">
       <ColNames>first_published_at</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="832" parent="510" name="wagtailcore_page_live_revision_id_930bd822">
       <ColNames>live_revision_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="833" parent="510" name="wagtailcore_page_locked_by_id_bcb86245">
       <ColNames>locked_by_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="834" parent="510" name="wagtailcore_page_locale_id_3c7e30a6">
       <ColNames>locale_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="835" parent="510" name="wagtailcore_page_alias_of_id_12945502">
       <ColNames>alias_of_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="836" parent="510" name="wagtailcore_page_latest_revision_id_e60fef51">
       <ColNames>latest_revision_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="837" parent="510">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <key id="838" parent="510">
       <ColNames>path</ColNames>
@@ -2883,59 +2827,59 @@ locale_id</ColNames>
       <Predicate>(JSON_VALID(&quot;data&quot;) OR &quot;data&quot; IS NULL)</Predicate>
     </check>
     <column id="840" parent="511" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="841" parent="511" name="label">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="842" parent="511" name="action">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="843" parent="511" name="timestamp">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="844" parent="511" name="content_changed">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="845" parent="511" name="deleted">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="846" parent="511" name="content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>7</Position>
     </column>
     <column id="847" parent="511" name="page_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
     <column id="848" parent="511" name="revision_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>9</Position>
     </column>
     <column id="849" parent="511" name="user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>10</Position>
     </column>
     <column id="850" parent="511" name="uuid">
-      <DataType>char(32)|0s</DataType>
+      <DasType>char(32)|0s</DasType>
       <Position>11</Position>
     </column>
     <column id="851" parent="511" name="data">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>12</Position>
     </column>
@@ -2948,54 +2892,48 @@ locale_id</ColNames>
     </foreign-key>
     <index id="853" parent="511" name="wagtailcore_pagelogentry_action_c2408198">
       <ColNames>action</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="854" parent="511" name="wagtailcore_pagelogentry_timestamp_deb774c4">
       <ColNames>timestamp</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="855" parent="511" name="wagtailcore_pagelogentry_content_changed_99f27ade">
       <ColNames>content_changed</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="856" parent="511" name="wagtailcore_pagelogentry_content_type_id_74e7708a">
       <ColNames>content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="857" parent="511" name="wagtailcore_pagelogentry_page_id_8464e327">
       <ColNames>page_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="858" parent="511" name="wagtailcore_pagelogentry_revision_id_8043d103">
       <ColNames>revision_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="859" parent="511" name="wagtailcore_pagelogentry_user_id_604ccfd8">
       <ColNames>user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="860" parent="511">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="861" parent="512" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="862" parent="512" name="comment_notifications">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="863" parent="512" name="page_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="864" parent="512" name="user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
@@ -3016,40 +2954,37 @@ locale_id</ColNames>
     <index id="867" parent="512" name="wagtailcore_pagesubscription_page_id_user_id_0cef73ed_uniq">
       <ColNames>page_id
 user_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="868" parent="512" name="wagtailcore_pagesubscription_page_id_a085e7a6">
       <ColNames>page_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="869" parent="512" name="wagtailcore_pagesubscription_user_id_89d7def9">
       <ColNames>user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="870" parent="512">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="871" parent="513" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="872" parent="513" name="password">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="873" parent="513" name="page_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="874" parent="513" name="restriction_type">
-      <DataType>varchar(20)|0s</DataType>
+      <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
@@ -3062,25 +2997,25 @@ user_id</ColNames>
     </foreign-key>
     <index id="876" parent="513" name="wagtailcore_pageviewrestriction_page_id_15a8bea6">
       <ColNames>page_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="877" parent="513">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="878" parent="514" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="879" parent="514" name="pageviewrestriction_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="880" parent="514" name="group_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
@@ -3101,65 +3036,62 @@ user_id</ColNames>
     <index id="883" parent="514" name="wagtailcore_pageviewrestriction_groups_pageviewrestriction_id_group_id_d23f80bb_uniq">
       <ColNames>pageviewrestriction_id
 group_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="884" parent="514" name="wagtailcore_pageviewrestriction_groups_pageviewrestriction_id_f147a99a">
       <ColNames>pageviewrestriction_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="885" parent="514" name="wagtailcore_pageviewrestriction_groups_group_id_6460f223">
       <ColNames>group_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="886" parent="514">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="887" parent="515" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="888" parent="515" name="object_id">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="889" parent="515" name="to_object_id">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="890" parent="515" name="model_path">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="891" parent="515" name="content_path">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="892" parent="515" name="content_path_hash">
-      <DataType>char(32)|0s</DataType>
+      <DasType>char(32)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="893" parent="515" name="base_content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
     <column id="894" parent="515" name="content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
     <column id="895" parent="515" name="to_content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
@@ -3190,78 +3122,71 @@ object_id
 to_content_type_id
 to_object_id
 content_path_hash</ColNames>
-      <ColumnCollations>
-
-
-
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="900" parent="515" name="wagtailcore_referenceindex_base_content_type_id_313cf40f">
       <ColNames>base_content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="901" parent="515" name="wagtailcore_referenceindex_content_type_id_766e0336">
       <ColNames>content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="902" parent="515" name="wagtailcore_referenceindex_to_content_type_id_93690bbd">
       <ColNames>to_content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="903" parent="515">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <check id="904" parent="516">
       <Predicate>(JSON_VALID(&quot;content&quot;) OR &quot;content&quot; IS NULL)</Predicate>
     </check>
     <column id="905" parent="516" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="906" parent="516" name="submitted_for_moderation">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="907" parent="516" name="created_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="908" parent="516" name="approved_go_live_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="909" parent="516" name="user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="910" parent="516" name="content">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="911" parent="516" name="object_id">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
     <column id="912" parent="516" name="content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
     <column id="913" parent="516" name="base_content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
     <column id="914" parent="516" name="object_str">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>10</Position>
     </column>
@@ -3288,72 +3213,63 @@ content_path_hash</ColNames>
     </foreign-key>
     <index id="918" parent="516" name="wagtailcore_revision_submitted_for_moderation_362afbff">
       <ColNames>submitted_for_moderation</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="919" parent="516" name="wagtailcore_revision_created_at_81450aa6">
       <ColNames>created_at</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="920" parent="516" name="wagtailcore_revision_approved_go_live_at_88d3dee5">
       <ColNames>approved_go_live_at</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="921" parent="516" name="wagtailcore_revision_user_id_03df83b0">
       <ColNames>user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="922" parent="516" name="content_object_idx">
       <ColNames>content_type_id
 object_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
     </index>
     <index id="923" parent="516" name="wagtailcore_revision_content_type_id_c8cb69c0">
       <ColNames>content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="924" parent="516" name="base_content_object_idx">
       <ColNames>base_content_type_id
 object_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
     </index>
     <index id="925" parent="516" name="wagtailcore_revision_base_content_type_id_5b4ef7bd">
       <ColNames>base_content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="926" parent="516">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="927" parent="517" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="928" parent="517" name="hostname">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="929" parent="517" name="port">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="930" parent="517" name="is_default_site">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="931" parent="517" name="root_page_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="932" parent="517" name="site_name">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
@@ -3367,40 +3283,37 @@ object_id</ColNames>
     <index id="934" parent="517" name="wagtailcore_site_hostname_port_2c626d70_uniq">
       <ColNames>hostname
 port</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="935" parent="517" name="wagtailcore_site_hostname_96b20b46">
       <ColNames>hostname</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="936" parent="517" name="wagtailcore_site_root_page_id_e02fb95c">
       <ColNames>root_page_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="937" parent="517">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="938" parent="518" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="939" parent="518" name="name">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="940" parent="518" name="active">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="941" parent="518" name="content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
@@ -3413,58 +3326,58 @@ port</ColNames>
     </foreign-key>
     <index id="943" parent="518" name="wagtailcore_task_content_type_id_249ab8ba">
       <ColNames>content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="944" parent="518">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="945" parent="519" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="946" parent="519" name="status">
-      <DataType>varchar(50)|0s</DataType>
+      <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="947" parent="519" name="started_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="948" parent="519" name="finished_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="949" parent="519" name="content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="950" parent="519" name="task_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="951" parent="519" name="workflow_state_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
     <column id="952" parent="519" name="finished_by_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>8</Position>
     </column>
     <column id="953" parent="519" name="comment">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
     <column id="954" parent="519" name="revision_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>10</Position>
     </column>
@@ -3505,55 +3418,52 @@ port</ColNames>
     </foreign-key>
     <index id="960" parent="519" name="wagtailcore_taskstate_content_type_id_0a758fdc">
       <ColNames>content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="961" parent="519" name="wagtailcore_taskstate_task_id_c3677c34">
       <ColNames>task_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="962" parent="519" name="wagtailcore_taskstate_workflow_state_id_9239a775">
       <ColNames>workflow_state_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="963" parent="519" name="wagtailcore_taskstate_finished_by_id_13f98229">
       <ColNames>finished_by_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="964" parent="519" name="wagtailcore_taskstate_revision_id_df25a499">
       <ColNames>revision_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="965" parent="519">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="966" parent="520" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="967" parent="520" name="name">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="968" parent="520" name="active">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <key id="969" parent="520">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="970" parent="521" name="content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="971" parent="521" name="workflow_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
@@ -3573,19 +3483,19 @@ port</ColNames>
     </foreign-key>
     <index id="974" parent="521" name="wagtailcore_workflowcontenttype_workflow_id_9aad7cd2">
       <ColNames>workflow_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="975" parent="521">
       <ColNames>content_type_id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>content_type_id</UnderlyingIndexColNames>
     </key>
     <column id="976" parent="522" name="page_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
     <column id="977" parent="522" name="workflow_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
@@ -3605,53 +3515,53 @@ port</ColNames>
     </foreign-key>
     <index id="980" parent="522" name="wagtailcore_workflowpage_workflow_id_56f56ff6">
       <ColNames>workflow_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="981" parent="522">
       <ColNames>page_id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>page_id</UnderlyingIndexColNames>
     </key>
     <column id="982" parent="523" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="983" parent="523" name="status">
-      <DataType>varchar(50)|0s</DataType>
+      <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="984" parent="523" name="created_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="985" parent="523" name="current_task_state_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="986" parent="523" name="requested_by_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="987" parent="523" name="workflow_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="988" parent="523" name="object_id">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
     <column id="989" parent="523" name="base_content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
     <column id="990" parent="523" name="content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
@@ -3692,71 +3602,61 @@ port</ColNames>
     </foreign-key>
     <index id="996" parent="523" name="sqlite_autoindex_wagtailcore_workflowstate_1">
       <ColNames>current_task_state_id</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
     <index id="997" parent="523" name="unique_in_progress_workflow">
       <ColNames>base_content_type_id
 object_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Condition>&quot;status&quot; IN (&apos;in_progress&apos;, &apos;needs_changes&apos;)</Condition>
       <Unique>1</Unique>
     </index>
     <index id="998" parent="523" name="wagtailcore_workflowstate_requested_by_id_4090bca3">
       <ColNames>requested_by_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="999" parent="523" name="wagtailcore_workflowstate_workflow_id_1f18378f">
       <ColNames>workflow_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="1000" parent="523" name="workflowstate_base_ct_id_idx">
       <ColNames>base_content_type_id
 object_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
     </index>
     <index id="1001" parent="523" name="wagtailcore_workflowstate_base_content_type_id_a30dc576">
       <ColNames>base_content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="1002" parent="523" name="workflowstate_ct_id_idx">
       <ColNames>content_type_id
 object_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
     </index>
     <index id="1003" parent="523" name="wagtailcore_workflowstate_content_type_id_2bb78ce1">
       <ColNames>content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="1004" parent="523">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <key id="1005" parent="523">
       <ColNames>current_task_state_id</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_wagtailcore_workflowstate_1</UnderlyingIndexName>
     </key>
     <column id="1006" parent="524" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="1007" parent="524" name="sort_order">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="1008" parent="524" name="task_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="1009" parent="524" name="workflow_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
@@ -3777,61 +3677,58 @@ object_id</ColNames>
     <index id="1012" parent="524" name="wagtailcore_workflowtask_workflow_id_task_id_4ec7a62b_uniq">
       <ColNames>workflow_id
 task_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="1013" parent="524" name="wagtailcore_workflowtask_task_id_ce7716fe">
       <ColNames>task_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="1014" parent="524" name="wagtailcore_workflowtask_workflow_id_b9717175">
       <ColNames>workflow_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="1015" parent="524">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <check id="1016" parent="525">
       <Predicate>&quot;file_size&quot; &gt;= 0</Predicate>
     </check>
     <column id="1017" parent="525" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="1018" parent="525" name="title">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="1019" parent="525" name="file">
-      <DataType>varchar(100)|0s</DataType>
+      <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="1020" parent="525" name="created_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="1021" parent="525" name="uploaded_by_user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="1022" parent="525" name="collection_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="1023" parent="525" name="file_size">
-      <DataType>integer unsigned|0s</DataType>
+      <DasType>integer unsigned|0s</DasType>
       <Position>7</Position>
     </column>
     <column id="1024" parent="525" name="file_hash">
-      <DataType>varchar(40)|0s</DataType>
+      <DasType>varchar(40)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
@@ -3851,29 +3748,28 @@ task_id</ColNames>
     </foreign-key>
     <index id="1027" parent="525" name="wagtaildocs_document_uploaded_by_user_id_17258b41">
       <ColNames>uploaded_by_user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="1028" parent="525" name="wagtaildocs_document_collection_id_23881625">
       <ColNames>collection_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="1029" parent="525">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="1030" parent="526" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="1031" parent="526" name="file">
-      <DataType>varchar(200)|0s</DataType>
+      <DasType>varchar(200)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="1032" parent="526" name="uploaded_by_user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>3</Position>
     </column>
     <foreign-key id="1033" parent="526">
@@ -3885,92 +3781,91 @@ task_id</ColNames>
     </foreign-key>
     <index id="1034" parent="526" name="wagtaildocs_uploadeddocument_uploaded_by_user_id_8dd61a73">
       <ColNames>uploaded_by_user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="1035" parent="526">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="1036" parent="527" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="1037" parent="527" name="url">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="1038" parent="527" name="max_width">
-      <DataType>smallint|0s</DataType>
+      <DasType>smallint|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="1039" parent="527" name="type">
-      <DataType>varchar(10)|0s</DataType>
+      <DasType>varchar(10)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="1040" parent="527" name="html">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="1041" parent="527" name="title">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="1042" parent="527" name="author_name">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
     <column id="1043" parent="527" name="provider_name">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
     <column id="1044" parent="527" name="width">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>9</Position>
     </column>
     <column id="1045" parent="527" name="height">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>10</Position>
     </column>
     <column id="1046" parent="527" name="last_updated">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>11</Position>
     </column>
     <column id="1047" parent="527" name="hash">
-      <DataType>varchar(32)|0s</DataType>
+      <DasType>varchar(32)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>12</Position>
     </column>
     <column id="1048" parent="527" name="thumbnail_url">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>13</Position>
     </column>
     <column id="1049" parent="527" name="cache_until">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <Position>14</Position>
     </column>
     <index id="1050" parent="527" name="sqlite_autoindex_wagtailembeds_embed_1">
       <ColNames>hash</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
     <index id="1051" parent="527" name="wagtailembeds_embed_cache_until_26c94bb0">
       <ColNames>cache_until</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="1052" parent="527">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <key id="1053" parent="527">
       <ColNames>hash</ColNames>
@@ -3980,23 +3875,23 @@ task_id</ColNames>
       <Predicate>(JSON_VALID(&quot;form_data&quot;) OR &quot;form_data&quot; IS NULL)</Predicate>
     </check>
     <column id="1055" parent="528" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="1056" parent="528" name="submit_time">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="1057" parent="528" name="page_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="1058" parent="528" name="form_data">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
@@ -4009,11 +3904,11 @@ task_id</ColNames>
     </foreign-key>
     <index id="1060" parent="528" name="wagtailforms_formsubmission_page_id_e48e93e7">
       <ColNames>page_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="1061" parent="528">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <check id="1062" parent="529">
       <Predicate>&quot;file_size&quot; &gt;= 0</Predicate>
@@ -4031,67 +3926,67 @@ task_id</ColNames>
       <Predicate>&quot;focal_point_y&quot; &gt;= 0</Predicate>
     </check>
     <column id="1067" parent="529" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="1068" parent="529" name="title">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="1069" parent="529" name="width">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="1070" parent="529" name="height">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="1071" parent="529" name="created_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="1072" parent="529" name="focal_point_x">
-      <DataType>integer unsigned|0s</DataType>
+      <DasType>integer unsigned|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="1073" parent="529" name="focal_point_y">
-      <DataType>integer unsigned|0s</DataType>
+      <DasType>integer unsigned|0s</DasType>
       <Position>7</Position>
     </column>
     <column id="1074" parent="529" name="focal_point_width">
-      <DataType>integer unsigned|0s</DataType>
+      <DasType>integer unsigned|0s</DasType>
       <Position>8</Position>
     </column>
     <column id="1075" parent="529" name="focal_point_height">
-      <DataType>integer unsigned|0s</DataType>
+      <DasType>integer unsigned|0s</DasType>
       <Position>9</Position>
     </column>
     <column id="1076" parent="529" name="uploaded_by_user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>10</Position>
     </column>
     <column id="1077" parent="529" name="file_size">
-      <DataType>integer unsigned|0s</DataType>
+      <DasType>integer unsigned|0s</DasType>
       <Position>11</Position>
     </column>
     <column id="1078" parent="529" name="collection_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>12</Position>
     </column>
     <column id="1079" parent="529" name="file_hash">
-      <DataType>varchar(40)|0s</DataType>
+      <DasType>varchar(40)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>13</Position>
     </column>
     <column id="1080" parent="529" name="file">
-      <DataType>varchar(100)|0s</DataType>
+      <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>14</Position>
     </column>
@@ -4111,57 +4006,54 @@ task_id</ColNames>
     </foreign-key>
     <index id="1083" parent="529" name="wagtailimages_image_created_at_86fa6cd4">
       <ColNames>created_at</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="1084" parent="529" name="wagtailimages_image_uploaded_by_user_id_5d73dc75">
       <ColNames>uploaded_by_user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="1085" parent="529" name="wagtailimages_image_collection_id_c2f8af7e">
       <ColNames>collection_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="1086" parent="529" name="wagtailimages_image_file_hash_fb5bbb23">
       <ColNames>file_hash</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="1087" parent="529">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="1088" parent="530" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="1089" parent="530" name="width">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="1090" parent="530" name="height">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="1091" parent="530" name="focal_point_key">
-      <DataType>varchar(16)|0s</DataType>
+      <DasType>varchar(16)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="1092" parent="530" name="filter_spec">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="1093" parent="530" name="image_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="1094" parent="530" name="file">
-      <DataType>varchar(100)|0s</DataType>
+      <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
@@ -4176,36 +4068,32 @@ task_id</ColNames>
       <ColNames>image_id
 filter_spec
 focal_point_key</ColNames>
-      <ColumnCollations>
-
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="1097" parent="530" name="wagtailimages_rendition_filter_spec_1cba3201">
       <ColNames>filter_spec</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="1098" parent="530" name="wagtailimages_rendition_image_id_3e1fd774">
       <ColNames>image_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="1099" parent="530">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="1100" parent="531" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="1101" parent="531" name="file">
-      <DataType>varchar(200)|0s</DataType>
+      <DasType>varchar(200)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="1102" parent="531" name="uploaded_by_user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <Position>3</Position>
     </column>
     <foreign-key id="1103" parent="531">
@@ -4217,52 +4105,52 @@ focal_point_key</ColNames>
     </foreign-key>
     <index id="1104" parent="531" name="wagtailimages_uploadedimage_uploaded_by_user_id_85921689">
       <ColNames>uploaded_by_user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="1105" parent="531">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="1106" parent="532" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="1107" parent="532" name="old_path">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="1108" parent="532" name="is_permanent">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="1109" parent="532" name="redirect_link">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="1110" parent="532" name="redirect_page_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="1111" parent="532" name="site_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="1112" parent="532" name="automatically_created">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
     <column id="1113" parent="532" name="created_at">
-      <DataType>datetime|0s</DataType>
+      <DasType>datetime|0s</DasType>
       <Position>8</Position>
     </column>
     <column id="1114" parent="532" name="redirect_page_route_path">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
@@ -4283,57 +4171,53 @@ focal_point_key</ColNames>
     <index id="1117" parent="532" name="wagtailredirects_redirect_old_path_site_id_783622d7_uniq">
       <ColNames>old_path
 site_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="1118" parent="532" name="wagtailredirects_redirect_old_path_bb35247b">
       <ColNames>old_path</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="1119" parent="532" name="wagtailredirects_redirect_redirect_page_id_b5728a8f">
       <ColNames>redirect_page_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="1120" parent="532" name="wagtailredirects_redirect_site_id_780a0e1e">
       <ColNames>site_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="1121" parent="532">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="1122" parent="533" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="1123" parent="533" name="object_id">
-      <DataType>varchar(50)|0s</DataType>
+      <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="1124" parent="533" name="title_norm">
-      <DataType>REAL|0s</DataType>
+      <DasType>REAL|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="1125" parent="533" name="content_type_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="1126" parent="533" name="autocomplete">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <Position>5</Position>
     </column>
     <column id="1127" parent="533" name="body">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <Position>6</Position>
     </column>
     <column id="1128" parent="533" name="title">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
@@ -4347,17 +4231,15 @@ site_id</ColNames>
     <index id="1130" parent="533" name="wagtailsearch_indexentry_content_type_id_object_id_bcd7ba73_uniq">
       <ColNames>content_type_id
 object_id</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="1131" parent="533" name="wagtailsearch_indexentry_content_type_id_62ed694f">
       <ColNames>content_type_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="1132" parent="533">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <trigger id="1133" parent="533" name="insert_wagtailsearch_indexentry_fts">
       <Events>I</Events>
@@ -4383,7 +4265,6 @@ object_id</ColNames>
     </column>
     <index id="1138" parent="534" name="sqlite_autoindex_wagtailsearch_indexentry_fts_config_1">
       <ColNames>k</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
@@ -4393,7 +4274,7 @@ object_id</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_wagtailsearch_indexentry_fts_config_1</UnderlyingIndexName>
     </key>
     <column id="1140" parent="535" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>1</Position>
     </column>
     <column id="1141" parent="535" name="c0">
@@ -4408,30 +4289,33 @@ object_id</ColNames>
     <key id="1144" parent="535">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="1145" parent="536" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>1</Position>
     </column>
     <column id="1146" parent="536" name="block">
-      <DataType>BLOB|0s</DataType>
+      <DasType>BLOB|0s</DasType>
       <Position>2</Position>
     </column>
     <key id="1147" parent="536">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="1148" parent="537" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <Position>1</Position>
     </column>
     <column id="1149" parent="537" name="sz">
-      <DataType>BLOB|0s</DataType>
+      <DasType>BLOB|0s</DasType>
       <Position>2</Position>
     </column>
     <key id="1150" parent="537">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="1151" parent="538" name="segid">
       <NotNull>1</NotNull>
@@ -4447,8 +4331,6 @@ object_id</ColNames>
     <index id="1154" parent="538" name="sqlite_autoindex_wagtailsearch_indexentry_fts_idx_1">
       <ColNames>segid
 term</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
@@ -4459,48 +4341,48 @@ term</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_wagtailsearch_indexentry_fts_idx_1</UnderlyingIndexName>
     </key>
     <column id="1156" parent="539" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="1157" parent="539" name="query_string">
-      <DataType>varchar(255)|0s</DataType>
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <index id="1158" parent="539" name="sqlite_autoindex_wagtailsearch_query_1">
       <ColNames>query_string</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
     <key id="1159" parent="539">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <key id="1160" parent="539">
       <ColNames>query_string</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_wagtailsearch_query_1</UnderlyingIndexName>
     </key>
     <column id="1161" parent="540" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="1162" parent="540" name="date">
-      <DataType>date|0s</DataType>
+      <DasType>date|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="1163" parent="540" name="hits">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="1164" parent="540" name="query_id">
-      <DataType>INTEGER|0s</DataType>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
@@ -4514,69 +4396,67 @@ term</ColNames>
     <index id="1166" parent="540" name="wagtailsearch_querydailyhits_query_id_date_1dd232e6_uniq">
       <ColNames>query_id
 date</ColNames>
-      <ColumnCollations>
-</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="1167" parent="540" name="wagtailsearch_querydailyhits_query_id_2185994b">
       <ColNames>query_id</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="1168" parent="540">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <check id="1169" parent="541">
       <Predicate>(JSON_VALID(&quot;dismissibles&quot;) OR &quot;dismissibles&quot; IS NULL)</Predicate>
     </check>
     <column id="1170" parent="541" name="id">
-      <DataType>INTEGER|0s</DataType>
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="1171" parent="541" name="submitted_notifications">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
     <column id="1172" parent="541" name="approved_notifications">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="1173" parent="541" name="rejected_notifications">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="1174" parent="541" name="user_id">
-      <DataType>bigint|0s</DataType>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="1175" parent="541" name="preferred_language">
-      <DataType>varchar(10)|0s</DataType>
+      <DasType>varchar(10)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="1176" parent="541" name="current_time_zone">
-      <DataType>varchar(40)|0s</DataType>
+      <DasType>varchar(40)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
     <column id="1177" parent="541" name="avatar">
-      <DataType>varchar(100)|0s</DataType>
+      <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
     <column id="1178" parent="541" name="updated_comments_notifications">
-      <DataType>bool|0s</DataType>
+      <DasType>bool|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
     <column id="1179" parent="541" name="dismissibles">
-      <DataType>TEXT|0s</DataType>
+      <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>10</Position>
     </column>
@@ -4589,13 +4469,13 @@ date</ColNames>
     </foreign-key>
     <index id="1181" parent="541" name="sqlite_autoindex_wagtailusers_userprofile_1">
       <ColNames>user_id</ColNames>
-      <ColumnCollations></ColumnCollations>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
     <key id="1182" parent="541">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <key id="1183" parent="541">
       <ColNames>user_id</ColNames>

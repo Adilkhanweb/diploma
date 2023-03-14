@@ -1,0 +1,177 @@
+{% extends 'base/content.html' %}
+{% block extracss %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"
+          integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css"
+          integrity="sha512-gFMl3u9d0xt3WR8ZeW05MWm3yZ+ZfgsBVXLSOiFz2xeVrZ8Neg0+V1kkRIo9LikyA/T9HuS91kDfc2XWse0K0A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+{% endblock %}
+{% block body %}
+    <h1><a href="{% url 'problems:problem-detail' problem.slug %}">
+        {{ problem.title }}{% if is_accepted %} (Шешілді){% endif %}</a></h1>
+
+    <div class="row">
+        <div class="col col-md-4" id="desc_collapse">
+            <card class="card-body">
+                <h4>Сипаттама:</h4>
+                <p>{{ problem.description|safe }}</p>
+                <h4>Түсіндірме:</h4>
+                <p>{{ problem.explanation|safe }}</p>
+            </card>
+        </div>
+        <div class="col col-md-8">
+            <form id="form_code" action="{% url 'problems:submit' problem.slug %}" method="post" class="form-row">
+                {% csrf_token %}
+                {% if code %}
+                    <textarea class="form-control" name="code" id="id_code" required>{{ code }}</textarea>
+                {% elif problem.submission_set.exists %}
+                    <textarea class="form-control" name="code" id="id_code"
+                              required>{{ problem.submission_set.last.source_code }}</textarea>
+                {% elif problem.base_code %}
+                    <textarea class="form-control" name="code" id="id_code" required>{{ problem.base_code }}</textarea>
+                {% endif %}
+                <div class="row">
+                    <div class="col mt-4">
+                            <textarea class="form-control" name="test" id="id_test" rows="1"
+                                      placeholder="Test Input:">{% if input %}{{ input }}{% endif %}</textarea>
+                        {% if output %}
+                            <h4 class="mt-2">Output:</h4>
+                            <pre><code>{{ output }}</code></pre>
+                        {% endif %}
+                    </div>
+                    <div class="col col-auto">
+                        <button type="submit" class="btn btn-primary mt-4 float-end ms-3">Submit code</button>
+                        <button type="submit" class="btn btn-outline-success mt-4 float-end ms-3" id="run-tests-btn"
+                                data-action="{% url 'problems:run_tests' problem.slug %}">Run Tests
+                        </button>
+                        <button type="submit" class="btn btn-secondary mt-4 float-end ms-3" id="run-test-btn"
+                                data-action="{% url 'problems:test' problem.slug %}">Test
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="mt-4">
+        {% if statuses %}
+            <h3>Сынақ мысалдары:</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Күйі</th>
+                    <th scope="col">Нәтиже</th>
+                    <th scope="col">Күтілетін нәтиже</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for status in statuses %}
+                    {% if status.status.id == 4 %}
+                        <tr class="table-warning">
+                            <td>{{ status.status.description }}</td>
+                            <td>
+                                <pre><code>{{ status.output }}</code></pre>
+                            </td>
+                            <td>
+                                <pre><code>{{ status.expected_output }}</code></pre>
+                            </td>
+                        </tr>
+                    {% elif status.status.id == 3 %}
+                        <tr class="table-success">
+                            <td>
+                                <pre><code>{{ status.status.description }}</code></pre>
+                            </td>
+                            <td>
+                                <pre><code>{{ status.output }}</code></pre>
+                            </td>
+                            <td>
+                                <pre><code>{{ status.expected_output }}</code></pre>
+                            </td>
+                        </tr>
+                    {% elif status.status.id == 11 %}
+                        <tr class="table-danger">
+                            <td>{{ status.status.description }}</td>
+                            <td>
+                                <pre><code>{{ status.output }}</code></pre>
+                            </td>
+                            <td>
+                                <pre><code>{{ status.expected_output }}</code></pre>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        {% if problem.submission_set.exists %}
+            <h2>Тапсырымдар:</h2>
+            <div class="accordion" id="accordionExample">
+            {% for sub in problem.submission_set.all %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true"
+                                aria-controls="collapse{{ forloop.counter }}">
+                            Тапсырым №{{ forloop.counter }} | {{ sub.created_at }} {% if sub.is_accepted %}
+                            <span class="text-success ms-2"><i class='bx bx-check-circle'></i></span>
+                        {% else %}
+                            <span class="text-danger ms-2"><i class='bx bx-x-circle'></i></span>
+                        {% endif %}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ forloop.counter }}"
+                         class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                         aria-labelledby="heading{{ forloop.counter }}"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <pre><code>{{ sub.source_code }}</code></pre>
+                            <div class="d-flex gap-2">
+                                <span class="text-black-50">Уақыты: {{ sub.avg_time }}</span>
+                                <span class="text-black-50">Қолданылған жады: {{ sub.avg_memory }} килобайт</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}
+{% block extrascripts %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"
+            integrity="sha512-8RnEqURPUc5aqFEN04aQEiPlSAdE0jlFS/9iGgUyNtwFnSKCXhmB6ZTNl7LnDtDWKabJIASzXrzD0K+LYexU9g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/python/python.min.js"
+            integrity="sha512-2M0GdbU5OxkGYMhakED69bw0c1pW3Nb0PeF3+9d+SnwN1ryPx3wiDdNqK3gSM7KAU/pEV+2tFJFbMKjKAahOkQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        runTestsBtn = document.querySelector('#run-tests-btn')
+        form = document.querySelector('form#form_code')
+        runTestsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            form.setAttribute('action', runTestsBtn.dataset.action)
+            form.submit();
+        });
+        testBtn = document.querySelector('#run-test-btn')
+        testBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            let input_value = document.querySelector('#id_test').value
+            if (input_value === '') {
+                alert("Please, fill Test Input field")
+            } else {
+                form.setAttribute('action', testBtn.dataset.action)
+                form.submit();
+            }
+        })
+        myTextArea = document.querySelector('textarea#id_code')
+        let myCodeMirror = CodeMirror.fromTextArea(myTextArea, {
+            lineNumbers: true,
+            mode: "python",
+            theme: "dracula"
+        });
+    </script>
+{% endblock %}

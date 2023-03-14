@@ -1,0 +1,43 @@
+{% extends 'base/content.html' %}
+{% block extracss %}
+    <style>
+        /*
+        form > ul {
+            list-style: circled-alpha;
+        } */
+        form > ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <h1>Quiz Attempt</h1>
+    {{ quiz.title }}
+    <form action="{% url 'quiz:submit' quiz.url %}" method="POST">
+        {% csrf_token %}
+        {% for form in forms %}
+            {% if form.figure %}
+                <img src="{{ form.figure }}" height="150px">
+            {% endif %}
+            {{ form.form.as_p }}
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}
+{% block extrascripts %}
+    <script>
+        jQuery(function () {
+            let max = 3;
+            let min = 1;
+            let question = $('#id-checkbox');
+            let checkboxes = question.find('input[type="checkbox"]');
+
+            checkboxes.change(function () {
+                let current = checkboxes.filter(':checked').length;
+                checkboxes.filter(':not(:checked)').prop('disabled', current >= max);
+            });
+        });
+    </script>
+{% endblock %}

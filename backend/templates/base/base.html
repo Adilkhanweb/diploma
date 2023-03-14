@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta name="description" content="Event Dashboard"/>
+    <!-- Twitter meta-->
+    <meta property="twitter:card" content="summary_large_image"/>
+    <meta property="twitter:site" content="@sajib1066"/>
+    <meta property="twitter:creator" content="@sajib1066"/>
+    <!-- Open Graph Meta-->
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="Vali Admin"/>
+    <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme"/>
+    <meta property="og:url" content="https://sajib1066.github.io/"/>
+    <meta property="og:image" content="https://sajib1066.github.io/images/me.jpg"/>
+    <meta property="og:description" content="Event Dashboard"/>
+    <title>{% block title %}{% endblock title %}</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link href="{% static 'Tabler/dist/css/tabler.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'Tabler/dist/css/tabler-flags.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'Tabler/dist/css/tabler-payments.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'Tabler/dist/css/tabler-vendors.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'Tabler/dist/css/demo.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'calendar/vanilla-calendar.min.css' %}"/>
+    <link href="{% static 'calender/main.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/core.css' %}">
+    <!-- Main CSS-->
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"/>#}
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    {% block extracss %}
+    {% endblock extracss %}
+</head>
+<body>
+{% block content %}
+{% endblock %}
+<!-- Libs JS -->
+{% include 'base/js.html' %}
+{% block extrascripts %}
+{% endblock extrascripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar-tasks');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            timeZone: 'Asia/Almaty',
+            initialView: 'listDay',
+            locale: 'kk',
+            // monthNames: ['Қаңтар', 'Ақпан', 'Наурыз', 'Сәуір', 'Мамыр', 'Маусым', 'Шілде', 'Тамыз', 'Қыркүйек', 'Қазан', 'Қараша', 'Желтоқсан'],
+            // monthNamesShort: ['Қаң', 'Ақп', 'Нау', 'Сәу', 'Мам', 'Мау', 'Шіл', 'Там', 'Қыр', 'Қаз', 'Қар', 'Жел'],
+            // dayNames: ['Жексенбі', 'Дүйсенбі', 'Сейсенбі', 'Сәрсенбі', 'Бейсенбі', 'Жұма', 'Сенбі'],
+            // dayNamesShort: ['Же', 'Дү', 'Сй', 'Сә', 'Бе', 'Жұ', 'Се'],
+            // customize the button names,
+            // otherwise they'd all just say "list"
+            views: {
+                listDay: {buttonText: 'Бүгінгі'},
+                listWeek: {buttonText: 'Апталық'},
+                listMonth: {buttonText: 'Ай'}
+            },
+            height: "56vh",
+            headerToolbar: {
+                left: '',
+                right: '',
+                center: 'listDay,listWeek,listMonth'
+            },
+            {#events: 'https://fullcalendar.io/api/demo-feeds/events.json'#}
+            events: {{ all_events|safe }}
+        });
+
+        calendar.render();
+    });
+</script>
+</body>
+</html>
