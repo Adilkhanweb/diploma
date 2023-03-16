@@ -5,9 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a0d89836-5d5f-42e4-b6c5-9381a0562cf4" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/backend.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/diploma_backend/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diploma_backend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/diploma_backend/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diploma_backend/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/diploma_backend/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/diploma_backend/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/diploma_backend/dashboard.html" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,12 +64,20 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+<<<<<<< Updated upstream
     "last_opened_file_path": "C:/Users/LENOVO/Documents/GitHub/diploma/backend",
+=======
+    "last_opened_file_path": "/home/adilkhan/Projects/diploma/backend",
+>>>>>>> Stashed changes
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+<<<<<<< Updated upstream
     "settings.editor.selected.configurable": "com.jetbrains.django.DjangoModulesConfigurable",
+=======
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+>>>>>>> Stashed changes
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -86,7 +104,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DJANGO_SETTINGS_MODULE" value="core.settings.dev" />
+        <env name="DJANGO_SETTINGS_MODULE" value="diploma_backend.settings" />
       </envs>
       <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
       <option name="SDK_NAME" value="Python 3.10 (backend)" />
@@ -149,6 +167,9 @@
       <workItem from="1678620865099" duration="3696000" />
       <workItem from="1678640005360" duration="7560000" />
       <workItem from="1678677462824" duration="161000" />
+      <workItem from="1678979578754" duration="563000" />
+      <workItem from="1678981091216" duration="17000" />
+      <workItem from="1678983130501" duration="3412000" />
     </task>
     <servers />
   </component>

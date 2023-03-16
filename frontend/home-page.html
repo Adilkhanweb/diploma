@@ -1,0 +1,224 @@
+<!doctype html>
+<!--
+* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
+* @version 1.0.0-beta5
+* @link https://tabler.io
+* Copyright 2018-2022 The Tabler Authors
+* Copyright 2018-2022 codecalm.net Paweł Kuna
+* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
+-->
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Dashboard - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <!-- CSS files -->
+    <link href="../Tabler/dist/css/tabler.min.css" rel="stylesheet" />
+    <link href="../Tabler/dist/css/tabler-flags.min.css" rel="stylesheet" />
+    <link href="../Tabler/dist/css/tabler-payments.min.css" rel="stylesheet" />
+    <link href="../Tabler/dist/css/tabler-vendors.min.css" rel="stylesheet" />
+    <link href="../Tabler/dist/css/demo.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="calendar/vanilla-calendar.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/hometask.css">
+</head>
+
+<body>
+    <section class="bg-primary-lt">
+        <div class="container">
+            <header
+                class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+
+
+                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="#" class="nav-link px-2 link-secondary">Басты бет</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark">Кеңес беру</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark">Жетістіктер</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark">Жиі қойылатын сұрақтар</a></li>
+                </ul>
+
+
+                <!-- <div class="nav-item dropdown">
+                    <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
+                        aria-label="Open user menu" aria-expanded="false">
+                        <span class="avatar avatar-sm" style="background-image: none"></span>
+                        <div class="d-none d-xl-block ps-2">
+                            <div></div>
+                            <div class="mt-1 small text-muted">Оқушы</div>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <a href="#" class="dropdown-item">Портал</a>
+                        <span class="divide-x"></span>
+                        <a href="#" class="dropdown-item">Шығу</a>
+                    </div>
+                </div> -->
+                <!-- Егер студент аккаунтына кірмеген болса -->
+                <div class="col-md-3 text-end">
+                    <a href="#" type="button" class="btn btn-outline-primary me-2">Кіру</a>
+                    <a href="#" type="button" class="btn btn-primary">Тіркелу</a>
+                </div>
+            </header>
+        </div>
+    </section>
+    <div class="px-4 py-5 my-5 text-center">
+        <img class="d-block mx-auto mb-4" src="#" alt="">
+        <h1 class="display-5 fw-bold">ҰБТ-ға дайындық платформасы</h1>
+        <div class="col-lg-6 mx-auto">
+            <h2 class="mb-4">Өз болашағыңның авторы бол!</h2>
+        </div>
+    </div>
+    <script>
+        // @formatter:off
+        document.addEventListener("DOMContentLoaded", function () {
+            window.ApexCharts && (new ApexCharts(document.getElementById('chart-completion-tasks'), {
+                chart: {
+                    type: "bar",
+                    fontFamily: 'inherit',
+                    height: 240,
+                    parentHeightOffset: 0,
+                    toolbar: {
+                        show: false,
+                    },
+                    animations: {
+                        enabled: false
+                    },
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '50%',
+                    }
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                fill: {
+                    opacity: 1,
+                },
+                series: [{
+                    name: "Tasks completion",
+                    data: [155, 65, 465, 265, 225, 325, 80]
+                }],
+                grid: {
+                    padding: {
+                        top: -20,
+                        right: 0,
+                        left: -4,
+                        bottom: -4
+                    },
+                    strokeDashArray: 4,
+                },
+                xaxis: {
+                    labels: {
+                        padding: 0,
+                    },
+                    tooltip: {
+                        enabled: false
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    type: 'datetime',
+                },
+                yaxis: {
+                    labels: {
+                        padding: 4
+                    },
+                },
+                labels: [
+                    '2020-06-20', '2020-06-21', '2020-06-22', '2020-06-23', '2020-06-24', '2020-06-25', '2020-06-26'
+                ],
+                colors: ["#206bc4"],
+                legend: {
+                    show: false,
+                },
+            })).render();
+        });
+        // @formatter:on
+    </script>
+    <script>
+        // @formatter:off
+        document.addEventListener("DOMContentLoaded", function () {
+            window.ApexCharts && (new ApexCharts(document.getElementById('chart-completion-tasks-3'), {
+                chart: {
+                    type: "area",
+                    fontFamily: 'inherit',
+                    height: 240,
+                    parentHeightOffset: 0,
+                    toolbar: {
+                        show: false,
+                    },
+                    animations: {
+                        enabled: false
+                    },
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                fill: {
+                    opacity: .16,
+                    type: 'solid'
+                },
+                stroke: {
+                    width: 2,
+                    lineCap: "round",
+                    curve: "smooth",
+                },
+                series: [{
+                    name: "Tasks completion",
+                    data: [155, 65, 465, 265, 225, 325, 80]
+                }],
+                grid: {
+                    padding: {
+                        top: -20,
+                        right: 0,
+                        left: -4,
+                        bottom: -4
+                    },
+                    strokeDashArray: 4,
+                },
+                xaxis: {
+                    labels: {
+                        padding: 0,
+                    },
+                    tooltip: {
+                        enabled: false
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    type: 'datetime',
+                },
+                yaxis: {
+                    labels: {
+                        padding: 4
+                    },
+                },
+                labels: [
+                    '2020-06-20', '2020-06-21', '2020-06-22', '2020-06-23'
+                ],
+                colors: ["#206bc4"],
+                legend: {
+                    show: false,
+                },
+            })).render();
+        });
+        // @formatter:on
+    </script>
+
+    <!-- Libs JS -->
+    <script src="../Tabler/dist/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <!-- Tabler Core -->
+    <script src="../Tabler/dist/js/tabler.min.js"></script>
+    <script src="../Tabler/dist/js/demo.min.js"></script>
+    <script src="./calendar/vanilla-calendar.min.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./dist/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <!-- Tabler Core -->
+    <script src="./dist/js/tabler.min.js"></script>
+    <script src="./dist/js/demo.min.js"></script>
+
+</body>

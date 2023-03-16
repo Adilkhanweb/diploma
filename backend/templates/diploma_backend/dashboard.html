@@ -49,6 +49,11 @@
                             </div>
                         </div>
                     {% endfor %}
+                    <form action="{% url 'addbook' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ book_form.as_p }}
+                        <button type="submit">Submit</button>
+                    </form>
                 </div>
             </div>
             <div class="tab-pane" id="tabs-profile-9">
