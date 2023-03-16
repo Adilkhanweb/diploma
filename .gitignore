@@ -2,3 +2,4 @@
 /backend/.idea/
 /backend/media/
 /backend/db.sqlite3/
+/backend/__pycache__/
