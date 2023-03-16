@@ -104,3 +104,335 @@
 .bg-edu-primary {
     background-color: #0a4368;
 }
+.texts{
+	position:relative;
+	
+	
+}
+.tasks{
+	position:relative;
+	display:flex;
+	color:#054468;
+	margin-left:25px;
+	margin-top:25px;
+}
+.tim{
+	margin-right:25px;
+	padding:16px 0px;
+
+}
+.datas{
+	position:relative;
+	margin-left:90px;
+	margin-top:20px;
+}
+.ones{
+	color:white;
+	background:#054468;
+	border-radius:20px;
+	padding:4px 10px;
+	margin-left:100px;
+	border:0;
+}
+.twos{
+	color:white;
+	background:orange;
+	border-radius:20px;
+	padding:4px 10px;
+	margin-left:170px;
+	border:0;
+}
+.tas{
+	border-bottom:1px solid gray;
+	border-top:1px solid gray;
+	padding:12px;
+}
+.times{
+	margin-right:10px;
+	margin-right:10px;
+	
+	
+	border-right:3px solid #054468;
+}
+.times2{
+	margin-right:10px;
+	margin-right:10px;
+	
+	
+	border-right:3px solid orange;
+}
+.nm3{
+	font-size:15px;
+	
+}
+.nm5{
+	font-size:15px;
+	color:orange;
+}
+.part2{
+	position:relative;
+	margin-top:-2%;
+
+}
+.nameContainer{
+	display:flex;
+	margin:15px;
+}
+.nameOfStudent{
+	margin-top:15px;
+	margin-left:20px;
+	font-size:15px;
+}
+.questions{
+	margin-left:85px;
+}
+#tabs-home-9{
+	margin:10px 0;
+}
+#tabs-home-8{
+	margin:10px 0;
+	background:red;
+}
+#conttainerColor{
+	
+}
+#ss{
+	background:#DCEFF7;
+	
+}
+
+#buttonAdd{
+	position:relative;
+	left:80%;
+}
+#footerIcon{
+	display:flex;
+}
+#textArea{
+	height:150px;
+}
+#starts{
+	color:yellow;
+}
+.statuts{
+	width:100%;
+	height:370px;
+	margin:10px 0px;
+	border:2px solid gray;
+	border-radius:5px;
+	
+	
+	
+	
+}
+.InsideStatus{
+	width:78%;
+	margin:10px;
+}
+#firstInput{
+	margin-top:15px;
+}
+.participants{
+	text-align:center;
+}
+#pens{
+	color:green;
+}
+#xs{
+	color:red;
+}
+
+.participant{
+	width:100%;
+}
+.gr{
+	padding:10px;
+	border:1px solid gray;
+}
+.teacherTasks{
+	color:blue;
+}
+.seeResults{
+		color:white;
+	background:#0A4368;
+	border-radius:20px;
+	padding:4px 10px;
+		border:0;
+}
+.teacherTasks2{
+	color:#FA5E37;
+}
+.seeResults2{
+		color:white;
+	background:#FA5E37;
+	border-radius:20px;
+	padding:4px 10px;
+		border:0;
+}
+.texts{
+	position:relative;
+
+	width:100%;
+	height:490px;
+	border:2px solid gray;
+	border-radius:2px;
+	
+}
+.texts2{
+	position:relative;
+
+	width:100%;
+	height:270px;
+	border:2px solid gray;
+	border-radius:2px;
+	
+}
+.insideTexts{
+	padding:12px 7px;;
+}
+.newTask{
+	margin:5px;
+	margin-right:60px;
+}
+.insideTexts3{
+	display:flex;
+}
+.newTaskInput{
+	width:100%;
+	margin:2px;
+}
+.buttonNewTask{
+	position:relative;
+	left:61%;
+}
+.buttonEnter{
+	color:white;
+	background:#0A4368;
+	border-radius:5px;
+	padding:7px 30px;
+		border:1px solid #0A4368;
+}
+.buttonEnter2{
+	color:#0A4368;
+	background:white;
+	border-radius:5px;
+	padding:7px 20px;
+		border:1px solid #0A4368;
+}
+#activeNavBar{
+	background:#FA5E37;
+	border-radius:4px;
+	color:white;
+}
+.nav-link-title{
+	color:white;
+}
+.nav-link-icon d-md-none d-lg-inline-block{
+	
+}
+.addButton1{
+	border-radius: 15px;
+		background-color: #0A4368;
+	color: #FFFFFF;
+	font-size: 12px;
+	padding: 7px 15px;
+	width:20%;
+	margin: 26px 16px;
+	border:0;
+	position:relative;
+	left:55%;
+	
+}
+.addButton2{
+	border-radius: 15px;
+		background-color: #E15431;
+	color: #FFFFFF;
+	font-size: 12px;
+	border:0;
+	padding: 7px 15px;
+
+}
+.divOfButton{
+	text-align:center;
+}
+.profileDiv{
+	display:flex;
+}
+.profileButton{
+		border-radius: 20px;
+	
+	font-size: 15px;
+
+	padding: 7px 30px;
+	border:2px solid #E15431;
+	color:#E15431;
+	background:#F8FAFC;
+}
+.profimg{
+	padding:20px;
+	background:#FFEFEB;
+	border-radius:15px;
+}
+.nameProfile{
+	color:#285B7B;
+}
+.profileInfoDiv{
+	margin:25px 35px;
+}
+.emailProfile{
+	margin-bottom:10px;
+	margin-top:10px;
+	margin-right:15px;
+}
+
+.statusProfile{
+		margin-bottom:20px;
+	margin-right:20px;
+}
+.profileInfoDiv1{
+	margin:5px 35px;
+
+}
+.divs{
+		display:flex;
+}
+.profileInput{
+	padding:5px 10px;
+	margin:5px 15px;
+	color:#285B7B;
+	border:2px solid #285B7B;
+	border-radius:20px;	
+	background:#F8FAFC;
+}
+.profileButton2{
+		border-radius: 20px;
+	
+	font-size: 15px;
+
+	padding: 7px 30px;
+	border:2px solid #285B7B;
+	color:white;
+	background:#285B7B;
+	margin:8px;
+}
+.emailProfile1{
+	margin:12px;
+}
+.profileButton1{
+			border-radius: 20px;
+	
+	font-size: 15px;
+
+	padding: 7px 30px;
+	border:2px dotted #E15431;
+	color:#E15431;
+	background:#F8FAFC;
+	margin:5px;
+}
+.profimg{
+	text-align:center;
+}
+.profileDiv{
+	margin-top:20px;
+}
+	

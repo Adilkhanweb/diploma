@@ -1,0 +1,355 @@
+<!doctype html>
+<!--
+* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
+* @version 1.0.0-beta5
+* @link https://tabler.io
+* Copyright 2018-2022 The Tabler Authors
+* Copyright 2018-2022 codecalm.net Paweł Kuna
+* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
+-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Dashboard - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <!-- CSS files -->
+    <link href="../Tabler/dist/css/tabler.min.css" rel="stylesheet" />
+    <link href="../Tabler/dist/css/tabler-flags.min.css" rel="stylesheet" />
+    <link href="../Tabler/dist/css/tabler-payments.min.css" rel="stylesheet" />
+    <link href="../Tabler/dist/css/tabler-vendors.min.css" rel="stylesheet" />
+    <link href="../Tabler/dist/css/demo.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="calendar/vanilla-calendar.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/hometask.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <h1 class="navbar-brand navbar-brand-autodark">
+                    <a href=".">
+                        <img src="./images/logo-light.svg" width="110" height="110" alt="Tabler"
+                            class="navbar-brand-image">
+                    </a>
+                </h1>
+               
+                <div class="collapse navbar-collapse py-4" id="navbar-menu">
+                    <ul class="navbar-nav pt-lg-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="adminspage.html">
+                                <span
+                                    class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                                   <!-- Download SVG icon from http://tabler-icons.io/i/settings -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" 
+	   fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><circle cx="12" cy="12" r="3" /></svg>
+                                </span>
+                                <span class="nav-link-title">
+                                    Басқару
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item active" id="activeNavBar">
+                            <a class="nav-link" href="adminspage2.html">
+                                <span
+                                    class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                                   <!-- Download SVG icon from http://tabler-icons.io/i/users -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" 
+	                           stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="9" cy="7" r="4"
+							   /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path 
+							   d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
+                                </span>
+                                <span class="nav-link-title">
+                                    Қатысушылар
+                                </span>
+                            </a>
+                        </li>
+                   
+             
+                  
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="main.html">
+                                <span
+                                    class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/checkbox -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout"
+                                        width="40" height="40" viewBox="0 0 24 24" stroke-width="2"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path
+                                            d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2">
+                                        </path>
+                                        <path d="M7 12h14l-3 -3m0 6l3 -3"></path>
+                                    </svg>
+                                </span>
+                                <span class="nav-link-title">
+                                    Шығу
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <!-- Page title -->
+
+            </div>
+            <div class="page-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col px-4">
+                            
+                            <div class="col">
+                                <div class="">
+                                    <div class="card-body">
+                                        <div class="row g-3 align-items-start">
+                                            <div class="col-auto">
+                                                <span class="avatar avatar-md avatar-rounded"
+                                                    style="background-image: url(../Tabler/static/avatars/005f.jpg)"></span>
+                                            </div>
+                                            <div class="col">
+                                                <h2 class="m-0">
+                                                    <a href="#">Админ Админ</a>
+                                                </h2>
+                                                <div class="text-muted">
+                                                    Алматы, Қазақстан
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="input-group mb-2 search-bar">
+                                                    <input type="text" class="form-control" placeholder="Іздеу...">
+                                                    <a class="btn p-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="icon icon-tabler icon-tabler-search m-0" width="40"
+                                                            height="40" viewBox="0 0 24 24" stroke-width="2"
+                                                            stroke="#fff" fill="none" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                                                            <path d="M21 21l-6 -6"></path>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+										
+										<label class="homeTaskText"><h2>Қатысушылар</h2></label></br>
+		
+                          <div class="tbl">
+				<table class="participants">
+				<tr>
+				<td class="gr"><strong>Аты-жөні</strong></td>
+				<td class="gr"><strong>Электрондық пошта</strong></td>
+				<td class="gr"><strong>Тіркелу уақыты</strong></td>
+				<td class="gr"><strong>Статусы</strong></td>
+				<td class="gr"><strong></strong></td>
+				<td class="gr"><strong></strong></td>
+				</tr>
+				<tr>
+				<td class="gr">Омарова Аружан</td>
+				<td class="gr">omarova.aru@mail.ru</td>
+				<td class="gr">2023-12-09</td>
+				<td class="gr">Ұстаз</td>
+				<td class="gr">
+				<!-- Download SVG icon from http://tabler-icons.io/i/pencil -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="pens" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" /><line x1="13.5" y1="6.5" x2="17.5" y2="10.5" /></svg>
+				</td>
+				<td class="gr">
+				<!-- Download SVG icon from http://tabler-icons.io/i/x -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="xs" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+				</td>
+				
+				</tr>
+								<tr>
+				<td class="gr">Омарова Аружан</td>
+				<td class="gr">omarova.aru@mail.ru</td>
+				<td class="gr">2023-12-09</td>
+				<td class="gr">Ұстаз</td>
+				<td>
+				<!-- Download SVG icon from http://tabler-icons.io/i/pencil -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="pens" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" /><line x1="13.5" y1="6.5" x2="17.5" y2="10.5" /></svg>
+				</td>
+				<td class="gr">
+				<!-- Download SVG icon from http://tabler-icons.io/i/x -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="xs" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+				</td>
+				
+				</tr>
+								<tr>
+				<td class="gr">Арман Болатов</td>
+				<td class="gr">omarova.aru@mail.ru</td>
+				<td class="gr">2023-12-09</td>
+				<td class="gr">Оқушы</td>
+				<td>
+				<!-- Download SVG icon from http://tabler-icons.io/i/pencil -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="pens" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" /><line x1="13.5" y1="6.5" x2="17.5" y2="10.5" /></svg>
+				</td>
+				<td class="gr">
+				<!-- Download SVG icon from http://tabler-icons.io/i/x -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="xs" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+				</td>
+				
+				</tr>
+								<tr>
+				<td class="gr">Аяжан Аманова</td>
+				<td class="gr">omarova.aru@mail.ru</td>
+				<td class="gr">2023-12-09</td>
+				<td class="gr">Оқушы</td>
+				<td>
+				<!-- Download SVG icon from http://tabler-icons.io/i/pencil -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="pens" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" /><line x1="13.5" y1="6.5" x2="17.5" y2="10.5" /></svg>
+				</td>
+				<td class="gr">
+				<!-- Download SVG icon from http://tabler-icons.io/i/x -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"  id="xs" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+				</td>
+				
+				</tr>
+								<tr>
+				<td class="gr">Омарова Аружан</td>
+				<td class="gr">omarova.aru@mail.ru</td>
+				<td class="gr">2023-12-09</td>
+				<td class="gr">Ұстаз</td>
+				<td>
+				<!-- Download SVG icon from http://tabler-icons.io/i/pencil -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="pens" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" /><line x1="13.5" y1="6.5" x2="17.5" y2="10.5" /></svg>
+				</td>
+				<td class="gr">
+				<!-- Download SVG icon from http://tabler-icons.io/i/x -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="xs" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+				</td>
+				
+				</tr>
+								<tr>
+				<td class="gr">Еркін Аман</td>
+				<td class="gr">omarova.aru@mail.ru</td>
+				<td class="gr">2023-12-09</td>
+				<td class="gr">Ұстаз</td>
+				<td>
+				<!-- Download SVG icon from http://tabler-icons.io/i/pencil -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="pens" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" /><line x1="13.5" y1="6.5" x2="17.5" y2="10.5" /></svg>
+				</td>
+				<td class="gr">
+				<!-- Download SVG icon from http://tabler-icons.io/i/x -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="xs" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+				</td>
+				
+				</tr>				<tr>
+				<td class="gr">Омарова Аружан</td>
+				<td class="gr">omarova.aru@mail.ru</td>
+				<td class="gr">2023-12-09</td>
+				<td class="gr">Ұстаз</td>
+				<td>
+				<!-- Download SVG icon from http://tabler-icons.io/i/pencil -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="pens" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" /><line x1="13.5" y1="6.5" x2="17.5" y2="10.5" /></svg>
+				</td>
+				<td class="gr">
+				<!-- Download SVG icon from http://tabler-icons.io/i/x -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="xs" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+				</td>
+				
+				</tr>
+								<tr>
+				<td class="gr">Омарова Аружан</td>
+				<td class="gr">omarova.aru@mail.ru</td>
+				<td class="gr">2023-12-09</td>
+				
+				<td class="gr">Ұстаз</td>
+				<td>
+				<!-- Download SVG icon from http://tabler-icons.io/i/pencil -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="pens" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" /><line x1="13.5" y1="6.5" x2="17.5" y2="10.5" /></svg>
+				</td>
+				<td class="gr">
+				<!-- Download SVG icon from http://tabler-icons.io/i/x -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="xs" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+				</td>
+				
+				</tr>
+								
+				<td class="gr">Омарова Аружан</td>
+				<td class="gr">omarova.aru@mail.ru</td>
+				<td class="gr">2023-12-09</td>
+				<td class="gr">Ұстаз</td>
+				<td>
+				<!-- Download SVG icon from http://tabler-icons.io/i/pencil -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="pens" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" /><line x1="13.5" y1="6.5" x2="17.5" y2="10.5" /></svg>
+				</td>
+				<td class="gr">
+				<!-- Download SVG icon from http://tabler-icons.io/i/x -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="xs" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+				</td>
+				
+				</tr>
+								<tr>
+				<td class="gr">Омарова Аружан</td>
+				<td class="gr">omarova.aru@mail.ru</td>
+				<td class="gr">2023-12-09</td>
+				<td class="gr">Ұстаз</td>
+				<td>
+				<!-- Download SVG icon from http://tabler-icons.io/i/pencil -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="pens" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" /><line x1="13.5" y1="6.5" x2="17.5" y2="10.5" /></svg>
+				</td>
+				<td class="gr">
+				<!-- Download SVG icon from http://tabler-icons.io/i/x -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="xs" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+				</td>
+				
+				</tr>
+								<tr>
+				<td class="gr">Омарова Аружан</td>
+				<td class="gr">omarova.aru@mail.ru</td>
+				<td class="gr">2023-12-09</td>
+				<td class="gr">Ұстаз</td>
+				<td>
+				<!-- Download SVG icon from http://tabler-icons.io/i/pencil -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="pens" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" /><line x1="13.5" y1="6.5" x2="17.5" y2="10.5" /></svg>
+				</td>
+				<td class="gr">
+				<!-- Download SVG icon from http://tabler-icons.io/i/x -->
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" id="xs" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+				</td>
+				
+				</tr>
+			
+				
+				
+				</table>
+			
+				
+				</div>
+                        </div>
+                
+	
+    </div>
+	</div>
+	</div>
+	    	<div class="part2">
+	<div class="cal">
+		  <h2>Күнтізбе</h2>
+                            <div class="d-flex align-items-center justify-content-end">
+                                <div class="w-100 vanilla-calendar" id="calendar-kz-lang">
+
+                                </div>
+                            </div>
+		</div>
+	</div>
+
+    <!-- Libs JS -->
+    <script src="../Tabler/dist/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <!-- Tabler Core -->
+    <script src="../Tabler/dist/js/tabler.min.js"></script>
+    <script src="../Tabler/dist/js/demo.min.js"></script>
+    <script src="./calendar/vanilla-calendar.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

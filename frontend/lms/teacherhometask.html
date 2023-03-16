@@ -1,0 +1,425 @@
+<!doctype html>
+<!--
+* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
+* @version 1.0.0-beta5
+* @link https://tabler.io
+* Copyright 2018-2022 The Tabler Authors
+* Copyright 2018-2022 codecalm.net Paweł Kuna
+* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
+-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Dashboard - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <!-- CSS files -->
+    <link href="../Tabler/dist/css/tabler.min.css" rel="stylesheet" />
+    <link href="../Tabler/dist/css/tabler-flags.min.css" rel="stylesheet" />
+    <link href="../Tabler/dist/css/tabler-payments.min.css" rel="stylesheet" />
+    <link href="../Tabler/dist/css/tabler-vendors.min.css" rel="stylesheet" />
+    <link href="../Tabler/dist/css/demo.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="calendar/vanilla-calendar.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <h1 class="navbar-brand navbar-brand-autodark">
+                    <a href=".">
+                        <img src="./images/logo-light.svg" width="110" height="110" alt="Tabler"
+                            class="navbar-brand-image">
+                    </a>
+                </h1>
+                <div class="navbar-nav flex-row d-lg-none">
+                    <div class="nav-item dropdown d-none d-md-flex me-3">
+                        <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1"
+                            aria-label="Show notifications">
+                            <!-- Download SVG icon from http://tabler-icons.io/i/bell -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
+                                <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
+                            </svg>
+                            <span class="badge bg-red"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet
+                                    consectetur exercitationem fugiat in ipsa ipsum, natus odio quidem quod repudiandae
+                                    sapiente. Amet debitis et magni maxime necessitatibus ullam.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
+                            aria-label="Open user menu">
+                            <span class="avatar avatar-sm"
+                                style="background-image: url(../Tabler/static/avatars/000m.jpg)"></span>
+                            <div class="d-none d-xl-block ps-2">
+                                <div>Paweł Kuna</div>
+                                <div class="mt-1 small text-muted">UI Designer</div>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <a href="#" class="dropdown-item">Set status</a>
+                            <a href="#" class="dropdown-item">Profile & account</a>
+                            <a href="#" class="dropdown-item">Feedback</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="#" class="dropdown-item">Logout</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse py-4" id="navbar-menu">
+                    <ul class="navbar-nav pt-lg-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="teachermaterials.html">
+                                <span
+                                    class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-books"
+                                        width="40" height="40" viewBox="0 0 24 24" stroke-width="2"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path
+                                            d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z">
+                                        </path>
+                                        <path
+                                            d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z">
+                                        </path>
+                                        <path d="M5 8h4"></path>
+                                        <path d="M9 16h4"></path>
+                                        <path
+                                            d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z">
+                                        </path>
+                                        <path d="M14 9l4 -1"></path>
+                                        <path d="M16 16l3.923 -.98"></path>
+                                    </svg>
+                                </span>
+                                <span class="nav-link-title">
+                                    Курс материалдары
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span
+                                    class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                                    <svg width="23" height="34" viewBox="0 0 23 34" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_581_12)">
+                                            <path
+                                                d="M22.0195 2.44537H17.457C17.2745 2.23913 17.0522 2.07349 16.8041 1.95881C16.5559 1.84414 16.2872 1.7829 16.0147 1.7789H14.0243V1.43586C14.0243 0.641968 13.0628 0 11.909 0C10.7551 0 9.79358 0.641968 9.79358 1.43586V1.7789H7.808C7.53149 1.77951 7.25816 1.83912 7.00561 1.95391C6.75306 2.06869 6.5269 2.2361 6.34166 2.44537H0.985887C0.855559 2.442 0.725918 2.46571 0.60485 2.515C0.483782 2.5643 0.373813 2.63816 0.281628 2.73212C0.189442 2.82609 0.116967 2.93818 0.068606 3.06159C0.0202446 3.18499 -0.00299275 3.31713 0.000308297 3.44998V32.9905C-0.00299275 33.1233 0.0202446 33.2555 0.068606 33.3789C0.116967 33.5023 0.189442 33.6144 0.281628 33.7083C0.373813 33.8023 0.483782 33.8762 0.60485 33.9255C0.725918 33.9748 0.855559 33.9985 0.985887 33.9951H22.0195C22.1479 33.9951 22.2749 33.969 22.3931 33.9182C22.5114 33.8675 22.6185 33.7931 22.7081 33.6994C22.7977 33.6058 22.868 33.4948 22.9149 33.3731C22.9618 33.2513 22.9843 33.1213 22.9811 32.9905V3.44998C22.9812 3.18773 22.8806 2.93587 22.701 2.74815C22.5213 2.56044 22.2767 2.45177 22.0195 2.44537ZM21.0292 31.9859H1.97147V4.45949H5.90896C6.04153 4.85794 6.29319 5.2041 6.62862 5.44932C6.96404 5.69454 7.36638 5.82653 7.77916 5.82676H15.9859C16.398 5.82624 16.7996 5.69406 17.1342 5.44881C17.4688 5.20356 17.7196 4.85755 17.8513 4.45949H21.0195V31.9859H21.0292ZM4.64935 10.6146H19.1349V11.2859H4.63974L4.64935 10.6146ZM4.64935 12.962H19.1349V13.6333H4.63974L4.64935 12.962ZM4.64935 15.52H19.1349V16.1914H4.63974L4.64935 15.52ZM4.64935 17.8674H19.1349V18.5388H4.63974L4.64935 17.8674ZM16.9234 22.5327C14.683 24.3165 12.9378 26.5904 11.0724 28.7515C10.7744 29.0945 10.0436 29.5944 9.63012 29.1534C8.58685 28.0752 7.52915 26.9334 6.933 25.5318C6.4955 24.4929 8.33204 22.8267 8.81762 23.9735C9.26601 24.9533 9.8813 25.8443 10.6349 26.6051C12.3369 24.5958 14.0003 22.5719 16.0868 20.9303C17.3465 19.9109 17.9907 21.68 16.9138 22.5327H16.9234Z"
+                                                fill="#D2D3D5" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_581_12">
+                                                <rect width="23" height="34" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </span>
+                                <span class="nav-link-title">
+                                    Тестілеу
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item active" id="activeNavBar">
+                            <a class="nav-link active" href="teacherhometask.html" >
+                                <span
+                                    class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-file-pencil" width="40" height="40"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path color="white" stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path color="white" d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                        <path color="white"
+                                            d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z">
+                                        </path>
+                                        <path color="white" d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z"></path>
+                                    </svg>
+                                </span>
+                                <span class="nav-link-title">
+                                    Үй жұмыстары
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="teacherdiscuss.html">
+                                <span
+                                    class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/checkbox -->
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-messages" width="40" height="40"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10">
+                                        </path>
+                                        <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2"></path>
+                                    </svg>
+                                </span>
+                                <span class="nav-link-title">
+                                    Талқылау
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span
+                                    class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/file-text -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-code"
+                                        width="40" height="40" viewBox="0 0 24 24" stroke-width="2"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M7 8l-4 4l4 4"></path>
+                                        <path d="M17 8l4 4l-4 4"></path>
+                                        <path d="M14 4l-4 16"></path>
+                                    </svg>
+                                </span>
+                                <span class="nav-link-title">
+                                    Бағдарламалау тапсырмалары
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="main.html">
+                                <span
+                                    class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/checkbox -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout"
+                                        width="40" height="40" viewBox="0 0 24 24" stroke-width="2"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path
+                                            d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2">
+                                        </path>
+                                        <path d="M7 12h14l-3 -3m0 6l3 -3"></path>
+                                    </svg>
+                                </span>
+                                <span class="nav-link-title">
+                                    Шығу
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <!-- Page title -->
+
+            </div>
+            <div class="page-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col px-4">
+                            
+                            <div class="col">
+                                <div class="">
+                                    <div class="card-body">
+                                        <div class="row g-3 align-items-start">
+                                            <div class="col-auto">
+                                                <span class="avatar avatar-md avatar-rounded"
+                                                    style="background-image: url(../Tabler/static/avatars/007f.jpg)"></span>
+                                            </div>
+                                            <div class="col">
+                                                <h2 class="m-0">
+                                                    <a href="#">Ұстаз Ұстаз</a>
+                                                </h2>
+                                                <div class="text-muted">
+                                                    Алматы, Қазақстан
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="input-group mb-2 search-bar">
+                                                    <input type="text" class="form-control" placeholder="Іздеу...">
+                                                    <a class="btn p-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="icon icon-tabler icon-tabler-search m-0" width="40"
+                                                            height="40" viewBox="0 0 24 24" stroke-width="2"
+                                                            stroke="#fff" fill="none" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                                                            <path d="M21 21l-6 -6"></path>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+														<label class="homeTaskText"><h2>Үй жұмысы</h2></label></br>
+                            <div class="col mt-4">
+                                <ul class="nav nav-tabs" data-bs-toggle="tabs">
+                                    <li class="nav-item">
+                                        <a href="#tabs-home-9" class="nav-link active"
+                                            data-bs-toggle="tab"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                                            Тексеру
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#tabs-profile-9" class="nav-link"
+                                            data-bs-toggle="tab"><!-- Download SVG icon from http://tabler-icons.io/i/user -->
+                                            Қосу</a>
+                                    </li>
+                                </ul>
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active show" id="tabs-home-9">
+                                            <div class=" row row-cards">
+                                                <div class="col-12">
+                                          				 
+																	<table class="participants">
+				<tr>
+				<td class="gr"><strong>Тапсырманың атауы</strong></td>
+				<td class="gr"><strong>Басталу уақыты</strong></td>
+				<td class="gr"><strong>Аяқталу уақыты</strong></td>
+				<td class="gr"><strong>Жүктеме саны</strong></td>
+				<td class="gr"><strong></strong></td>
+								</tr>
+				<tr class="teacherTasks">
+				<td class="gr">Тест тапсырмаларын орындау</td>
+				<td class="gr">2023-03-12</td>
+				<td class="gr">2023-03-02</td>
+				<td class="gr">52</td>
+								<td class="gr">
+								<button class="seeResults">Тексеру</button>
+
+							</td>
+				
+				</tr>
+				<tr class="teacherTasks2">
+				<td class="gr">Практикалық жұмыс</td>
+				<td class="gr">2023-03-12</td>
+				<td class="gr">2023-03-02</td>
+				<td class="gr">102</td>
+								<td class="gr">
+								<a href="teacherpractice.html"><button class="seeResults2">Тексеру</button></a>
+
+							</td>
+				
+				</tr>
+				<tr class="teacherTasks2">
+				<td class="gr">Үй жұмысы</td>
+				<td class="gr">2023-03-12</td>
+				<td class="gr">2023-03-02</td>
+				<td class="gr">52</td>
+								<td class="gr">
+								<button class="seeResults2">Тексеру</button>
+
+							</td>
+				
+				</tr>
+				</table>
+                                                                
+														
+                                                 
+                                                </div>
+												
+											
+												
+												
+										
+                                               
+                                              
+                                            </div>
+                                        </div>
+										
+										
+                                        <div class="tab-pane" id="tabs-profile-9">
+                                            <div class="row row-cards">
+                                                                                              <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="row row-0">
+                                                          
+                                                            <div class="col">
+                                                                <div class="card-body">
+                                                               
+															  
+																  
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              
+                                              
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto right-sidebar">
+                            	<div class="part2">
+							   <h2>Күнтізбе</h2>
+	                         <div class="cal">
+		
+                            <div class="d-flex align-items-center justify-content-end">
+                                <div class="w-100 vanilla-calendar" id="calendar-kz-lang">
+
+                                </div>
+                            </div>
+		                        </div>
+	                            </div>
+                  
+                            <div class="card tasks">
+                                <div class="list-group list-group-flush overflow-auto" style="max-height: 70vh">
+                                    <div class="list-group-header sticky-top">Бүгін</div>
+                                    <div class="list-group-item">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <h2 class="text-reset mb-0">9:00</h2>
+                                            </div>
+                                            <div class="col-auto"><span class="badge bg-red"></span></div>
+                                            <div class="col text-truncate">
+                                                <a href="#" class="text-reset d-block">Информатика</a>
+                                                <div class="d-block text-muted text-truncate mt-n1">Тапсырмаларды
+                                                    тексеру</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+    <!-- Libs JS -->
+    <script src="../Tabler/dist/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <!-- Tabler Core -->
+    <script src="../Tabler/dist/js/tabler.min.js"></script>
+    <script src="../Tabler/dist/js/demo.min.js"></script>
+    <script src="./calendar/vanilla-calendar.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

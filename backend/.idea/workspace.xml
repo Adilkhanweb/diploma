@@ -5,36 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a0d89836-5d5f-42e4-b6c5-9381a0562cf4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/home/templates/problems/problem-detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/templates/problems/problems-list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/templates/problems/problems_base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/problems/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/backend.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9a36303d-4bcf-4500-bd67-0f74cea91088.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9a36303d-4bcf-4500-bd67-0f74cea91088.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/settings/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/migrations/0002_lesson_type.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/migrations/0003_assignment_assignmentsubmission.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/migrations/0004_assignmentsubmission_user_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/migrations/0005_alter_assignmentsubmission_files.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/migrations/0006_alter_assignmentsubmission_files.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/migrations/0007_alter_assignmentsubmission_files.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/migrations/0008_alter_assignmentsubmission_files.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/migrations/0009_assignmentsubmission_created_at.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/essay/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/templates/home/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/templates/home/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multichoice/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/multichoice/migrations/0002_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quiz/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quiz/migrations/0002_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/true_false/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0001_initial.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,20 +49,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/adilkhan/Projects/diploma/backend/core/settings/dev.py&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.django.DjangoModulesConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/LENOVO/Documents/GitHub/diploma/backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "com.jetbrains.django.DjangoModulesConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Adilkhan\Documents\GitHub\diploma\backend\course\templates" />

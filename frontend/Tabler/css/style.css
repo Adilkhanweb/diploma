@@ -1,0 +1,76 @@
+body{
+	background:#FBF7F0;
+}
+.logo{
+	width:150px;
+	margin-bottom:30px;
+}
+.logodiv{
+	text-align:center;
+}
+#buttonSubmit{
+	border-radius: 15px;
+	border: 1px solid #FF4B2B;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px 45px;
+	letter-spacing: 1px;
+	width:50%;
+	margin: 6px 0;
+}	
+#foot{
+	margin-top:-15px;
+	text-align:center;
+	margin-bottom:15px;
+}
+.mainContainer{
+	display:flex;
+}
+#container1{
+	
+	background:red;
+}
+form{
+     margin-left:20px;;
+}
+.container1{
+	position:relative;
+	
+	height: 50%;
+	width: 200%;
+	
+}
+
+
+
+
+
+.left{
+	
+	position:absolute;
+	bottom:-150px;
+	left:40px;
+	background:#FED88D;
+	width:300px;
+	height:300px;
+	
+
+}
+.texts{
+	position:relative;
+	top:40px;
+	left:10px;
+}
+
+.text1{
+	color:#0A4368;
+}
+.text2{
+	color:#FFFFFF;
+	
+}
+#registerFoot{
+	text-align:center;
+}
