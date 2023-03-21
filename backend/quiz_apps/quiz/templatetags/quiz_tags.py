@@ -1,4 +1,6 @@
+import humanize
 from django import template
+from humanize import naturaldelta, activate
 
 register = template.Library()
 
@@ -39,3 +41,12 @@ def split(value, key):
         Returns the value turned into a list.
     """
     return value.split(key)
+
+
+@register.filter
+def duration_humanize(duration):
+    """
+        Returns a humanized duration string.
+    """
+    humanize.i18n.activate(locale="kk_KZ", path="quiz_apps/locale/")
+    return naturaldelta(duration, months=False, minimum_unit='seconds')

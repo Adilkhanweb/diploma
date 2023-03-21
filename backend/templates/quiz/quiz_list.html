@@ -1,7 +1,7 @@
 {% extends 'base/content.html' %}
 {% block body %}
 
-    <h1>Quiz list</h1>
+    <h1>Тесттер</h1>
     <ul>
         {% for quiz in quizzes %}
             <li><a href="{% url 'quiz:quiz_detail' quiz.url %}">{{ quiz.title }}</a></li>

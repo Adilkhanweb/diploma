@@ -13,21 +13,131 @@
     </style>
 {% endblock %}
 {% block body %}
+    {% comment %}@todo{% endcomment %}
     <h1>Quiz Attempt</h1>
+    <h3 id="demo"></h3>
     {{ quiz.title }}
-    <form action="{% url 'quiz:submit' quiz.url %}" method="POST">
-        {% csrf_token %}
-        {% for form in forms %}
+    {% for form in forms %}
+        <form method="post" class="form-control question-form"
+              hx-post="{% url 'quiz:save' quiz.url form.attempt_question_id %}" hx-trigger="change"
+        >
             {% if form.figure %}
-                <img src="{{ form.figure }}" height="150px">
+                <img src="{{ form.figure.url }}" alt="" height="200px">
             {% endif %}
             {{ form.form.as_p }}
-        {% endfor %}
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+            <button class="btn btn-ghost-danger clear-choice-btn"
+                    hx-post="{% url 'quiz:save' quiz.url form.attempt_question_id %}" hx-trigger="click">Clear Choice
+            </button>
+        </form>
+
+    {% endfor %}
+    {% if page_obj.has_other_pages %}
+        <ul class="pagination ">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page{{ page_obj.previous_page_number }}" tabindex="-1"
+                       aria-disabled="true">
+                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                             stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M15 6l-6 6l6 6"></path>
+                        </svg>
+                        Алдыңғы
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1"
+                       aria-disabled="true">
+                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                             stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M15 6l-6 6l6 6"></path>
+                        </svg>
+                        Алдыңғы
+                    </a>
+                </li>
+            {% endif %}
+            {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                        Келесі <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                             stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M9 6l6 6l-6 6"></path>
+                        </svg>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        Келесі <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                             stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M9 6l6 6l-6 6"></path>
+                        </svg>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+    <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-danger">
+        Аяқтау
+    </a>
+    <div class="modal modal-blur fade" id="modal-danger" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24"
+                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 9v2m0 4v.01"></path>
+                        <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
+                    </svg>
+                    <h3>Сенімдісіз бе?</h3>
+                    <div class="text-muted">Сіз сынақты аяқтайын деп жатырсыз!
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
+                                Бас тарту
+                            </a></div>
+                            <div class="col"><a href="{% url 'quiz:submit_attempt' quiz.url attempt.id %}"
+                                                class="btn btn-danger w-100">
+                                Аяқтау
+                            </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block extrascripts %}
     <script>
+        {% comment %}@todo not working{% endcomment %}
         jQuery(function () {
             let max = 3;
             let min = 1;
@@ -39,5 +149,40 @@
                 checkboxes.filter(':not(:checked)').prop('disabled', current >= max);
             });
         });
+        $('.clear-choice-btn').click(function (e) {
+            e.preventDefault();
+            $(this).parent().find('input[type="checkbox"], input[type="radio"]').prop('checked', false);
+        });
     </script>
+    <script>
+        // Set the date we're counting down to Jan 5, 2024 15:37:25
+        var countDownDate = new Date("{{ quiz_end_time.isoformat }}").getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function () {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="demo"
+            document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+                + minutes + "m " + seconds + "s ";
+            // If the count down is finished, write some text
+            if (distance < 1) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "EXPIRED";
+                window.location.href = '{% url 'quiz:submit_attempt' quiz.url attempt.id %}';
+            }
+        }, 1000);
+    </script>
+
 {% endblock %}

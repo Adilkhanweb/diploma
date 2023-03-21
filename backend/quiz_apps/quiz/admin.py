@@ -56,31 +56,39 @@ class AttemptQuestionInline(admin.TabularInline):
 
 
 class AttemptAdmin(admin.ModelAdmin):
-    list_display = ('user', 'quiz', 'is_passed', 'percentage',)
+    list_display = ('user', 'quiz', 'is_passed', 'percentage', 'created_at', 'completed_at')
+    readonly_fields = ('created_at', 'completed_at')
     inlines = [AttemptQuestionInline, ]
 
 
 class AttemptQuestionAdmin(admin.ModelAdmin):
     # form = AttemptQuestionForm
     list_display = ('attempt', 'question', 'is_correct',)
+    list_filter = ('attempt', 'attempt__user')
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "given_answers":
             # Get the question id from the attempt question
             attempt_question_id = request.resolver_match.kwargs.get("object_id")
-            attempt_question = AttemptQuestion.objects.get(id=attempt_question_id)
-            question_id = attempt_question.question.id
+            if attempt_question_id:
+                attempt_question = AttemptQuestion.objects.get(id=attempt_question_id)
+                question_id = attempt_question.question.id
+                kwargs["queryset"] = Answer.objects.filter(question_id=question_id)
+            else:
+                kwargs["queryset"] = Answer.objects.all()
 
             # Filter the answers queryset based on the question id
-            kwargs["queryset"] = Answer.objects.filter(question_id=question_id)
         if db_field.name == "correct_answers":
             # Get the question id from the attempt question
             attempt_question_id = request.resolver_match.kwargs.get("object_id")
-            attempt_question = AttemptQuestion.objects.get(id=attempt_question_id)
-            question_id = attempt_question.question.id
-
+            if attempt_question_id:
+                attempt_question = AttemptQuestion.objects.get(id=attempt_question_id)
+                question_id = attempt_question.question.id
+                kwargs["queryset"] = Answer.objects.filter(question_id=question_id)
+            else:
+                kwargs["queryset"] = Answer.objects.all()
             # Filter the answers queryset based on the question id
-            kwargs["queryset"] = Answer.objects.filter(question_id=question_id)
+
         return super().formfield_for_manytomany(db_field, request, **kwargs)
 
 

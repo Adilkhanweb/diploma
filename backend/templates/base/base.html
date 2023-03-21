@@ -35,7 +35,7 @@
     {% block extracss %}
     {% endblock extracss %}
 </head>
-<body>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 {% block content %}
 {% endblock %}
 <!-- Libs JS -->
@@ -73,6 +73,12 @@
 
         calendar.render();
     });
+</script>
+<script src="https://unpkg.com/htmx.org@1.1.0"></script>
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
 </script>
 </body>
 </html>

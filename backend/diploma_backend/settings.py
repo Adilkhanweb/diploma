@@ -25,10 +25,12 @@ SECRET_KEY = 'django-insecure-ct4o%=1k(=^7=&*pt5zj916+yync&p#_94_)4rr_%n1rrj)f3u
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ["185.22.66.137", "joo-hs.jcloud.kz",]
 
 # Application definition
 
 INSTALLED_APPS = [
+    'formtools',
     'assignment',
     'course',
     'problems',
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.forms',
 ]
 
 MIDDLEWARE = [
@@ -117,7 +120,7 @@ TIME_ZONE = 'Asia/Almaty'
 USE_I18N = True
 
 USE_TZ = True
-
+LOCALE_PATHS = ('locale',)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 MEDIA_URL = "/media/"

@@ -11,6 +11,9 @@
     <div class="card p-3">
         {% for attemptquestion in attempt.attemptquestion_set.all %}
             <h5>{{ forloop.counter }}. {{ attemptquestion.question.content }}</h5>
+            {% if attemptquestion.question.figure %}
+                <img src="{{ attemptquestion.question.figure.url }}" alt="" width="200px">
+            {% endif %}
             {% if attemptquestion.is_correct %}
                 <div class="answers p-2">
                     {% for answer in attemptquestion.question.answers.all %}
@@ -22,6 +25,7 @@
                             {% endif %}
                         {% endfor %}
                     </p>
+                    <p class="text-success">Score: {{ attemptquestion.score }}</p>
                 </div>
             {% else %}
                 <div class="answers p-2">
@@ -29,11 +33,13 @@
                         <p class="{% if answer.correct %}text-success{% endif %}">{{ forloop.counter }}) {{ answer.content }}</p>
                     {% endfor %}
                     <p class="text-danger">Your answers: {% for given_answer in attemptquestion.given_answers.all %}
-                        {{ given_answer }}{% if not forloop.last %},
+                        <span class="{% if given_answer.correct %}text-success{% else %}text-danger{% endif %} ">{{ given_answer }}</span>{% if not forloop.last %},
                         {% endif %}
                     {% endfor %}
                     </p>
+                    <p class="text-danger">Score: {{ attemptquestion.score }}</p>
                 </div>
+                <p class="lead">Explanation: {{ attemptquestion.question.explanation }}</p>
             {% endif %}
         {% endfor %}
     </div>

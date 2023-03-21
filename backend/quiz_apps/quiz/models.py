@@ -4,6 +4,7 @@ import re
 from django.conf import settings
 from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.core.validators import MaxValueValidator, validate_comma_separated_integer_list
+from django.db.models import Sum, Max
 from django.urls import reverse
 from django.utils import timezone
 from model_utils.managers import InheritanceManager
@@ -89,9 +90,9 @@ class Quiz(models.Model):
             return questions.order_by('?')
         return questions
 
-    @property
-    def get_max_score(self):
-        return self.get_questions().count()
+    def get_max_scores(self):
+        scores = self.questions.aggregate(Sum('score'))['score__sum']
+        return scores
 
 
 class BaseQuestion(models.Model):
@@ -122,7 +123,7 @@ class BaseQuestion(models.Model):
                                    verbose_name=_('Explanation'))
 
     score = models.PositiveIntegerField(default=1)
-
+    correct_answers_count = models.PositiveIntegerField(default=1)
     objects = InheritanceManager()
 
     class Meta:

@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,17 +14,8 @@ class DashboardView(LoginRequiredMixin, View):
     template_name = "diploma_backend/dashboard.html"
 
     def get(self, request, *args, **kwargs):
-
-        book_form = LessonForm(request.GET, request.FILES, initial={"type": "book"})
-        lesson_form = LessonForm(request.GET, request.FILES, initial={"type": "lesson"})
-        if book_form.is_valid():
-            lesson = book_form.save(commit=False)
-            lesson.user = request.user
-            lesson.save()
-        if lesson_form.is_valid():
-            lesson = lesson_form.save(commit=False)
-            lesson.user = request.user
-            lesson.save()
+        book_form = LessonForm(initial={"type": "book"})
+        lesson_form = LessonForm(initial={"type": "lesson"})
         lessons = Lesson.objects.filter(type="lesson")
         books = Lesson.objects.filter(type="book")
         events = Event.objects.get_all_events()
@@ -47,8 +39,28 @@ def addBook(request):
         form = LessonForm(request.POST, request.FILES)
         if form.is_valid():
             lesson = form.save(commit=False)
+            lesson.type = "book"
             lesson.save()
+            return HttpResponseRedirect(request.path_info)
+        else:
+            print(form.errors)
             return redirect("dashboard")
     else:
         form = LessonForm()
-    return reverse("dashboard")
+    return redirect("dashboard")
+
+
+def addLesson(request):
+    if request.method == "POST":
+        form = LessonForm(request.POST, request.FILES)
+        if form.is_valid():
+            lesson = form.save(commit=False)
+            lesson.type = "lesson"
+            lesson.save()
+            return redirect("dashboard")
+        else:
+            print(form.errors)
+            return redirect("dashboard")
+    else:
+        form = LessonForm()
+    return redirect("dashboard")

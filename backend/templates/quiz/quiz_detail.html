@@ -1,30 +1,62 @@
 {% extends 'base/content.html' %}
+{% load quiz_tags %}
+{% load humanize %}
 {% block body %}
     <h1>{{ quiz.title }}</h1>
-    <h2>Are your Ready Testing?</h2>
     <p>{{ quiz.description }}</p>
-    <p>Start time: {{ quiz.start_time }}</p>
-    <p>End time: {{ quiz.end_time }}</p>
-    <p>Passing percentage: {{ quiz.pass_mark }}%</p>
-    <p>Question order: {% if quiz.random_order %}random {% else %}content{% endif %}</p>
-    <p>Maximum attempts allowed: {{ quiz.max_attempts }}</p>
-    <p>You spend: {{ quiz.attempts.count }}</p>
-    <p>{% if attempts %}
-        <h5>Your attempts:</h5>
-        <ul>
-            {% for attempt in attempts.all %}
-                <li>#{{ forloop.counter }}: {{ attempt.percentage }}%
-                    correct | {{ attempt.is_passed|yesno:"Passed, Failed" }}</li>
-            {% endfor %}
+    <p>Басталу Уақыты: {{ quiz.start_time|date:"d F, H:i" }}</p>
+    <p>Жабылу Уақыты: {{ quiz.end_time|date:"d F, H:i" }}</p>
+    <p>Уақыт Ұзақтығы: {{ quiz.duration|duration_humanize }}</p>
+    <p>Сәтті өту пайызы: {{ quiz.pass_mark }}%</p>
+    <p>Сұрақтар тәртібі: {% if quiz.random_order %}рандомды {% else %}тәртіппен{% endif %}</p>
+    <p>Максималды балл: {{ quiz.get_max_scores }}</p>
+    <p>Максималды әрекеттердің саны: {{ quiz.max_attempts }}</p>
+    {% widthratio quiz.attempts.count 1 -1 as opposite %}
+    <p>Жұмсалған әрекеттер саны: {{ quiz.attempts.count }} Қалғаны: {{ quiz.max_attempts|add:opposite }}</p>
+    {% if attempts %}
+        <h5>Жұмсалған Әрекеттер:</h5>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">% Дұрыс</th>
+                <th scope="col">Сәтті ме?</th>
+                <th scope="col">Күйі</th>
+                <th scope="col">Results</th>
+            </tr>
+            </thead>
+            <tbody>
 
-        </ul>
-    {% endif %} </p>
+            {% for attempt in attempts.all %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{% if attempt.status == 'attempted' %}
+                        {{ attempt.percentage }}%
+                    {% else %}
+                        Submit to view results for this attempt
+                    {% endif %}</td>
+                    <td>{% if attempt.status == 'attempted' %}
+                        {{ attempt.is_passed|yesno:"Сәтті, Сәтсіз" }}
+                    {% else %}
+                        Submit to view results for this attempt
+                    {% endif %}</td>
+                    <td>{{ attempt.get_status_display }}</td>
+                    <td>{% if attempt.status == 'attempted' %}
+                        <a href="{% url 'quiz:results' quiz.url attempt.id %}">Нәтижесін көру</a>
+                    {% else %}
+                        <a href="{% url 'quiz:attempt' quiz.url %}">Жалғастыру</a>
+                    {% endif %} </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
     {% if can_attempt %}
 
         <a class="btn btn-primary"
-           href="{% url 'quiz:attempt' quiz.url %}">Attempt</a>
+           href="{% url 'quiz:attempt' quiz.url %}">Тапсыру</a>
     {% else %}
         <a tabindex="-1" aria-disabled="true" role="button" data-bs-toggle="button" class="btn btn-primary disabled"
-           href="{% url 'quiz:attempt' quiz.url %}">Attempt</a>
+           href="{% url 'quiz:attempt' quiz.url %}">Тапсыру</a>
     {% endif %}
 {% endblock %}

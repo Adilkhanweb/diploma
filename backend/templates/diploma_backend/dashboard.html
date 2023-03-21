@@ -3,26 +3,57 @@
 {% block title %}
     Dashboard
 {% endblock %}
+{% block extracss %}
+
+
+    <script src="https://cdn.tiny.cloud/1/7td4b3p4zag9jdaz2ot398ds5hhtbq0x6u7z0aurdm6o8old/tinymce/6/tinymce.min.js"
+            referrerpolicy="origin"></script>
+    <style>
+        .file-upload {
+            height: 100%;
+            width: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 4px solid #FFFFFF;
+            overflow: hidden;
+            background-image: linear-gradient(to bottom, #2590EB 50%, #FFFFFF 50%);
+            background-size: 100% 200%;
+            color: #FFFFFF;
+            font-size: 100px;
+        }
+
+        .file-upload input[type=file] {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    </style>
+{% endblock %}
 {% block body %}
     <h1 class="py-3 px-2">Курс материалдары</h1>
-    <ul class="nav nav-tabs" data-bs-toggle="tabs">
+    <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a href="#tabs-home-9" class="nav-link active"
-               data-bs-toggle="tab">
+            <a href="#tab-lessons" class="nav-link active">
                 <!-- Download SVG icon from http://tabler-icons.io/i/home -->
                 Сабақтар
             </a>
         </li>
         <li class="nav-item">
-            <a href="#tabs-profile-9" class="nav-link"
-               data-bs-toggle="tab">
+            <a href="#tab-books" class="nav-link">
                 <!-- Download SVG icon from http://tabler-icons.io/i/user -->
                 Оқулықтар</a>
         </li>
     </ul>
     <div class="card-body">
         <div class="tab-content">
-            <div class="tab-pane active show" id="tabs-home-9">
+            <div class="tab-pane active" id="tab-lessons">
                 <div class=" row row-cards">
                     {% for lesson in lessons %}
                         <div class="col-12">
@@ -36,7 +67,7 @@
                                     </div>
                                     <div class="col">
                                         <div class="card-body">
-                                            <p class="text-muted">#{{ forloop.counter }}
+                                            <p class="text-muted">№ {{ forloop.counter }}
                                                 Сабақ</p>
                                             <h2 class="card-title"><a
                                                     href="{{ lesson.document.url }}"
@@ -49,14 +80,39 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <form action="{% url 'addbook' %}" method="post" enctype="multipart/form-data">
+
+                    <form class="col-12" action="{% url 'addlesson' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{ book_form.as_p }}
-                        <button type="submit">Submit</button>
+                        {{ lesson_form.type }}
+                        <div class="card">
+                            <div class="row row-0">
+                                <div class="col-4">
+                                    <div class="file-upload">
+                                        <input type="file" name="banner"/>
+                                        <i class="fa fa-arrow-up"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card-body">
+                                        <p class="text-muted">№ {{ lessons.count|add:1 }} Сабақ</p>
+                                        <div class="mb-1">
+                                            <label class="form-label">{{ book_form.title }}</label>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label class="form-label">{{ book_form.description }}</label>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label class="form-label">{{ book_form.document }}</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-sm text-right">Сақтау</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
-            <div class="tab-pane" id="tabs-profile-9">
+            <div class="tab-pane" id="tab-books">
                 <div class="row row-cards">
                     {% for book in books %}
                         <div class="col-lg-4 col-md-4 col-6">
@@ -67,15 +123,72 @@
                                 </div>
                                 <div class="card-body">
                                     <h3 class="card-title"><a
-                                            href="{{ book.document.url }}">{{ book.title }}</a>
+                                            href="{{ book.document.url }}" target="_blank">{{ book.title }}</a>
                                     </h3>
                                     <p class="text-muted">{{ book.description|safe }}</p>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
+                    <form class="col-12" action="{% url 'addbook' %}" method="post"
+                          enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ book_form.type }}
+                        <div class="card">
+                            <div class="row row-0">
+                                <div class="col-4">
+                                    <div class="file-upload">
+                                        <input type="file" name="banner"/>
+                                        <i class="fa fa-arrow-up"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card-body">
+                                        <div class="mb-1">
+                                            <label class="form-label">{{ book_form.title }}</label>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label class="form-label">{{ book_form.description }}</label>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label class="form-label">{{ book_form.document }}</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-sm text-right">Сақтау</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+{% block extrascripts %}
+    <script>
+
+        tinymce.init({
+            height: '160',
+            selector: '#add-lesson-textarea',
+            menu: false,
+            menubar: '',
+            plugins: 'autolink charmap emoticons link lists',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+        });
+
+        $(function () {
+            var hash = window.location.hash;
+            hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+            $('.nav-tabs a').click(function (e) {
+                $(this).tab('show');
+                var scrollmem = $('body').scrollTop() || $('html').scrollTop();
+                window.location.hash = this.hash;
+                $('html,body').scrollTop(scrollmem);
+            });
+        });
+        $('.nav-tabs a').click(function (e) {
+            $(this).tab('show');
+        });
+
+    </script>
 {% endblock %}
