@@ -17,4 +17,4 @@ class Leaderboard(models.Model):
         return self.user.username + " in " + self.quiz.title
 
     class Meta:
-        ordering = ["-quiz_created_at", "-score"]
+        ordering = ["-quiz__start_time", "-score"]
