@@ -32,3 +32,6 @@ class AssignmentSubmission(models.Model):
 
     def filename(self):
         return os.path.basename(self.files.name)
+
+    def __str__(self):
+        return self.assignment.title

@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth import get_user_model
+from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 from quiz_apps.quiz.models import BaseQuestion, Quiz
@@ -65,6 +66,11 @@ class Answer(models.Model):
 
 
 class Attempt(models.Model):
+    class AttemptStatus(models.TextChoices):
+        ATTEMPTED = "attempted", _("Attempted")
+        ATTEMPTING = "attempting", _("Attempting")
+        NOT_ATTEMPTED = "not", _("NotAttempted")
+
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="attempts")
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="attempts")
     found_questions = models.ManyToManyField(BaseQuestion, related_name="found_questions")
@@ -72,14 +78,26 @@ class Attempt(models.Model):
     percentage = models.PositiveBigIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=20, choices=AttemptStatus.choices, default=AttemptStatus.NOT_ATTEMPTED)
+    completed_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.quiz.title} {self.user.first_name}"
+        return f"{self.quiz.title} {self.user.first_name} {self.id}"
+
+    def get_attempt_score(self):
+        scores = self.attemptquestion_set.aggregate(Sum('score'))['score__sum']
+        return scores
 
 
 class AttemptQuestion(models.Model):
     attempt = models.ForeignKey(Attempt, on_delete=models.CASCADE)
-    question = models.ForeignKey(BaseQuestion, on_delete=models.CASCADE)
-    given_answers = models.ManyToManyField(Answer, related_name="given_answers")
-    correct_answers = models.ManyToManyField(Answer, related_name="correct_answers")
+    question = models.ForeignKey(BaseQuestion, on_delete=models.CASCADE, blank=True, null=True)
+    given_answers = models.ManyToManyField(Answer, related_name="given_answers", blank=True, null=True)
+    correct_answers = models.ManyToManyField(Answer, related_name="correct_answers", blank=True, null=True)
     is_correct = models.BooleanField(default=False)
+    score = models.PositiveSmallIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.question.content}"

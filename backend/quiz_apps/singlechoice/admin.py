@@ -2,11 +2,13 @@ from django.contrib import admin
 from django import forms
 
 from quiz_apps.multiplechoice.models import Answer
+from quiz_apps.quiz.models import BaseQuestion
 from quiz_apps.singlechoice.models import Choice
 
 
 # Register your models here.
 class SingleCorrectAnswerInlineFormset(forms.models.BaseInlineFormSet):
+
     def clean(self):
         # get forms that actually have valid data
         correct_answers = 0
@@ -38,11 +40,12 @@ class SingleCorrectAnswerInline(admin.TabularInline):
 
 
 class ChoiceAdmin(admin.ModelAdmin):
-    list_display = ('content',)
+    list_display = ('content', 'score')
     fields = ('content',
-              'figure', 'quiz', 'explanation', 'answer_order')
+              'figure', 'quiz', 'explanation', 'answer_order', 'score', 'correct_answers_count')
 
     search_fields = ('content', 'explanation')
+    readonly_fields = ('score', 'correct_answers_count')
     filter_horizontal = ('quiz',)
 
     inlines = [SingleCorrectAnswerInline]

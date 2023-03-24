@@ -1,0 +1,34 @@
+{% extends 'base/content.html' %}
+{% block extracss %}
+    <style>
+        /*
+        form > ul {
+            list-style: circled-alpha;
+        } */
+        form > ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    {% for form in forms %}
+        <form method="post" class="form-control" action="{% url 'quiz:save' quiz.url form.1 %}">
+            {% csrf_token %}
+            {{ form.0.as_p }}
+            <button type="submit" class="btn btn-light">Save Choice</button>
+        </form>
+    {% endfor %}
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+
+    <a href="{% url 'quiz:submit_attempt' quiz.url attempt.id %}" class="btn btn-primary">Submit</a>
+{% endblock %}
+{% block extrascripts %}
+{% endblock %}

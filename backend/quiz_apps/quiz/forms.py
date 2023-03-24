@@ -1,4 +1,8 @@
 from django import forms
+from django.forms import BaseFormSet
+
+from quiz_apps.multiplechoice.models import AttemptQuestion, Answer
+from quiz_apps.quiz.models import BaseQuestion
 
 
 # class ChoiceForm(forms.ModelForm):
@@ -35,3 +39,28 @@ class QuestionForm(forms.Form):
             self.fields['answers'] = forms.ModelChoiceField(widget=forms.RadioSelect, queryset=question.answers,
                                                             required=False)
             self.fields["answers"].label = question.content
+
+
+class AttemptQuestionForm(forms.ModelForm):
+    def __init__(self, instance, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if instance.question.answers.count() > 4:
+            self.fields['given_answers'] = forms.ModelMultipleChoiceField(
+                widget=forms.CheckboxSelectMultiple(
+                    attrs={}),
+                queryset=instance.question.answers, initial=list(map(lambda x: x.id, instance.given_answers.all())))
+            self.fields["given_answers"].label = instance.question.content
+
+        else:
+            self.fields['given_answers'] = forms.ModelChoiceField(widget=forms.RadioSelect,
+                                                                  queryset=instance.question.answers,
+                                                                  initial=list(map(lambda x: x.id,
+                                                                                   instance.given_answers.all())),
+                                                                  required=False)
+            self.fields["given_answers"].label = instance.question.content
+
+    # given_answers = forms.ModelMultipleChoiceField(queryset=Answer.objects.all(), widget=forms.CheckboxSelectMultiple())
+
+    class Meta:
+        model = AttemptQuestion
+        fields = ('given_answers',)

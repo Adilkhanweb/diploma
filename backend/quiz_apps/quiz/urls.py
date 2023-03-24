@@ -11,5 +11,7 @@ urlpatterns = [
     path('<slug:url>/', quiz_detail, name="quiz_detail"),
     path('<slug:url>/attempt/', attempt, name="attempt"),
     path('<slug:url>/submit/', submit, name="submit"),
+    path('<slug:url>/<int:id>/save/', save_question, name="save"),
     path('<slug:url>/results/<int:attempt_id>/', results, name="results"),
+    path('<slug:url>/<int:attempt_id>/submit_attempt/', submit_attempt, name="submit_attempt"),
 ]
