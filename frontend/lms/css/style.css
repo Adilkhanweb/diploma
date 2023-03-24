@@ -435,4 +435,82 @@
 .profileDiv{
 	margin-top:20px;
 }
+#homePageText{
+	font-size:18px;
+	color:#0A4368;
 	
+}
+#homePageText1{
+			color:#0A4368;
+			margin-top:12px;
+			
+		}
+#homePageText2{
+			color:#0A4368;
+			
+		}
+#profileHeader{
+	font-size:36px;
+}		
+#profileHeader1{
+	font-size:25px;
+		margin-bottom:120px;
+}
+#homePageBody{
+	text-align:center;
+
+}
+#profileHeader3{
+	font-size:30px;
+	margin:45px;
+}	
+.registerDiv{
+		text-align:center;
+	display:flex;
+	background:red;
+	width:70%;
+}	
+.registerDiv1{
+		text-align:center;
+	
+	
+}
+.divHomeRegister{
+	display:flex;
+	text-align:center;
+	align-items: center;
+	justify-content: center;
+
+
+}
+.bt{
+	border-radius: 15px;
+	border: 1px solid #FF4B2B;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px 45px;
+	letter-spacing: 1px;
+	width:50%;
+	margin:20px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+.divHomeRegister2{
+	padding:20px;
+	width:320px;
+	
+}
+.imgHome{
+	width:600px;
+}
+#inputHomePage{
+	background:#D9D9D9;
+}
+#homeLable{
+	text-align:left;
+}
+#homeFooter{
+	text-align:center;
+}
