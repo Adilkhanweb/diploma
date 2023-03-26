@@ -1,0 +1,22 @@
+{% load widget_tweaks %}
+<form class="d-flex align-items-center gap-2"
+      hx-post="" hx-encoding="multipart/form-data">
+    <label class="avatar avatar-upload rounded profile-avatar" id="output-box"
+           style="background: url('{{ profile.picture.url }}') no-repeat; background-size: cover;
+                   height: 8rem; width: 8rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+             viewBox="0 0 24 24" stroke-width="2" stroke="white" fill="none"
+             stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 5l0 14"></path>
+            <path d="M5 12l14 0"></path>
+        </svg>
+        {#                            <span class="avatar-upload-text text-white">Add</span>#}
+        {% render_field profile_form.picture class="d-none" %}
+    </label>
+    <div class="col-auto">
+        <button class="btn">
+            Өзгерту
+        </button>
+    </div>
+</form>
