@@ -1,8 +1,11 @@
+from datetime import datetime
+
 from calendarapp.models import Event
 
 
 def all_events(request):
     events = Event.objects.get_all_events()
+    running_events = Event.objects.get_running_events()
     event_list = []
     for event in events:
         if not event.start_time:
@@ -26,4 +29,4 @@ def all_events(request):
                     "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
                 }
             )
-    return {"all_events": event_list}
+    return {"all_events": event_list, "events_obj": events, 'running_events': running_events}

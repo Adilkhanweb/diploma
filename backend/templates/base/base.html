@@ -24,9 +24,13 @@
     <link href="{% static 'Tabler/dist/css/tabler-payments.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'Tabler/dist/css/tabler-vendors.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'Tabler/dist/css/demo.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <link rel="stylesheet" href="{% static 'calendar/vanilla-calendar.min.css' %}"/>
     <link href="{% static 'calender/main.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/core.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
     <!-- Main CSS-->
     {#    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"/>#}
     <!-- Font-icon css-->
@@ -43,10 +47,9 @@
 {% block extrascripts %}
 {% endblock extrascripts %}
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var calendarEl = document.getElementById('calendar-tasks');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+    document.addEventListener('DOMContentLoaded', () => {
+        let calendarEl = document.getElementById('calendar-tasks');
+        let calendar = new FullCalendar.Calendar(calendarEl, {
             timeZone: 'Asia/Almaty',
             initialView: 'listDay',
             locale: 'kk',
@@ -56,29 +59,14 @@
             // dayNamesShort: ['Же', 'Дү', 'Сй', 'Сә', 'Бе', 'Жұ', 'Се'],
             // customize the button names,
             // otherwise they'd all just say "list"
-            views: {
-                listDay: {buttonText: 'Бүгінгі'},
-                listWeek: {buttonText: 'Апталық'},
-                listMonth: {buttonText: 'Ай'}
-            },
             height: "56vh",
-            headerToolbar: {
-                left: '',
-                right: '',
-                center: 'listDay,listWeek,listMonth'
-            },
-            {#events: 'https://fullcalendar.io/api/demo-feeds/events.json'#}
+            {#events: 'https://fullcalendar.io/api/demo-feeds/events.json',#}
             events: {{ all_events|safe }}
         });
 
         calendar.render();
     });
 </script>
-<script src="https://unpkg.com/htmx.org@1.1.0"></script>
-<script>
-    document.body.addEventListener('htmx:configRequest', (event) => {
-        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
-    })
-</script>
+
 </body>
 </html>

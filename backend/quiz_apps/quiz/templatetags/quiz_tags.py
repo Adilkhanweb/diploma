@@ -1,28 +1,10 @@
 import humanize
 from django import template
-from humanize import naturaldelta, activate
+from humanize import naturaldelta, activate, naturaltime, naturaldate
+
+from problems.models import Submission
 
 register = template.Library()
-
-
-@register.inclusion_tag('correct_answer.html', takes_context=True)
-def correct_answer_for_all(context, question):
-    """
-    processes the correct answer based on a given question object
-    if the answer is incorrect, informs the user
-    """
-    answers = question.get_answers()
-    incorrect_list = context.get('incorrect_questions', [])
-    if question.id in incorrect_list:
-        user_was_incorrect = True
-    else:
-        user_was_incorrect = False
-    for ans in answers:
-        print(ans.id)
-    print(type(question.user_answer))
-    print(question.user_answer)
-    return {'previous': {'answers': answers},
-            'user_was_incorrect': user_was_incorrect, 'guess': int(question.user_answer)}
 
 
 @register.filter
@@ -50,3 +32,20 @@ def duration_humanize(duration):
     """
     humanize.i18n.activate(locale="kk_KZ", path="quiz_apps/locale/")
     return naturaldelta(duration, months=False, minimum_unit='seconds')
+
+
+@register.filter
+def naturaltime_humanize(date):
+    humanize.i18n.activate(locale="kk_KZ", path="quiz_apps/locale/")
+    naive = date.replace(tzinfo=None)
+    return naturaltime(value=naive)
+
+
+@register.filter
+def problem_is_accepted(problem, user):
+    return Submission.objects.filter(problem=problem, user=user, is_accepted=True).exists()
+
+
+@register.filter(name='has_group')
+def has_group(user, group_name):
+    return user.groups.filter(name=group_name).exists()

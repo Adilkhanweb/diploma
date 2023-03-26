@@ -2,6 +2,7 @@ from django.shortcuts import render
 import judge0api as api
 
 from .models import *
+from django.conf import settings
 
 STATUSES = [
     {
@@ -78,11 +79,12 @@ def problem_detail(request, slug):
 
 def submit(request, slug):
     problem = Problem.objects.get(slug=slug)
-    client = api.Client("http://localhost:2358")
+    client = api.Client(settings.JUDGE0_API_URL)
     client.wait = True
     testcase_statuses = []
     times = []
     memories = []
+    success_tc = 0
     if request.method == 'POST':
         code = request.POST.get('code')
         for testcase in problem.testcases.all():
@@ -95,7 +97,7 @@ def submit(request, slug):
             submission.load(client)
             times.append(float(submission.time))
             memories.append(submission.memory)
-
+            success_tc += 1 if submission.status['id'] == 3 else 0
             stdout = ""
             if submission.stdout is not None:
                 stdout = submission.stdout.decode("utf-8")
@@ -112,16 +114,14 @@ def submit(request, slug):
                      "output": stdout,
                      "expected_output": submission.expected_output.decode('utf-8')})
 
-        is_accepted = False
-        print(testcase_statuses)
-        # for status in testcase_statuses:
-        #     if status['id'] == 3:
-        #         is_accepted = True
-        #     else:
-        #         is_accepted = False
-        #         break
+        is_accepted = True
+        for testcase in testcase_statuses:
+            if testcase['status']['id'] != 3:
+                is_accepted = False
+                break
         code_submission = Submission(user=request.user, problem=problem, source_code=code, is_accepted=is_accepted,
-                                     avg_time=(sum(times) / len(times)), avg_memory=(sum(memories) / len(memories)))
+                                     avg_time=(sum(times) / len(times)), success_testcases=success_tc,
+                                     avg_memory=(sum(memories) / len(memories)))
         code_submission.save()
         return render(request, "problems/problem-detail.html",
                       {'problem': problem, 'statuses': testcase_statuses, 'code': code, })

@@ -47,9 +47,6 @@ class User(AbstractUser):
     def __str__(self):
         return self.get_full_name() + ' ' + self.email
 
-    def get_full_name(self):
-        return self.first_name + ' ' + self.last_name
-
 
 class StudentManager(UserManager):
     def get_queryset(self, *args, **kwargs):

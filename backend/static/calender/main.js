@@ -9901,7 +9901,7 @@ var FullCalendar = (function (exports) {
                 return false;
             }
             // testing scrollWidth>clientWidth is unreliable cross-browser when pixel heights aren't integers.
-            // much more reliable to see if children are taller than the scroller, even tho doesn't account for
+            // much more reliable to see if children are taller than the scroller, even tho doesn't users for
             // inner-child margins and absolute positioning
             var el = this.el;
             var realClientWidth = this.el.getBoundingClientRect().width - this.getYScrollbarWidth();
@@ -9919,7 +9919,7 @@ var FullCalendar = (function (exports) {
                 return false;
             }
             // testing scrollHeight>clientHeight is unreliable cross-browser when pixel heights aren't integers.
-            // much more reliable to see if children are taller than the scroller, even tho doesn't account for
+            // much more reliable to see if children are taller than the scroller, even tho doesn't users for
             // inner-child margins and absolute positioning
             var el = this.el;
             var realClientHeight = this.el.getBoundingClientRect().height - this.getXScrollbarWidth();

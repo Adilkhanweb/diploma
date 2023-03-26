@@ -1,6 +1,6 @@
 from django.db import models
 
-from account.models import User
+from users.models import User
 from calendarapp.models import Event, EventAbstract
 
 

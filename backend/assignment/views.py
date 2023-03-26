@@ -1,11 +1,12 @@
 import datetime
 
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 
 from .models import Assignment, AssignmentSubmission
-from .forms import AssignmentSubmissionForm
+from .forms import AssignmentSubmissionForm, AssignmentForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -27,10 +28,12 @@ def assignment_details(request, assignment_id):
     })
 
 
+@login_required
 def assignments(request):
     assignments = Assignment.objects.filter(deadline__gt=datetime.datetime.now())
     context = {
-        "assignments": assignments
+        "assignments": assignments,
+        "form": AssignmentForm()
     }
 
     return render(request, "assignment/assignment_list.html", context)
@@ -41,3 +44,19 @@ def delete_file(request, submission_id):
     assignment = file.assignment
     file.delete()
     return redirect('assignments:assignment_detail', assignment.id)
+
+
+def add_assignment(request):
+    if request.method == "POST":
+        form = AssignmentForm(request.POST)
+        if form.is_valid():
+            assignment = form.save(commit=False)
+            assignment.user = request.user
+            assignment.save()
+            return render(request, "assignment/partials/assinments-list.html",
+                          {'assignments': Assignment.objects.filter(deadline__gt=datetime.datetime.now())})
+        else:
+            print(form.errors)
+            return HttpResponse(status=400)
+    else:
+        return HttpResponse(status=405)

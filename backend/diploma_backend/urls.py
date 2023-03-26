@@ -11,14 +11,16 @@ urlpatterns = [
     path("addbook/", addBook, name="addbook"),
     path("addlesson/", addLesson, name="addlesson"),
     path('admin/', admin.site.urls),
-    path('', include('account.urls')),
+    path('', include('users.urls')),
     path('quiz/', include('quiz_apps.quiz.urls')),
     path("", include("calendarapp.urls")),
     path("problems/", include("problems.urls")),
     path("assignments/", include("assignment.urls")),
+    path('accounts/', include('allauth.urls')),
 
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# handler404 = 'account.views.page_not_found'
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+handler404 = 'diploma_backend.views.handler404'
+handler500 = 'diploma_backend.views.handler500'

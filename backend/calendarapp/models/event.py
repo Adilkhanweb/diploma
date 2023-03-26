@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 
 from calendarapp.models import EventAbstract
-from account.models import User
+from users.models import User
 
 
 class EventManager(models.Manager):
@@ -22,7 +22,8 @@ class EventManager(models.Manager):
         return running_events
 
     def get_events(self):
-        events = Event.objects.filter(is_active=True, is_deleted=False, start_time__gte=datetime.now())
+        events = Event.objects.filter(is_active=True, is_deleted=False, start_time__lte=datetime.now(), end_time__gte=datetime.now())
+        return events
 
 
 class Event(EventAbstract):

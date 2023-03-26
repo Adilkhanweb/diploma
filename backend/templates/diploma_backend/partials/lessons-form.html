@@ -1,0 +1,39 @@
+{% load widget_tweaks %}
+{% load quiz_tags %}
+{% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" %}
+    <form class="col-12 mb-3" method="post" hx-encoding="multipart/form-data"
+          hx-post="{% url 'addlesson' %}" hx-target="#lessons">
+        {{ lesson_form.type }}
+        <div class="card">
+            <div class="row row-0">
+                <div class="col-4">
+                    <div class="file-upload">
+                        <input type="file" name="banner"/>
+                        <i class="fa fa-arrow-up"></i>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card-body">
+                        <div class="mb-1">
+                            <label class="form-label">{% render_field lesson_form.title class="form-control" %}</label>
+                        </div>
+                        <div class="mb-1">
+                            <label class="form-label">{{ lesson_form.description }}</label>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-1">
+                                    <label class="form-label">{{ lesson_form.document }}</label>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary text-right">Сақтау
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endif %}

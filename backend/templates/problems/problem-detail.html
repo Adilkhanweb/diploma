@@ -1,4 +1,5 @@
 {% extends 'base/content.html' %}
+{% load quiz_tags %}
 {% block extracss %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"
           integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ=="
@@ -10,49 +11,62 @@
 {% endblock %}
 {% block body %}
     <h1><a href="{% url 'problems:problem-detail' problem.slug %}">
-        {{ problem.title }}{% if is_accepted %} (Шешілді){% endif %}</a></h1>
-
+        {{ problem.title }}</a> {% if problem|problem_is_accepted:request.user %}
+        <span class="badge bg-green">Шешілген</span>{% endif %}</h1>
     <div class="row">
-        <div class="col col-md-4" id="desc_collapse">
-            <card class="card-body">
-                <h4>Сипаттама:</h4>
-                <p>{{ problem.description|safe }}</p>
-                <h4>Түсіндірме:</h4>
-                <p>{{ problem.explanation|safe }}</p>
-            </card>
+    <div class="col col-md-4" id="desc_collapse">
+        <div class="card-body">
+            <h4>Қиындығы: {% if problem.difficulty == 1 %}
+                <span class="badge bg-teal">{{ problem.get_difficulty_display }}</span>
+            {% elif problem.difficulty == 2 %}
+                <span class="badge bg-yellow">{{ problem.get_difficulty_display }}</span>
+            {% elif problem.difficulty == 3 %}
+                <span class="badge bg-danger">{{ problem.get_difficulty_display }}</span>
+            {% endif %} </h4>
+            <h4>Сипаттама:</h4>
+            <p>{{ problem.description|safe }}</p>
+            <h4>Мысал:</h4>
+            <h5>Кіріс деректері</h5>
+            <p>{{ problem.ex_input }}</p>
+            <h5>Шығу деректері</h5>
+            <p>{{ problem.ex_output }}</p>
+            <h5>Мысал түсіндірмесі</h5>
+            <p>{{ problem.ex_description }}</p>
         </div>
-        <div class="col col-md-8">
-            <form id="form_code" action="{% url 'problems:submit' problem.slug %}" method="post" class="form-row">
-                {% csrf_token %}
-                {% if code %}
-                    <textarea class="form-control" name="code" id="id_code" required>{{ code }}</textarea>
-                {% elif problem.submission_set.exists %}
-                    <textarea class="form-control" name="code" id="id_code"
-                              required>{{ problem.submission_set.last.source_code }}</textarea>
-                {% elif problem.base_code %}
-                    <textarea class="form-control" name="code" id="id_code" required>{{ problem.base_code }}</textarea>
-                {% endif %}
-                <div class="row">
-                    <div class="col mt-4">
+    </div>
+    <div class="col col-md-8">
+        <form id="form_code" action="{% url 'problems:submit' problem.slug %}" method="post" class="form-row">
+            {% csrf_token %}
+            {% if code %}
+                <textarea class="form-control" name="code" id="id_code" required>{{ code }}</textarea>
+            {% elif problem.submission_set.exists %}
+                <textarea class="form-control" name="code" id="id_code"
+                          required>{{ problem.submission_set.last.source_code }}</textarea>
+            {% elif problem.base_code %}
+                <textarea class="form-control" name="code" id="id_code" required>{{ problem.base_code }}</textarea>
+            {% else %}
+                <textarea class="form-control" name="code" id="id_code" required></textarea>
+            {% endif %}
+            <div class="row">
+                <div class="col mt-4">
                             <textarea class="form-control" name="test" id="id_test" rows="1"
                                       placeholder="Test Input:">{% if input %}{{ input }}{% endif %}</textarea>
-                        {% if output %}
-                            <h4 class="mt-2">Output:</h4>
-                            <pre><code>{{ output }}</code></pre>
-                        {% endif %}
-                    </div>
-                    <div class="col col-auto">
-                        <button type="submit" class="btn btn-primary mt-4 float-end ms-3">Submit code</button>
-                        <button type="submit" class="btn btn-outline-success mt-4 float-end ms-3" id="run-tests-btn"
-                                data-action="{% url 'problems:run_tests' problem.slug %}">Run Tests
-                        </button>
-                        <button type="submit" class="btn btn-secondary mt-4 float-end ms-3" id="run-test-btn"
-                                data-action="{% url 'problems:test' problem.slug %}">Test
-                        </button>
-                    </div>
+                    {% if output %}
+                        <h4 class="mt-2">Output:</h4>
+                        <pre><code>{{ output }}</code></pre>
+                    {% endif %}
                 </div>
-            </form>
-        </div>
+                <div class="col col-auto">
+                    <button type="submit" class="btn btn-primary mt-4 float-end ms-3">Жіберу</button>
+                    <button type="submit" class="btn btn-outline-success mt-4 float-end ms-3" id="run-tests-btn"
+                            data-action="{% url 'problems:run_tests' problem.slug %}">Тесттерден өткізу
+                    </button>
+                    <button type="submit" class="btn btn-secondary mt-4 float-end ms-3" id="run-test-btn"
+                            data-action="{% url 'problems:test' problem.slug %}">Тексеру
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 
 

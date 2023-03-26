@@ -1,16 +1,17 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django.views.generic import View
+from django.views.generic import View, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 
 from calendarapp.models import Event
 from course.models import Lesson
 from diploma_backend.forms import LessonForm
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 
 class DashboardView(LoginRequiredMixin, View):
-    login_url = "account:signin"
+    login_url = "users:signin"
     template_name = "diploma_backend/dashboard.html"
 
     def get(self, request, *args, **kwargs):
@@ -34,6 +35,8 @@ class DashboardView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
 
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Teacher').count() == 0, login_url='users:signin')
 def addBook(request):
     if request.method == "POST":
         form = LessonForm(request.POST, request.FILES)
@@ -41,15 +44,14 @@ def addBook(request):
             lesson = form.save(commit=False)
             lesson.type = "book"
             lesson.save()
-            return HttpResponseRedirect(request.path_info)
-        else:
-            print(form.errors)
-            return redirect("dashboard")
+            return render(request, "diploma_backend/partials/books-list.html",
+                          {"books": Lesson.objects.filter(type='book')})
     else:
-        form = LessonForm()
-    return redirect("dashboard")
+        return HttpResponse(status=400)
 
 
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Teacher').count() == 0, login_url='users:signin')
 def addLesson(request):
     if request.method == "POST":
         form = LessonForm(request.POST, request.FILES)
@@ -57,10 +59,19 @@ def addLesson(request):
             lesson = form.save(commit=False)
             lesson.type = "lesson"
             lesson.save()
-            return redirect("dashboard")
-        else:
-            print(form.errors)
-            return redirect("dashboard")
+            return render(request, 'diploma_backend/partials/lessons-list.html',
+                          {'lessons': Lesson.objects.filter(type="lesson"), 'lesson_form': LessonForm()})
     else:
-        form = LessonForm()
-    return redirect("dashboard")
+        return HttpResponse(status=400)
+
+
+def handler404(request, *args, **argv):
+    response = render("base/404.html", request, {})
+    response.status_code = 404
+    return response
+
+
+def handler500(request, *args, **argv):
+    response = render("base/500.html", request, {})
+    response.status_code = 500
+    return response

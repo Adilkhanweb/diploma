@@ -2,13 +2,13 @@ from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 
-from account.forms import SignInForm
+from users.forms import SignInForm
 
 
 class SignInView(View):
     """ User registration view """
 
-    template_name = "account/signin.html"
+    template_name = "users/signin.html"
     form_class = SignInForm
 
     def get(self, request, *args, **kwargs):

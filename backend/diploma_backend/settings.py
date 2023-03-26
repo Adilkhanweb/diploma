@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os.path
 from pathlib import Path
 
+import users
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,8 +26,7 @@ SECRET_KEY = 'django-insecure-ct4o%=1k(=^7=&*pt5zj916+yync&p#_94_)4rr_%n1rrj)f3u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ["185.22.66.137", "joo-hs.jcloud.kz",]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "joohs.jcloud.kz", ]
 
 # Application definition
 
@@ -35,7 +36,7 @@ INSTALLED_APPS = [
     'assignment',
     'course',
     'problems',
-    'account',
+    'users',
     'quiz_apps.quiz',
     'quiz_apps.singlechoice',
     'quiz_apps.multiplechoice',
@@ -49,6 +50,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.forms',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+]
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 MIDDLEWARE = [
@@ -80,6 +93,16 @@ TEMPLATES = [
         },
     },
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '907013136043-n7j16j42hj13bn5oo8jcmerpobuh73qo.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+}
 
 WSGI_APPLICATION = 'diploma_backend.wsgi.application'
 
@@ -136,4 +159,25 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 # )
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'users.User'
+
+JUDGE0_API_URL = 'http://localhost:2358'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/signin/'
+# Django All Auth settings
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = LOGOUT_REDIRECT_URL
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = None
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 3600
+ACCOUNT_FORMS = {'signup': 'users.forms.StudentCreationForm'}

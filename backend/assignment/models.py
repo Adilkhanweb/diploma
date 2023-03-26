@@ -1,9 +1,10 @@
 import os
 
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 
-from account.models import Student
+from users.models import Student, User
 from django.utils.translation import gettext_lazy as _
 
 
@@ -24,11 +25,13 @@ class Assignment(models.Model):
 
 
 class AssignmentSubmission(models.Model):
-    user = models.ForeignKey(Student, on_delete=models.SET_NULL, blank=False, null=True)
+    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=False, null=True)
     assignment = models.ForeignKey(Assignment, on_delete=models.SET_NULL, null=True, verbose_name=_("Тапсырма атауы"))
     files = models.FileField(upload_to="assignment/", verbose_name=_("Файлдар"))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    graded = models.BooleanField(default=False)
+    grade = models.IntegerField(default=0)
 
     def filename(self):
         return os.path.basename(self.files.name)

@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
 
-from account.models import Teacher
+from users.models import Teacher
 
 
 class TeacherCreationForm(UserCreationForm):

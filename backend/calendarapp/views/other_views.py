@@ -38,7 +38,7 @@ def next_month(d):
 
 
 class CalendarViewNew(LoginRequiredMixin, generic.View):
-    login_url = "account:signin"
+    login_url = "users:signin"
     template_name = "calendarapp/calendar.html"
     form_class = EventForm
 
