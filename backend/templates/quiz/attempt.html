@@ -137,16 +137,27 @@
 {% endblock %}
 {% block extrascripts %}
     <script>
-        {% comment %}@todo not working{% endcomment %}
-        jQuery(function () {
-            let max = 3;
-            let min = 1;
-            let question = $('#id-checkbox');
-            let checkboxes = question.find('input[type="checkbox"]');
+        const maxChecked = 3;
+        const forms = document.querySelectorAll('form');
 
-            checkboxes.change(function () {
-                let current = checkboxes.filter(':checked').length;
-                checkboxes.filter(':not(:checked)').prop('disabled', current >= max);
+        forms.forEach(form => {
+            const checkboxes = form.querySelectorAll('input[type=checkbox]');
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('click', () => {
+                    const checkedCount = form.querySelectorAll('input[type=checkbox]:checked').length;
+                    if (checkedCount >= maxChecked) {
+                        checkboxes.forEach(cb => {
+                            if (!cb.checked) {
+                                cb.disabled = true;
+                            }
+                        });
+                    } else {
+                        checkboxes.forEach(cb => {
+                            cb.disabled = false;
+                        });
+                    }
+                });
             });
         });
         $('.clear-choice-btn').click(function (e) {

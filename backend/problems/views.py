@@ -91,7 +91,7 @@ def submit(request, slug):
             submission = api.submission.submit(
                 client,
                 bytes(code, "utf-8"),
-                38,
+                10,
                 stdin=bytes(testcase.input, "utf-8"),
                 expected_output=bytes(testcase.expected_output, "utf-8"))
             submission.load(client)
@@ -139,7 +139,7 @@ def run_tests(request, slug):
             submission = api.submission.submit(
                 client,
                 bytes(code, "utf-8"),
-                38,
+                10,
                 stdin=bytes(testcase.input, "utf-8"),
                 expected_output=bytes(testcase.expected_output, "utf-8"))
             submission.load(client)
@@ -167,7 +167,7 @@ def test(request, slug):
         submission = api.submission.submit(
             client,
             bytes(code, "utf-8"),
-            38,
+            10,
             stdin=bytes(test_input, "utf-8"))
         submission.load(client)
         stdout = ""
