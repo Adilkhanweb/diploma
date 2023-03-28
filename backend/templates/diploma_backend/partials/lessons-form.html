@@ -1,21 +1,41 @@
 {% load widget_tweaks %}
 {% load quiz_tags %}
-{% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" %}
+{% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
     <form class="col-12 mb-3" method="post" hx-encoding="multipart/form-data"
-          hx-post="{% url 'addlesson' %}" hx-target="#lessons">
+          hx-post="{% url 'addlesson' %}" hx-target="#lessons" id="lessons-form">
         {{ lesson_form.type }}
         <div class="card">
             <div class="row row-0">
-                <div class="col-4">
-                    <div class="file-upload">
-                        <input type="file" name="banner"/>
-                        <i class="fa fa-arrow-up"></i>
+                <div class="col-4 px-2 py-3">
+                    <div class="file-upload h-100">
+                        <label class="avatar avatar-upload rounded image-upload-box"
+                               style="background: none no-repeat center; background-size: cover;
+                                       height: 100%; width: 100%;" data-bs-toggle="tooltip" data-bs-placement="top"
+                               title="Фотоны енгізу үшін басыңыз">
+                            {% render_field lesson_form.banner class="d-none" id="lesson-banner-input" %}
+
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo-plus"
+                                 width="24"
+                                 height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M15 8h.01"></path>
+                                <path d="M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5"></path>
+                                <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l4 4"></path>
+                                <path d="M14 14l1 -1c.67 -.644 1.45 -.824 2.182 -.54"></path>
+                                <path d="M16 19h6"></path>
+                                <path d="M19 16v6"></path>
+                            </svg>
+                        </label>
+                        {#                        <i class="fa fa-arrow-up"></i>#}
                     </div>
                 </div>
                 <div class="col">
                     <div class="card-body">
                         <div class="mb-1">
-                            <label class="form-label">{% render_field lesson_form.title class="form-control" %}</label>
+                            <label class="form-label">
+                                {% render_field lesson_form.title class="form-control" %}
+                            </label>
                         </div>
                         <div class="mb-1">
                             <label class="form-label">{{ lesson_form.description }}</label>

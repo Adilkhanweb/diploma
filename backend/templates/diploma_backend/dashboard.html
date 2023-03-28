@@ -9,33 +9,7 @@
 
     <script src="https://cdn.tiny.cloud/1/7td4b3p4zag9jdaz2ot398ds5hhtbq0x6u7z0aurdm6o8old/tinymce/6/tinymce.min.js"
             referrerpolicy="origin"></script>
-    <style>
-        .file-upload {
-            height: 100%;
-            width: 100%;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 4px solid #FFFFFF;
-            overflow: hidden;
-            background-image: linear-gradient(to bottom, #2590EB 50%, #FFFFFF 50%);
-            background-size: 100% 200%;
-            color: #FFFFFF;
-            font-size: 100px;
-        }
 
-        .file-upload input[type=file] {
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-    </style>
 {% endblock %}
 {% block body %}
     <h1 class="py-3 px-2">Курс материалдары</h1>
@@ -71,7 +45,31 @@
 {% endblock %}
 {% block extrascripts %}
     <script>
-
+        document.addEventListener("DOMContentLoaded", function () {
+            let options = {
+                selector: '#add-lesson-textarea',
+                height: 300,
+                menubar: false,
+                statusbar: false,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar: 'undo redo | formatselect | ' +
+                    'bold italic backcolor | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                    'removeformat',
+                content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif; font-size: 14px; -webkit-font-smoothing: antialiased; }'
+            }
+            if (localStorage.getItem("tablerTheme") === 'dark') {
+                options.skin = 'oxide-dark';
+                options.content_css = 'dark';
+            }
+            tinyMCE.init(options);
+        })
+    </script>
+    <script>
         tinymce.init({
             height: '160',
             selector: '#add-lesson-textarea',
@@ -80,6 +78,7 @@
             plugins: 'autolink charmap emoticons link lists',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
         });
+
 
         $(function () {
             var hash = window.location.hash;
@@ -91,9 +90,34 @@
                 $('html,body').scrollTop(scrollmem);
             });
         });
+
         $('.nav-tabs a').click(function (e) {
             $(this).tab('show');
         });
     </script>
 
+    <script>
+        lessonsInput = document.querySelector('#lesson-banner-input');
+        lessonsInput.addEventListener('change', (event) => {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                let output = lessonsInput.parentNode;
+                output.style.backgroundImage = `url("${reader.result}")`;
+                output.querySelector('svg').style.display = 'none';
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        });
+    </script>
+    <script>
+        booksInput = document.querySelector('#book-banner-input');
+        booksInput.addEventListener('change', (event) => {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                let output = booksInput.parentNode;
+                output.style.backgroundImage = `url("${reader.result}")`;
+                output.querySelector('svg').style.display = 'none';
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        });
+    </script>
 {% endblock %}

@@ -1,42 +1,7 @@
 {% extends 'base/content.html' %}
 {% load widget_tweaks %}
-{% load widget_tweaks %}
+{% load quiz_tags %}
 {% block extracss %}
-    <style>
-        .profile-avatar:hover {
-            height: 8rem;
-            width: 8rem;
-        }
-
-        .profile-avatar::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0, 0, 55, 0.5), rgba(0, 0, 55, 0.5));
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out;
-        }
-
-        .profile-avatar:hover::before {
-            opacity: 1;
-        }
-
-        .profile-avatar > svg {
-            display: none;
-            width: 64px;
-            height: 64px;
-            stroke-width: 2;
-            color: white;
-        }
-
-        .profile-avatar:hover > svg {
-            display: block !important;
-            z-index: 2;
-        }
-    </style>
 {% endblock %}
 {% block body %}
     <div class="card">
@@ -44,8 +9,8 @@
             <div class="col-3 d-none d-md-block border-end">
                 <div class="card-body">
                     <h4 class="subheader">Жеке ақпарат</h4>
-                    <div class="list-group list-group-transparent">
-                        <a href="#"
+                    <div class="list-group list-group-tabs list-group-transparent" data-bs-toggle="tabs">
+                        <a href="#my-profile" data-bs-toggle="tab"
                            class="list-group-item list-group-item-action d-flex align-items-center active">
                             <svg style="stroke-width: 2.5"
                                  xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-edit me-1"
@@ -57,41 +22,60 @@
                                 <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z"></path>
                             </svg>
                             Менің Профильім</a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <svg style="stroke-width: 2" xmlns="http://www.w3.org/2000/svg"
-                                 class="icon icon-tabler icon-tabler-calendar-event me-1"
+                        <a href="#leaderboard" class="list-group-item list-group-item-action d-flex align-items-center"
+                           data-bs-toggle="tab">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="stroke-width: 2.5"
+                                 class="icon icon-tabler icon-tabler-award"
                                  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                  fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
-                                <path d="M16 3l0 4"></path>
-                                <path d="M8 3l0 4"></path>
-                                <path d="M4 11l16 0"></path>
-                                <path d="M8 15h2v2h-2z"></path>
+                                <path d="M12 9m-6 0a6 6 0 1 0 12 0a6 6 0 1 0 -12 0"></path>
+                                <path d="M12 15l3.4 5.89l1.598 -3.233l3.598 .232l-3.4 -5.889"></path>
+                                <path d="M6.802 12l-3.4 5.89l3.598 -.233l1.598 3.232l3.4 -5.889"></path>
                             </svg>
-                            Менің Күнтізбем</a>
-                    </div>
-                    <h4 class="subheader mt-4">Статистика</h4>
-                    <div class="list-group list-group-transparent">
-                        <a href="#" class="list-group-item list-group-item-action">Үй жұмысы Үлгерімім</a>
-                    </div>
-                    <div class="list-group list-group-transparent">
-                        <a href="#" class="list-group-item list-group-item-action">Бағдарламалау Үлгерімім</a>
-                    </div>
-                    <div class="list-group list-group-transparent">
-                        <a href="#" class="list-group-item list-group-item-action">Тестілеу Үлгерімім</a>
+                            Көшбасшылар тақталары</a>
+
+                        <h4 class="subheader ps-3 mt-4">Статистика</h4>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <svg style="stroke-width: 2.5" xmlns="http://www.w3.org/2000/svg"
+                                 class="icon icon-tabler icon-tabler-code" width="24"
+                                 height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M7 8l-4 4l4 4"></path>
+                                <path d="M17 8l4 4l-4 4"></path>
+                                <path d="M14 4l-4 16"></path>
+                            </svg>
+                            Бағдарламалау Үлгерімім</a>
+                        <a href="#my-test" data-bs-toggle="tab" class="list-group-item list-group-item-action">
+                            <svg style="stroke-width: 2" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-chart"
+                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                                <path d="M12 10v4h4"></path>
+                                <path d="M12 14m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                            </svg>
+                            Тестілеу
+                            Үлгерімім</a>
                     </div>
                 </div>
             </div>
-            {% include 'users/partials/profile_picture_form.html' %}
+            <div class="tab-content col">
+                <div class="tab-pane active" id="my-profile">
+                    {% include 'users/partials/profile_picture_form.html' %}
+                </div>
+                <div class="tab-pane" id="my-test">
+                    {% include 'users/partials/test-results.html' %}
+                </div>
+                <div class="tab-pane" id="leaderboard">
+                    {% include 'users/partials/quiz-leaderboards.html' %}
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="modal modal-blur fade" id="modal-team" tabindex="-1" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            {% include 'users/partials/change_password_form.html' %}
-        </div>
-    </div>
 {% endblock %}
 {% block extrascripts %}
     <script>
@@ -109,8 +93,52 @@
         resetBtn.addEventListener('click', () => {
             let output = document.getElementById('output-box');
             let profilePictureURL = '{{ profile.picture.url }}';
-            console.log(profilePictureURL);
             output.style.backgroundImage = `url("${profilePictureURL}")`;
         })
+    </script>
+    <script>
+        attempts = document.querySelectorAll('[data-attempt_score]');
+        attempts.forEach((attempt) => {
+                var options = {
+                    chart: {
+                        height: 270,
+                        type: 'radialBar',
+                    },
+                    series: attempt.dataset.attempt_score.trim().split(',').map(parseFloat),
+                    plotOptions: {
+                        radialBar: {
+                            dataLabels: {
+                                total: {
+                                    show: true,
+                                    label: 'Орташа Нәтиже'
+                                }
+                            }
+                        }
+                    },
+                    labels: attempt.dataset.label.split(','),
+                }
+                console.log(options.series)
+                var chart = new ApexCharts(attempt, options);
+
+                chart.render();
+            }
+        )
+        ;
+    </script>
+    <script>
+        // tab activate
+        $(function () {
+            var hash = window.location.hash;
+            hash && $('list-group a[href="' + hash + '"]').tab('show');
+            $('.list-group-tabs a').click(function (e) {
+                $(this).tab('show');
+                var scrollmem = $('body').scrollTop() || $('html').scrollTop();
+                window.location.hash = this.hash;
+                $('html,body').scrollTop(scrollmem);
+            });
+        });
+        $('.list-group-tabs a').click(function (e) {
+            $(this).tab('show');
+        });
     </script>
 {% endblock %}

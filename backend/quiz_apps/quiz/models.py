@@ -32,14 +32,8 @@ class Quiz(models.Model):
         help_text=_("Display the questions in "
                     "a random order or as they "
                     "are set?"))
-
-    single_attempt = models.BooleanField(
-        blank=False, default=False,
-        help_text=_("If yes, only one attempt by"
-                    " a user will be permitted."
-                    " Non users cannot sit this exam."),
-        verbose_name=_("Single Attempt"))
-    max_attempts = models.PositiveIntegerField(null=True, blank=True, verbose_name=_("Allowed number of attempts"))
+    max_attempts = models.PositiveIntegerField(null=True, verbose_name=_("Allowed number of attempts"),
+                                               default=1)
 
     pass_mark = models.SmallIntegerField(
         blank=True, default=0,
@@ -57,26 +51,20 @@ class Quiz(models.Model):
     draft = models.BooleanField(
         blank=True, default=False,
         verbose_name=_("Draft"),
-        help_text=_("If yes, the quiz is not displayed"
-                    " in the quiz list and can only be"
-                    " taken by users who can edit"
-                    " quizzes."))
+        help_text=_(
+            'If yes, the quiz is not displayed in the quiz list and can only be taken by users who can edit quizzes.'))
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     duration = models.DurationField(default=timezone.timedelta(hours=2))
 
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
-        if self.single_attempt is True:
-            self.exam_paper = True
-
         if self.pass_mark > 100:
             raise ValidationError('%s is above 100' % self.pass_mark)
-
         super(Quiz, self).save(force_insert, force_update, *args, **kwargs)
 
     class Meta:
-        verbose_name = _("Quiz")
-        verbose_name_plural = _("Quizzes")
+        verbose_name = _('Quiz')
+        verbose_name_plural = _('Quizzes')
 
     def __str__(self):
         return self.title

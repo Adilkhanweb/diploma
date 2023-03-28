@@ -46,8 +46,14 @@ class QuizAdminForm(forms.ModelForm):
 class QuizAdmin(admin.ModelAdmin):
     form = QuizAdminForm
 
-    list_display = ('title',)
-    search_fields = ('description',)
+    list_display = ('title', 'get_start_time', 'get_end_time')
+    search_fields = ('description', 'title')
+
+    def get_start_time(self, obj):
+        return obj.start_time.strftime("%Y-%m-%d %H:%M")
+
+    def get_end_time(self, obj):
+        return obj.end_time.strftime("%Y-%m-%d %H:%M")
 
 
 class AttemptQuestionInline(admin.TabularInline):

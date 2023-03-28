@@ -91,7 +91,7 @@ def submit(request, slug):
             submission = api.submission.submit(
                 client,
                 bytes(code, "utf-8"),
-                10,
+                38,
                 stdin=bytes(testcase.input, "utf-8"),
                 expected_output=bytes(testcase.expected_output, "utf-8"))
             submission.load(client)
@@ -130,7 +130,7 @@ def submit(request, slug):
 
 def run_tests(request, slug):
     problem = Problem.objects.get(slug=slug)
-    client = api.Client("http://localhost:2358")
+    client = api.Client(settings.JUDGE0_API_URL)
     client.wait = True
     testcase_statuses = []
     if request.method == 'POST':
@@ -139,7 +139,7 @@ def run_tests(request, slug):
             submission = api.submission.submit(
                 client,
                 bytes(code, "utf-8"),
-                10,
+                38,
                 stdin=bytes(testcase.input, "utf-8"),
                 expected_output=bytes(testcase.expected_output, "utf-8"))
             submission.load(client)
@@ -159,7 +159,7 @@ def run_tests(request, slug):
 
 def test(request, slug):
     problem = Problem.objects.get(slug=slug)
-    client = api.Client("http://localhost:2358")
+    client = api.Client(settings.JUDGE0_API_URL)
     client.wait = True
     if request.method == 'POST':
         code = request.POST.get('code')
@@ -167,7 +167,7 @@ def test(request, slug):
         submission = api.submission.submit(
             client,
             bytes(code, "utf-8"),
-            10,
+            38,
             stdin=bytes(test_input, "utf-8"))
         submission.load(client)
         stdout = ""

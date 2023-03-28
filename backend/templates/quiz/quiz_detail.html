@@ -1,12 +1,11 @@
 {% extends 'base/content.html' %}
-{% load quiz_tags %}
 {% load humanize %}
 {% block body %}
     <h1>{{ quiz.title }}</h1>
     <p>{{ quiz.description }}</p>
     <p>Басталу Уақыты: {{ quiz.start_time|date:"d F, H:i" }}</p>
     <p>Жабылу Уақыты: {{ quiz.end_time|date:"d F, H:i" }}</p>
-    <p>Уақыт Ұзақтығы: {{ quiz.duration|duration_humanize }}</p>
+    <p id="duration"></p>
     <p>Сәтті өту пайызы: {{ quiz.pass_mark }}%</p>
     <p>Сұрақтар тәртібі: {% if quiz.random_order %}рандомды {% else %}тәртіппен{% endif %}</p>
     <p>Максималды балл: {{ quiz.get_max_scores }}</p>
@@ -59,4 +58,9 @@
         <a tabindex="-1" aria-disabled="true" role="button" data-bs-toggle="button" class="btn btn-primary disabled"
            href="{% url 'quiz:attempt' quiz.url %}">Тапсыру</a>
     {% endif %}
+{% endblock %}
+{% block extrascripts %}
+<script>
+    document.querySelector('#duration').innerText = "Уақыт Ұзақтығы: " + moment.duration('{{ quiz.duration }}').humanize();
+</script>
 {% endblock %}

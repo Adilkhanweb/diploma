@@ -14,7 +14,7 @@ class Leaderboard(models.Model):
     )
 
     def __str__(self):
-        return self.user.username + " in " + self.quiz.title
+        return self.user.first_name + " in " + self.quiz.title
 
     class Meta:
         ordering = ["-quiz__start_time", "-score"]

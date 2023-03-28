@@ -2,6 +2,7 @@ from django.db.models import Sum
 from django.dispatch import receiver
 from django.db.models.signals import pre_save, post_save
 
+from leaderboard.models import Leaderboard
 from quiz_apps.multiplechoice.models import AttemptQuestion, Attempt, MultipleChoice
 from quiz_apps.quiz.models import Quiz
 from quiz_apps.singlechoice.models import Choice
@@ -24,11 +25,16 @@ def check_attempt(sender, instance, *args, **kwargs):
 
 @receiver(post_save, sender=Attempt)
 def create_attempt_questions(sender, instance, *args, **kwargs):
+    """Create attempt questions"""
     attempt = instance
     for question in attempt.quiz.questions.all():
         correct_answers = question.answers.filter(correct=True)
         aq, created = AttemptQuestion.objects.get_or_create(attempt=attempt, question=question)
         aq.correct_answers.set(list(correct_answers.values_list('id', flat=True)))
+    """Create or update a leaderboard score for the quiz attempted by the user"""
+    leaderboard, created = Leaderboard.objects.get_or_create(user=attempt.user, quiz=attempt.quiz)
+    leaderboard.score = attempt.get_attempt_score()
+    leaderboard.save()
 
 
 @receiver(pre_save, sender=MultipleChoice)

@@ -162,6 +162,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 
 JUDGE0_API_URL = 'http://localhost:2358'
+# JUDGE0_API_URL = 'https://judge0-ce.p.rapidapi.com'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 LOGIN_REDIRECT_URL = '/'

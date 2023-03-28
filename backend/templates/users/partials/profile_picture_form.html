@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 {% load quiz_tags %}
-<form class="col d-flex flex-column" hx-post="" hx-encoding="multipart/form-data" id="profile-form">
+<form class="d-flex flex-column" hx-post="" hx-encoding="multipart/form-data" id="profile-form">
     <div class="card-body">
         <h2 class="mb-4">Менің Профильім</h2>
         <div class="row align-items-center">
@@ -72,7 +72,7 @@
     </div>
     <div class="card-footer bg-transparent mt-auto">
         <div class="btn-list justify-content-end">
-            <button type="reset" onclick="reset_profile_form()" id="reset-btn" class="btn">
+            <button type="reset" id="reset-btn" class="btn">
                 Болдырмау
             </button>
             <button type="submit" class="btn btn-primary">

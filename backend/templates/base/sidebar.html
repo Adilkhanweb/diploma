@@ -78,7 +78,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="right"
+               title="Currently being developed">
                 {# @todo discussions #}
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
 
@@ -99,7 +100,7 @@
             </a>
         </li>
         <li class="nav-item {% if request.resolver_match.app_name == 'problems' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'problems:problems' %}">
+            <a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Disabled due to the expensive cost of deployment on the server">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
 
                 <!-- Download SVG icon from http://tabler-icons.io/i/file-text -->

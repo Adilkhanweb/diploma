@@ -1,0 +1,19 @@
+{% load quiz_tags %}
+<div class="p-2">
+    <h2>Тестілеу нәтижелері</h2>
+    <div class="row g-0 gap-4 my-4 mx-4">
+        {% for quiz in quizzes %}
+            <div class="col card col-md-4">
+                <div class="card-header"><h2 class="text-center w-100">{{ quiz.title }}</h2></div>
+                <div class="card-body" data-attempt_score="{% for attempt in quiz.id|get_quiz_attempts:request.user %}{{ attempt.percentage }}{% if not forloop.last %},{% endif %}{% endfor %}"
+                     data-label="{% for attempt in quiz.id|get_quiz_attempts:request.user %}Әрекет №{{ forloop.counter }}{% if not forloop.last %},{% endif %}{% endfor %}"></div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="modal modal-blur fade" id="modal-team" tabindex="-1" style="display: none;"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            {% include 'users/partials/change_password_form.html' %}
+        </div>
+    </div>
+</div>

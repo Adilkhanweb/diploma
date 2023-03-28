@@ -1,10 +1,46 @@
 {% extends 'base/content.html' %}
+{% load quiz_tags %}
 {% block body %}
+    <h1>Тестілеу</h1>
+    <div class="card">
+        <div class="table-responsive">
+            <table
+                    class="table table-vcenter card-table">
+                <thead>
+                <tr>
+                    <th>Атауы</th>
+                    <th>Басталу Уақыты:</th>
+                    <th>Аяқталу Уақыты:</th>
+                    <th>Уақыт Ұзақтығы:</th>
+                    <th>Сілтемесі</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for quiz in quizzes %}
+                    <tr>
+                        <td>{{ quiz.title }}</td>
+                        <td>{{ quiz.start_time|date:"d F, H:i" }}</td>
+                        <td>{{ quiz.end_time|date:"d F, H:i" }}</td>
+                        <td data-duration="{{ quiz.duration }}"></td>
+                        <td>
+                            <a href="{% url 'quiz:quiz_detail' quiz.url %}"
+                               class="btn btn-outline-azure">
+                                Шолу
+                            </a>
+                        </td>
 
-    <h1>Тесттер</h1>
-    <ul>
-        {% for quiz in quizzes %}
-            <li><a href="{% url 'quiz:quiz_detail' quiz.url %}">{{ quiz.title }}</a></li>
-        {% endfor %}
-    </ul>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extrascripts %}
+    <script>
+        durationRows = document.querySelectorAll('[data-duration]').forEach((element, index) => {
+            element.innerHTML = moment.duration(element.dataset.duration).humanize();
+        });
+    </script>
 {% endblock %}
