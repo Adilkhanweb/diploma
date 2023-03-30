@@ -48,7 +48,8 @@
                             </svg>
                             Бағдарламалау Үлгерімім</a>
                         <a href="#my-test" data-bs-toggle="tab" class="list-group-item list-group-item-action">
-                            <svg style="stroke-width: 2" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-chart"
+                            <svg style="stroke-width: 2" xmlns="http://www.w3.org/2000/svg"
+                                 class="icon icon-tabler icon-tabler-file-chart"
                                  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                  fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -75,7 +76,11 @@
             </div>
         </div>
     </div>
-
+    <div class="modal modal-blur fade" id="modal-team" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            {% include 'users/partials/change_password_form.html' %}
+        </div>
+    </div>
 {% endblock %}
 {% block extrascripts %}
     <script>

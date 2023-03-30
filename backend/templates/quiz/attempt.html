@@ -190,7 +190,7 @@
             // If the count down is finished, write some text
             if (distance < 1) {
                 clearInterval(x);
-                document.getElementById("demo").innerHTML = "EXPIRED";
+                document.getElementById("demo").innerHTML = "УАҚЫТ БІТТІ";
                 window.location.href = '{% url 'quiz:submit_attempt' quiz.url attempt.id %}';
             }
         }, 1000);
