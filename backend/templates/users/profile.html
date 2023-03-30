@@ -65,6 +65,10 @@
             </div>
             <div class="tab-content col">
                 <div class="tab-pane active" id="my-profile">
+
+                    <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#modal-danger">
+                        Danger modal
+                    </a>
                     {% include 'users/partials/profile_picture_form.html' %}
                 </div>
                 <div class="tab-pane" id="my-test">
@@ -76,7 +80,7 @@
             </div>
         </div>
     </div>
-    <div class="modal modal-blur fade" id="modal-team" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal modal-blur fade" id="modal-password" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             {% include 'users/partials/change_password_form.html' %}
         </div>
