@@ -15,6 +15,7 @@ class DashboardView(LoginRequiredMixin, View):
     template_name = "diploma_backend/dashboard.html"
 
     def get(self, request, *args, **kwargs):
+        lesson = Lesson.objects.first()
         book_form = LessonForm(initial={"type": "book"})
         lesson_form = LessonForm(initial={"type": "lesson"})
         lessons = Lesson.objects.filter(type="lesson")
@@ -23,6 +24,7 @@ class DashboardView(LoginRequiredMixin, View):
         running_events = Event.objects.get_running_events()
         latest_events = Event.objects.filter().order_by("-id")[:10]
         context = {
+            "lesson": lesson,
             "total_event": events.count(),
             "running_events": running_events,
             "latest_events": latest_events,
@@ -63,6 +65,21 @@ def addLesson(request):
                           {'lessons': Lesson.objects.filter(type="lesson"), 'lesson_form': LessonForm()})
     else:
         return HttpResponse(status=400)
+
+
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Teacher').count() == 0, login_url='users:signin')
+def update_lesson(request, pk):
+    lesson = Lesson.objects.get(pk=pk)
+    if request.method == "POST":
+        form = LessonForm(request.POST, request.FILES, instance=lesson)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = LessonForm(instance=lesson)
+        return render(request, 'diploma_backend/partials/lesson-change-form.html',
+                      {'lesson_form': form, 'lesson': lesson})
 
 
 def handler404(request, *args, **argv):

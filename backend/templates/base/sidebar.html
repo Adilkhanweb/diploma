@@ -3,7 +3,7 @@
 {% url 'problems:problems' as problems_page %}
 
 <aside class="collapse navbar-collapse py-4" id="navbar-menu">
-    <ul class="navbar-nav pt-lg-3">
+    <ul class="navbar-nav pt-lg-3 content-sidebar">
         <li class="nav-item {% if request.resolver_match.app_name == '' %}active{% endif %}">
             <a class="nav-link" href="{% url 'dashboard' %}">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -31,7 +31,7 @@
 
                 <span class="nav-link-title">
                                     Курс материалдары
-                                </span>
+                </span>
             </a>
         </li>
         <li class="nav-item {% if request.resolver_match.app_name == 'quiz' %}active{% endif %}">
@@ -74,11 +74,12 @@
                 </span>
                 <span class="nav-link-title">
                                     Үй жұмыстары
-                                </span>
+                </span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="currently being developed">
+            <a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="right"
+               title="currently being developed">
                 {# @todo discussions #}
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
 
@@ -95,7 +96,7 @@
                 </span>
                 <span class="nav-link-title">
                                     Талқылау
-                                </span>
+                </span>
             </a>
         </li>
         <li class="nav-item {% if request.resolver_match.app_name == 'problems' %}active{% endif %}">
@@ -113,7 +114,7 @@
                     <path d="M14 4l-4 16"></path>
                 </svg>
                 </span>
-                <span class="nav-link-title" >
+                <span class="nav-link-title">
                                     Бағдарламалау
                 </span>
             </a>

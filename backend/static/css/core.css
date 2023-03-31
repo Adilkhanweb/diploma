@@ -160,3 +160,15 @@
     stroke-width: 2;
     color: var(--navbar-bg-color);
 }
+
+.navbar-nav.content-sidebar > li.active.nav-item {
+    background-color: #E15431;
+    border-radius: 0.5rem;
+}
+
+.navbar-nav.content-sidebar > li.active.nav-item > .nav-link {
+    color: #fff;
+}
+.navbar-nav.content-sidebar > li.active.nav-item > .nav-link svg {
+    stroke-width: 2;
+}
