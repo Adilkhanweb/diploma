@@ -1,0 +1,29 @@
+{% load quiz_tags %}
+<div class="col-12" id="lesson-{{ lesson.id }}">
+    <div class="card">
+        <div class="row row-0">
+            <div class="col-4">
+                <!-- Photo -->
+                <img src="{{ lesson.banner.url }}"
+                     class="w-100 h-100 object-cover card-img-start"
+                     alt="Beautiful blonde woman relaxing with a can of coke on a tree stump by the beach">
+            </div>
+            <div class="col">
+                <div class="card-body">
+                    <p class="text-muted">№ {{ forloop.counter }}
+                        Сабақ</p>
+                    <div class="d-flex">
+                        {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
+                            <a href="#" hx-get="{% url 'update-lesson' lesson.pk %}"
+                               hx-target="#lesson-{{ lesson.id }}"
+                               class="btn">Өзгерту</a>
+                        {% endif %}</div>
+                    <h2 class="card-title"><a href="{{ lesson.document.url }}"
+                            target="_blank">{{ lesson.title }}</a>
+                    </h2>
+                    <p class="text-muted">{{ lesson.description|safe }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

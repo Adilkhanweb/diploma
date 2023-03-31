@@ -3,13 +3,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from diploma_backend.views import DashboardView, addBook, addLesson
+from diploma_backend.views import DashboardView, addBook, addLesson, update_lesson
 
 app_name = "core"
 urlpatterns = [
     path("", DashboardView.as_view(), name="dashboard"),
     path("addbook/", addBook, name="addbook"),
     path("addlesson/", addLesson, name="addlesson"),
+    path("updatelesson/<int:pk>/", update_lesson, name="update-lesson"),
     path('admin/', admin.site.urls),
     path('', include('users.urls')),
     path('quiz/', include('quiz_apps.quiz.urls')),

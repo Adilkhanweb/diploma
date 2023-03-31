@@ -319,11 +319,20 @@
 	padding:7px 20px;
 		border:1px solid #0A4368;
 }
-#activeNavBar{
+/* #activeNavBar{
 	background:#FA5E37;
 	border-radius:4px;
 	color:white;
+} */
+
+.navbar-nav.content-sidebar > li.active.nav-item {
+	background-color: #E15431;
 }
+
+.navbar-nav.content-sidebar > li.active.nav-item > .nav-link {
+	color: #fff;
+}
+
 .nav-link-title{
 	color:white;
 }

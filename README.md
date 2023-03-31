@@ -20,7 +20,7 @@ Some info here
 ## Team
 | Member      | Role                             |
 | ----------- | ---------------------------------|
-| Alua Otezhan        | Project Manager + UI/UX Designer |
+| Alua Otezhan        | Business Analyst + UI/UX Designer |
 | Assem Koilanova       | UI/UX Designer                   |
 | Tangsholpan Abdipaiyz | Frontend Developer               |
 | Adilkhan Kuchkarov    | Backend Developer                |

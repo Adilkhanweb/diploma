@@ -2,7 +2,7 @@
 {% load quiz_tags %}
 {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
     <form class="col-12 mb-3" method="post" hx-encoding="multipart/form-data"
-          hx-post="{% url 'addbook' %}" hx-target="#books" id="books-form">
+          hx-post="{% url 'addbook' %}" hx-target="#books" id="books-form" _="on htmx:afterRequest reset() me">
         {{ book_form.type }}
         <div class="card">
             <div class="row row-0">
