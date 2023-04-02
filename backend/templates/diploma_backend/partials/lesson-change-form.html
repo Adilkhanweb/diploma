@@ -14,7 +14,7 @@
                                        height: 100%; width: 100%;" data-bs-toggle="tooltip" data-bs-placement="top"
                                title="Фотоны енгізу үшін басыңыз">
                             <input type="file" accept="image/*" name="banner" class="d-none"
-                                   id="lesson-change-banner-input">
+                                   id="lesson-change-banner-input" _="on change call changeInputElem(#lesson-change-banner-input)">
 
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo-plus"
                                  width="24"
@@ -40,15 +40,20 @@
                             </label>
                         </div>
                         <div class="mb-1">
-                            <label class="form-label">{{ lesson_form.description }}</label>
+                            <label class="form-label">{% render_field lesson_form.description id="change-form-textarea" %}</label>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <div class="mb-1">
                                     <label class="form-label">{{ lesson_form.document }}</label>
                                 </div>
+                                <div class="text-muted small">Қазіргі: {{ lesson.document_name }}</div>
                             </div>
                             <div class="col-auto">
+                                <a hx-get="{% url 'get_lessons' %}" hx-target="#lessons"
+                                   _="on htmx:afterRequest call reinitialize()"
+                                   class="btn">Болдырмау
+                                </a>
                                 <button type="submit" class="btn btn-primary text-right">Сақтау
                                 </button>
                             </div>

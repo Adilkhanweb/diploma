@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -18,3 +20,7 @@ class Lesson(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+    @property
+    def document_name(self):
+        return os.path.basename(self.document.name)

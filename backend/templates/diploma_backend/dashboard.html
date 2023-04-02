@@ -29,12 +29,6 @@
     <div class="card-body">
         <div class="tab-content">
             <div class="tab-pane active" id="tab-lessons">
-                <button class="switch-icon" data-bs-toggle="switch-icon">
-                              <span class="switch-icon-a text-muted">
-                              </span>
-                    <span class="switch-icon-b text-blue">
-                              </span>
-                </button>
                 {% include 'diploma_backend/partials/lessons-form.html' %}
                 <div class="row row-cards" id="lessons">
                     {% include 'diploma_backend/partials/lessons-list.html' %}
@@ -80,7 +74,7 @@
         tinymce.init({
             height: '160',
             selector: 'textarea',
-            menu: false,
+            menu: {},
             menubar: '',
             plugins: 'autolink charmap emoticons link lists',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
@@ -106,44 +100,62 @@
         });
     </script>
     <script>
-        changeform = document.querySelector('#lessons-change-form');
-        console.log(changeform);
-        lessonchangeInput = document.querySelector('#lesson-change-banner-input');
-        lessonchangeInput.addEventListener('change', (event) => {
-            console.log(lessonchangeInput);
+        function changeInput(event) {
+            console.log(event);
             let reader = new FileReader();
             reader.onload = (e) => {
-                let output = lessonchangeInput.parentNode;
+                let output = event.target.parentNode;
                 output.style.background = `url("${reader.result}")`;
+                output.style.backgroundRepeat = 'no-repeat';
+                output.style.backgroundSize = 'cover';
+                output.style.backgroundOrigin = 'center';
                 output.querySelector('svg').style.display = 'none';
             }
             reader.readAsDataURL(event.target.files[0]);
-        });
+        }
+
+        function reinitialize() {
+            {#tinymce.execCommand('mceRemoveControl', true, '#change-form-textarea');#}
+            try {
+                tinymce.remove('textarea');
+            } catch (e) {
+            }
+            tinymce.init({
+                height: '160',
+                selector: 'textarea',
+                menu: {},
+                menubar: '',
+                plugins: 'autolink charmap emoticons link lists',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        editor.save();
+                    });
+                },
+            });
+        }
+
+        function changeInputElem(element) {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                let output = element.parentNode;
+                output.style.background = `url("${reader.result}")`;
+                output.style.backgroundRepeat = 'no-repeat';
+                output.style.backgroundSize = 'cover';
+                output.style.backgroundOrigin = 'center';
+            }
+            reader.readAsDataURL(element.files[0]);
+        }
+
     </script>
 
     <script>
         lessonsInput = document.querySelector('#lesson-banner-input');
-        lessonsInput.addEventListener('change', (event) => {
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                let output = lessonsInput.parentNode;
-                output.style.backgroundImage = `url("${reader.result}")`;
-                output.querySelector('svg').style.display = 'none';
-            }
-            reader.readAsDataURL(event.target.files[0]);
-        });
+        lessonsInput.addEventListener('change', changeInput);
     </script>
     <script>
         booksInput = document.querySelector('#book-banner-input');
-        booksInput.addEventListener('change', (event) => {
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                let output = booksInput.parentNode;
-                output.style.backgroundImage = `url("${reader.result}")`;
-                output.querySelector('svg').style.display = 'none';
-            }
-            reader.readAsDataURL(event.target.files[0]);
-        });
-
+        booksInput.addEventListener('change', changeInput);
     </script>
+
 {% endblock %}

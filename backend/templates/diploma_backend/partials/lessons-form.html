@@ -2,7 +2,8 @@
 {% load quiz_tags %}
 {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
     <form class="col-12 mb-3" method="post" hx-encoding="multipart/form-data"
-          hx-post="{% url 'addlesson' %}" hx-target="#lessons" id="lessons-form" _="on htmx:afterRequest reset() me">
+          hx-post="{% url 'addlesson' %}" hx-target="#lessons" id="lessons-form" _="on htmx:afterRequest reset() me"
+          _="${input}">
         {{ lesson_form.type }}
         <div class="card">
             <div class="row row-0">
@@ -38,7 +39,7 @@
                             </label>
                         </div>
                         <div class="mb-1">
-                            <label class="form-label">{{ lesson_form.description }}</label>
+                            <label class="form-label">{% render_field lesson_form.description %}</label>
                         </div>
                         <div class="row">
                             <div class="col">

@@ -8,7 +8,7 @@ class LessonForm(forms.ModelForm):
     title = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Атауы'}))
     description = forms.CharField(widget=forms.Textarea(
-        attrs={'class': 'form-control form-control-sm', 'id': 'add-lesson-textarea', 'rows': 2,
+        attrs={'class': 'form-control form-control-sm', 'rows': 2,
                'placeholder': 'Қысқаша сипаттама'}), required=False)
     document = forms.FileField(
         widget=forms.FileInput(attrs={'class': 'form-control', 'placeholder': 'Файл'}))

@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from diploma_backend.views import DashboardView, addBook, addLesson, update_lesson
+from diploma_backend.views import *
 
 app_name = "core"
 urlpatterns = [
@@ -20,6 +20,12 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
 
 ]
+htmx_urlpatterns = [
+    path("lessons/", lessons_list, name="get_lessons"),
+    path("books/", books_list, name="get_books"),
+    path("delete_lesson/<int:pk>", delete_lesson, name="delete_lesson"),
+]
+urlpatterns += htmx_urlpatterns
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

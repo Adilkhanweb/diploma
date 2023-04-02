@@ -44,7 +44,8 @@ def submit_attempt(request, url, attempt_id):
 
 @login_required
 def quiz_list(request):
-    quizzes = Quiz.objects.filter(draft=False, end_time__gt=timezone.now())
+    # quizzes = Quiz.objects.filter(draft=False, end_time__gt=timezone.now())
+    quizzes = Quiz.objects.filter(draft=False)
     return render(request, "quiz/quiz_list.html", {
         "quizzes": quizzes,
     })

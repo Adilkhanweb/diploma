@@ -1,0 +1,48 @@
+{% load widget_tweaks %}
+{% load quiz_tags %}
+{% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
+    <form class="card" action="{% url 'update-lesson' book.pk %}" method="post" enctype="multipart/form-data"
+          id="books-change-form" _="on htmx:afterRequest reset() me">
+        {{ book_form.type }}
+        {% csrf_token %}
+        <div class="card-body">
+
+            <div class="file-upload h-100 mb-1">
+                <label class="avatar avatar-upload rounded image-upload-box img-responsive img-responsive-3x4 card-img-top align-items-center"
+                       style="background: url('{{ book.banner.url }}') no-repeat center; background-size: cover;
+                               height: 100%; width: 100%;" data-bs-toggle="tooltip" data-bs-placement="top"
+                       title="Фотоны енгізу үшін басыңыз">
+                    <input type="file" accept="image/*" name="banner" class="d-none"
+                           id="lesson-change-banner-input"
+                           _="on change call changeInputElem(#lesson-change-banner-input)">
+                </label>
+            </div>
+            <div class="col">
+                <div class="mb-1">
+                    <label class="form-label">
+                        {% render_field book_form.title class="form-control" %}
+                    </label>
+                </div>
+                <div class="mb-1">
+                    <label class="form-label">{% render_field book_form.description id="change-form-textarea" %}</label>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-1">
+                            <label class="form-label">{{ book_form.document }}</label>
+                        </div>
+                        <div class="text-muted small">Қазіргі: {{ book.document_name }}</div>
+                    </div>
+                </div>
+                <div class="col d-flex justify-content-between gap-2">
+                    <a hx-get="{% url 'get_books' %}" hx-target="#books"
+                       _="on htmx:afterRequest call reinitialize()"
+                       class="btn w-100">Болдырмау
+                    </a>
+                    <button type="submit" class="btn btn-primary">Сақтау
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endif %}

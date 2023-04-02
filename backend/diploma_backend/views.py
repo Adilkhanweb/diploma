@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views.generic import View, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from calendarapp.models import Event
 from course.models import Lesson
@@ -18,8 +18,8 @@ class DashboardView(LoginRequiredMixin, View):
         lesson = Lesson.objects.first()
         book_form = LessonForm(initial={"type": "book"})
         lesson_form = LessonForm(initial={"type": "lesson"})
-        lessons = Lesson.objects.filter(type="lesson")
-        books = Lesson.objects.filter(type="book")
+        lessons = Lesson.objects.filter(type="lesson").order_by('-created_at')
+        books = Lesson.objects.filter(type="book").order_by('-created_at')
         events = Event.objects.get_all_events()
         running_events = Event.objects.get_running_events()
         latest_events = Event.objects.filter().order_by("-id")[:10]
@@ -47,7 +47,7 @@ def addBook(request):
             lesson.type = "book"
             lesson.save()
             return render(request, "diploma_backend/partials/books-list.html",
-                          {"books": Lesson.objects.filter(type='book')})
+                          {"books": Lesson.objects.filter(type='book').order_by('-created_at')})
     else:
         return HttpResponse(status=400)
 
@@ -62,7 +62,8 @@ def addLesson(request):
             lesson.type = "lesson"
             lesson.save()
             return render(request, 'diploma_backend/partials/lessons-list.html',
-                          {'lessons': Lesson.objects.filter(type="lesson"), 'lesson_form': LessonForm()})
+                          {'lessons': Lesson.objects.filter(type="lesson").order_by('-created_at'),
+                           'lesson_form': LessonForm()})
     else:
         return HttpResponse(status=400)
 
@@ -78,8 +79,26 @@ def update_lesson(request, pk):
             return redirect('dashboard')
     else:
         form = LessonForm(instance=lesson)
-        return render(request, 'diploma_backend/partials/lesson-change-form.html',
-                      {'lesson_form': form, 'lesson': lesson})
+        if lesson.type == 'lesson':
+            return render(request, 'diploma_backend/partials/lesson-change-form.html',
+                          {'lesson_form': form, 'lesson': lesson})
+        else:
+            return render(request, 'diploma_backend/partials/book-change-form.html',
+                          {'book_form': form, 'book': lesson})
+
+
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Teacher').count() == 0, login_url='users:signin')
+def delete_lesson(request, pk):
+    lesson = get_object_or_404(Lesson, pk=pk)
+    books = Lesson.objects.filter(type="book")
+    lessons = Lesson.objects.filter(type="lesson").order_by('-created_at')
+    if lesson.type == 'book':
+        lesson.delete()
+        return render(request, "diploma_backend/partials/books-list.html", {'books': books})
+    else:
+        lesson.delete()
+        return render(request, "diploma_backend/partials/lessons-list.html", {'lessons': lessons})
 
 
 def handler404(request, *args, **argv):
@@ -92,3 +111,13 @@ def handler500(request, *args, **argv):
     response = render("base/500.html", request, {})
     response.status_code = 500
     return response
+
+
+def lessons_list(request):
+    lessons = Lesson.objects.filter(type="lesson").order_by('-created_at')
+    return render(request, "diploma_backend/partials/lessons-list.html", {'lessons': lessons})
+
+
+def books_list(request):
+    books = Lesson.objects.filter(type="book").order_by('-created_at')
+    return render(request, "diploma_backend/partials/books-list.html", {'books': books})
