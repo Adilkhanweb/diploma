@@ -4,16 +4,9 @@
 {% block title %}
     Dashboard
 {% endblock %}
-{% block extracss %}
-
-
-    <script src="https://cdn.tiny.cloud/1/7td4b3p4zag9jdaz2ot398ds5hhtbq0x6u7z0aurdm6o8old/tinymce/6/tinymce.min.js"
-            referrerpolicy="origin"></script>
-
-{% endblock %}
 {% block body %}
     <h1 class="py-3 px-2">Курс материалдары</h1>
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs lesson-tabs">
         <li class="nav-item">
             <a href="#tab-lessons" class="nav-link active">
                 <!-- Download SVG icon from http://tabler-icons.io/i/home -->
@@ -45,31 +38,6 @@
     </div>
 {% endblock %}
 {% block extrascripts %}
-    {#    <script>#}
-    {#        document.addEventListener("DOMContentLoaded", function () {#}
-    {#            let options = {#}
-    {#                selector: '#add-lesson-textarea',#}
-    {#                height: 300,#}
-    {#                menubar: false,#}
-    {#                statusbar: false,#}
-    {#                plugins: [#}
-    {#                    'advlist autolink lists link image charmap print preview anchor',#}
-    {#                    'searchreplace visualblocks code fullscreen',#}
-    {#                    'insertdatetime media table paste code help wordcount'#}
-    {#                ],#}
-    {#                toolbar: 'undo redo | formatselect | ' +#}
-    {#                    'bold italic backcolor | alignleft aligncenter ' +#}
-    {#                    'alignright alignjustify | bullist numlist outdent indent | ' +#}
-    {#                    'removeformat',#}
-    {#                content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif; font-size: 14px; -webkit-font-smoothing: antialiased; }'#}
-    {#            }#}
-    {#            if (localStorage.getItem("tablerTheme") === 'dark') {#}
-    {#                options.skin = 'oxide-dark';#}
-    {#                options.content_css = 'dark';#}
-    {#            }#}
-    {#            tinyMCE.init(options);#}
-    {#        })#}
-    {#    </script>#}
     <script>
         tinymce.init({
             height: '160',
@@ -109,7 +77,6 @@
                 output.style.backgroundRepeat = 'no-repeat';
                 output.style.backgroundSize = 'cover';
                 output.style.backgroundOrigin = 'center';
-                output.querySelector('svg').style.display = 'none';
             }
             reader.readAsDataURL(event.target.files[0]);
         }

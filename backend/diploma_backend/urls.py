@@ -19,6 +19,8 @@ urlpatterns = [
     path("assignments/", include("assignment.urls")),
     path('accounts/', include('allauth.urls')),
 
+    path('discussions/', include('discussions.urls')),
+
 ]
 htmx_urlpatterns = [
     path("lessons/", lessons_list, name="get_lessons"),

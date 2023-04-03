@@ -1,7 +1,13 @@
 {% extends 'base/content.html' %}
+{% load static %}
 {% load quiz_tags %}
 {% block body %}
     <h1>Бағдарламалау Тапсырмалары</h1>
+    <div class="row">
+        <div class="col-6 offset-3 my-4">
+            <img src="{% static 'images/alua1.svg' %}" width="100%">
+        </div>
+    </div>
     <div class="card">
         <div class="table-responsive">
             <table
@@ -22,11 +28,12 @@
                             <span class="badge bg-teal">{{ problem.get_difficulty_display }}</span>
                         {% elif problem.difficulty == 2 %}
                             <span class="badge bg-yellow">{{ problem.get_difficulty_display }}</span>
-                            {% elif problem.difficulty == 3 %}
+                        {% elif problem.difficulty == 3 %}
                             <span class="badge bg-danger">{{ problem.get_difficulty_display }}</span>
                         {% endif %} </td>
                         <td>{% if problem|problem_is_accepted:request.user %}
-                            <span class="badge bg-green">Шешілген</span>{% else %}<span class="badge bg-danger-lt">Шешілмеген</span>{% endif %}</td>
+                            <span class="badge bg-green">Шешілген</span>{% else %}
+                            <span class="badge bg-danger-lt">Шешілмеген</span>{% endif %}</td>
                         <td>
                             <a href="{% url 'problems:problem-detail' problem.slug %}"
                                class="btn btn-outline-azure">

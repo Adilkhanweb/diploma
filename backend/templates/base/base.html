@@ -30,6 +30,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/core.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
+    <script src="https://cdn.tiny.cloud/1/7td4b3p4zag9jdaz2ot398ds5hhtbq0x6u7z0aurdm6o8old/tinymce/6/tinymce.min.js"
+            referrerpolicy="origin"></script>
     <!-- Main CSS-->
     {#    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"/>#}
     <!-- Font-icon css-->
@@ -45,27 +47,6 @@
 {% include 'base/js.html' %}
 {% block extrascripts %}
 {% endblock extrascripts %}
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        let calendarEl = document.getElementById('calendar-tasks');
-        let calendar = new FullCalendar.Calendar(calendarEl, {
-            timeZone: 'Asia/Almaty',
-            initialView: 'listDay',
-            locale: 'kk',
-            // monthNames: ['Қаңтар', 'Ақпан', 'Наурыз', 'Сәуір', 'Мамыр', 'Маусым', 'Шілде', 'Тамыз', 'Қыркүйек', 'Қазан', 'Қараша', 'Желтоқсан'],
-            // monthNamesShort: ['Қаң', 'Ақп', 'Нау', 'Сәу', 'Мам', 'Мау', 'Шіл', 'Там', 'Қыр', 'Қаз', 'Қар', 'Жел'],
-            // dayNames: ['Жексенбі', 'Дүйсенбі', 'Сейсенбі', 'Сәрсенбі', 'Бейсенбі', 'Жұма', 'Сенбі'],
-            // dayNamesShort: ['Же', 'Дү', 'Сй', 'Сә', 'Бе', 'Жұ', 'Се'],
-            // customize the button names,
-            // otherwise they'd all just say "list"
-            height: "56vh",
-            {#events: 'https://fullcalendar.io/api/demo-feeds/events.json',#}
-            events: {{ all_events|safe }}
-        });
-
-        calendar.render();
-    });
-</script>
 
 </body>
 </html>

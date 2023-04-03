@@ -1,6 +1,6 @@
 {% extends 'base/content.html' %}
 {% load static %}
-{% block title %}Event Calendar{% endblock title %}
+{% block title %}Күнтізбе{% endblock title %}
 
 
 
@@ -37,6 +37,7 @@
 
 {% block extrascripts %}
     <script>
+
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
             var today = new Date();

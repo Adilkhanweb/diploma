@@ -2,53 +2,61 @@
 {% load quiz_tags %}
 {% load widget_tweaks %}
 {% block body %}
-    <h1>Үй жұмыстары</h1>
-    <div class="card">
-        <div class="table-responsive">
-            <table
-                    class="table table-vcenter card-table">
-                <thead>
-                <tr>
-                    <th>Атауы</th>
-                    <th>Мерзімі</th>
-                    <th>Қалған уақыт</th>
-                    <th class="w-1"></th>
-                </tr>
-                </thead>
-                <tbody id="assignments-list">
-                {% include 'assignment/partials/assinments-list.html' %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" %}
-        <form class="form-control my-4" hx-post="{% url 'assignments:add_assignment' %}" hx-target="#assignments-list">
-            <h2>Үй жұмысын қосу</h2>
-            <div class="mb-1">
-                <label class="form-label">Атауы:
-                    {% render_field form.title class="form-control" placeholder="Үшінші сабақ үй жұмысы" %}
-                </label></div>
-
-            <div class="mb-1">
-                <label class="form-label">Қысқаша түсіндірме:
-                    {% render_field form.description class="form-control" rows=4 %}
-                </label>
-            </div>
-            <div class="mb-1">
-                <label class="form-label">Тапсыру уақыты:
-                    {% render_field form.deadline class="form-control" id="datetimepicker1" %}
-                </label>
-            </div>
-            <button type="submit" class="btn btn-primary">Жариялау</button>
-        </form>
-    {% endif %}
+    {% include 'assignment/partials/asignments-body.html' %}
 {% endblock %}
 {% block extrascripts %}
     <script>
+        tinymce.init({
+            height: '160',
+            selector: 'textarea',
+            menu: {},
+            menubar: '',
+            plugins: 'autolink charmap emoticons link lists',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+            },
+        });
+
+
+        function reinitialize() {
+            {#tinymce.execCommand('mceRemoveControl', true, '#change-form-textarea');#}
+            try {
+                tinymce.remove('textarea');
+            } catch (e) {
+            }
+            tinymce.init({
+                height: '160',
+                selector: 'textarea',
+                menu: {},
+                menubar: '',
+                plugins: 'autolink charmap emoticons link lists',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        editor.save();
+                    });
+                },
+            });
+            $("#datetimepicker1").flatpickr({
+                minDate: new Date(),
+                enableTime: true,
+                dateFormat: "Y-m-d H:m",
+            });
+        }
+
         $("#datetimepicker1").flatpickr({
             minDate: new Date(),
             enableTime: true,
             dateFormat: "Y-m-d H:m",
+
         });
+
+        function geTimeUntil(datetime) {
+            return moment(datetime).fromNow();
+        }
+
     </script>
 {% endblock %}

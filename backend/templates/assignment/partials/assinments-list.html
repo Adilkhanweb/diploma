@@ -1,12 +1,24 @@
+{% load quiz_tags %}
 {% for assignment in assignments %}
     <tr>
         <td>{{ assignment.title }}</td>
-        <td>{{ assignment.deadline|date }} {{ assignment.deadline|time }}</td>
-        <td>{{ assignment.deadline|timeuntil }}</td>
+        <td>{{ assignment.deadline|date:"d F, H:i" }}</td>
+        <td _="init js return moment('{{ assignment.deadline.isoformat }}').fromNow() end then put it into me">{{ assignment.deadline.isoformat }}</td>
         <td>
             <a href="{% url 'assignments:assignment_detail' assignment_id=assignment.id %}"
                class="btn btn-outline-azure">
-                Тапсыру
+                Шолу
             </a>
+            {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
+                <td class="d-flex gap-2"><a class="btn btn-outline"
+                                            hx-get="{% url 'assignments:change-assignment' assignment.pk %}"
+                                            hx-target="#assignment-form"
+                                            _="on htmx:afterRequest call reinitialize()"
+                >Өзгерту</a><a
+                        class="btn btn-outline-danger"
+                        hx-post="{% url 'assignments:delete-assignment' assignment.pk %}"
+                        hx-confirm="Сіз бұл тапсырманы жойғыңыз келетініне сенімдісіз бе?"
+                        hx-target="#assignments-list">Жою</a></td>
+            {% endif %}
     </tr>
 {% endfor %}

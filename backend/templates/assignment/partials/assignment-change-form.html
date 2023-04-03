@@ -1,0 +1,27 @@
+{% load widget_tweaks %}
+{% load quiz_tags %}
+{% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
+    <form class="form-control my-4" hx-post="{% url 'assignments:change-assignment' assignment.pk %}"
+          hx-target="#list-with-form"
+          _="on htmx:afterRequest reset() me">
+        <h2>{{ assignment.title }} өзгерту</h2>
+        <div class="mb-1">
+            <label class="form-label">Атауы:
+                {% render_field form.title class="form-control" placeholder="Үшінші сабақ үй жұмысы" %}
+            </label></div>
+
+        <div class="mb-1">
+            <label class="form-label">Қысқаша түсіндірме:
+                {% render_field form.description class="d-none" rows=4 %}
+            </label>
+        </div>
+        <div class="mb-1">
+            <label class="form-label">Тапсыру уақыты:
+                {% render_field form.deadline class="form-control" id="datetimepicker1" %}
+            </label>
+        </div>
+        <button hx-get="{% url 'assignments:get_assignments' %}" hx-target="#list-with-form" class="btn">Болдырмау
+        </button>
+        <button type="submit" class="btn btn-primary">Өзгерту</button>
+    </form>
+{% endif %}

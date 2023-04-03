@@ -62,6 +62,13 @@ class TeacherManager(UserManager):
             groups__in=[group])
 
 
+class ModeratorManager(UserManager):
+    def get_queryset(self, *args, **kwargs):
+        group, created = Group.objects.get_or_create(name="Modearators")
+        return super().get_queryset(*args, **kwargs).filter(is_staff=False).filter(is_superuser=False).filter(
+            groups__in=[group])
+
+
 class Student(User):
     objects = StudentManager()
 
@@ -86,6 +93,18 @@ class Teacher(User):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         group, created = Group.objects.get_or_create(name="Teachers")
+        self.groups.add(group)
+
+
+class Moderator(User):
+    objects = TeacherManager()
+
+    class Meta:
+        proxy = True
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        group, created = Group.objects.get_or_create(name="Moderators")
         self.groups.add(group)
 
 

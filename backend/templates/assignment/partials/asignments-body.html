@@ -1,0 +1,28 @@
+{% load quiz_tags %}
+<div id="list-with-form">
+    <h1>Үй жұмыстары</h1>
+    <div class="card">
+        <div class="table-responsive">
+            <table
+                    class="table table-vcenter card-table">
+                <thead>
+                <tr>
+                    <th>Атауы</th>
+                    <th>Мерзімі</th>
+                    <th>Қалған уақыт</th>
+                    <th class="w-1"></th>
+                    {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
+                        <th class="w-1">Әрекет</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody id="assignments-list">
+                {% include 'assignment/partials/assinments-list.html' %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="assignment-form">
+        {% include 'assignment/partials/assignment-form.html' %}
+    </div>
+</div>

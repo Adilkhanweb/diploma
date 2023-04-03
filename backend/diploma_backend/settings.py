@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'course',
     'problems',
     'users',
+    'discussions',
+    'durationwidget',
     'quiz_apps.quiz',
     'quiz_apps.singlechoice',
     'quiz_apps.multiplechoice',

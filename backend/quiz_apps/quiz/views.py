@@ -7,7 +7,7 @@ from django.core.paginator import Paginator, PageNotAnInteger
 from django.http import JsonResponse, HttpResponse
 
 from quiz_apps.multiplechoice.models import Attempt, AttemptQuestion
-from quiz_apps.quiz.forms import AttemptQuestionForm
+from quiz_apps.quiz.forms import AttemptQuestionForm, QuizForm
 from quiz_apps.quiz.models import Quiz
 from django.shortcuts import render
 
@@ -46,9 +46,19 @@ def submit_attempt(request, url, attempt_id):
 def quiz_list(request):
     # quizzes = Quiz.objects.filter(draft=False, end_time__gt=timezone.now())
     quizzes = Quiz.objects.filter(draft=False)
-    return render(request, "quiz/quiz_list.html", {
-        "quizzes": quizzes,
-    })
+    if request.method == 'POST':
+        form = QuizForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('quiz:quiz_list')
+        else:
+            print(form.errors)
+    else:
+        form = QuizForm()
+        return render(request, "quiz/quiz_list.html", {
+            "quizzes": quizzes,
+            "form": form
+        })
 
 
 @login_required
@@ -79,7 +89,8 @@ def attempt(request, url):
         for attemptQuestion in page_obj.object_list:
             forms.append(
                 {"form": AttemptQuestionForm(instance=attemptQuestion, prefix=f"{attemptQuestion.id}"),
-                 "attempt_question_id": attemptQuestion.id, "figure": (attemptQuestion.question.figure or None)})
+                 "attempt_question_id": attemptQuestion.id, "question": attemptQuestion.question.content,
+                 "figure": (attemptQuestion.question.figure or None)})
         return render(request, 'quiz/attempt.html',
                       {'quiz': quiz, 'forms': forms, 'attempt': attempt, "page_obj": page_obj,
                        "quiz_end_time": quiz_end_time})

@@ -1,7 +1,14 @@
 {% extends 'base/content.html' %}
+{% load widget_tweaks %}
+{% load static %}
 {% load quiz_tags %}
 {% block body %}
-    <h1>Тестілеу</h1>
+    <h1>Бақылау</h1>
+    <div class="row">
+        <div class="col-6 offset-3 my-4">
+            <img src="{% static 'images/alua2.svg' %}" width="100%"/>
+        </div>
+    </div>
     <div class="card">
         <div class="table-responsive">
             <table
@@ -35,10 +42,126 @@
             </table>
         </div>
     </div>
+    <div class="card my-5 p-3">
+        <form action="{% url 'quiz:quiz_list' %}" method="post">
+            {% csrf_token %}
+            <h2>Бақылау қосу</h2>
+            <div class="row">
+                <div class="col mb-3">
+                    <label class="">
+                        <span class="form-label required">{{ form.title.label }}</span>
+                        {% render_field form.title %}
+                    </label>
+                </div>
+                <div class="col mb-3">
+                    <label class="">
+                        <span class="form-label required">{{ form.url.label }}</span>
+                        {% render_field form.url %}
+                    </label>
+                </div>
+                <div class="col mb-3">
+                    <label class="">
+                        <span class="form-label required">{{ form.max_attempts.label }}</span>
+                        {% render_field form.max_attempts %}
+                    </label>
+                </div>
+                <div class="col mb-3">
+                    <label class="">
+                        <span class="form-label required">{{ form.pass_mark.label }}</span>
+                        {% render_field form.pass_mark %}
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label class="form-check form-switch">
+                        {% render_field form.draft %}
+                        <span class="form-check-label">{{ form.draft.label }}</span>
+                    </label>
+                    <span class="text-muted">Тесттер тізімінде көрсетілмейді және оны тек тестілерді өңдей алатын пайдаланушылар ғана тапсыра алады.</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label class="form-check form-switch">
+                        {% render_field form.random_order %}
+                        <span class="form-check-label">{{ form.random_order.label }}</span>
+                    </label>
+                    <span class="text-muted">Сұрақтарды кездейсоқ ретпен көрсету керек пе?</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <label class="w-100">
+                        <span class="form-label required">{{ form.description.label }}</span>
+                        {% render_field form.description %}
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label class="w-100">
+                        <span class="form-label required">{{ form.success_text.label }}</span>
+                        {% render_field form.success_text %}
+                    </label>
+                </div>
+                <div class="col mb-3">
+                    <label class="w-100">
+                        <span class="form-label required">{{ form.fail_text.label }}</span>
+                        {% render_field form.fail_text %}
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label class="w-100">
+                        <span class="form-label required">{{ form.start_time.label }}</span>
+                        {% render_field form.start_time %}
+                    </label>
+                </div>
+                <div class="col mb-3">
+                    <label class="w-100">
+                        <span class="form-label required">{{ form.end_time.label }}</span>
+                        {% render_field form.end_time %}
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label class="col">
+                        <span class="form-label required">{{ form.duration.label }}</span>
+                        {% render_field form.duration class="form-control w-auto d-inline-block mx-2" %}
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label class="col">
+                        <span class="form-label required">{{ form.questions.label }}</span>
+                        {% render_field form.questions %}
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Сақтау</button>
+        </form>
+    </div>
 {% endblock %}
 
 {% block extrascripts %}
     <script>
+        tinymce.init({
+            height: '160',
+            selector: 'textarea',
+            menu: {},
+            menubar: '',
+            plugins: 'autolink charmap emoticons link lists',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+            },
+        });
         durationRows = document.querySelectorAll('[data-duration]').forEach((element, index) => {
             element.innerHTML = moment.duration(element.dataset.duration).humanize();
         });
