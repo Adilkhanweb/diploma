@@ -42,146 +42,148 @@
             </table>
         </div>
     </div>
-    <a href="#addQuestion" class="mt-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#addQuestion">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
-             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-             stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M12 5l0 14"></path>
-            <path d="M5 12l14 0"></path>
-        </svg>
-        Сұрақ қосу
-    </a>
-    <a href="#addQuiz" class="mt-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#addQuiz">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
-             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-             stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M12 5l0 14"></path>
-            <path d="M5 12l14 0"></path>
-        </svg>
-        Бақылау қосу
-    </a>
-    <div class="modal" tabindex="-1" id="addQuiz">
-        <form action="{% url 'quiz:quiz_list' %}" method="post" class="modal-dialog" style="max-width: 1200px"
-              role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Бақылау қосу</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
+
+        <a href="#addQuestion" class="mt-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#addQuestion">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
+                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M12 5l0 14"></path>
+                <path d="M5 12l14 0"></path>
+            </svg>
+            Сұрақ қосу
+        </a>
+        <a href="#addQuiz" class="mt-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#addQuiz">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
+                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M12 5l0 14"></path>
+                <path d="M5 12l14 0"></path>
+            </svg>
+            Бақылау қосу
+        </a>
+        <div class="modal" tabindex="-1" id="addQuiz">
+            <form action="{% url 'quiz:quiz_list' %}" method="post" class="modal-dialog" style="max-width: 1200px"
+                  role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Бақылау қосу</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label class="">
+                                    <span class="form-label required">{{ form.title.label }}</span>
+                                    {% render_field form.title %}
+                                </label>
+                            </div>
+                            <div class="col mb-3">
+                                <label class="">
+                                    <span class="form-label required">{{ form.url.label }}</span>
+                                    {% render_field form.url %}
+                                </label>
+                            </div>
+                            <div class="col mb-3">
+                                <label class="">
+                                    <span class="form-label required">{{ form.max_attempts.label }}</span>
+                                    {% render_field form.max_attempts %}
+                                </label>
+                            </div>
+                            <div class="col mb-3">
+                                <label class="">
+                                    <span class="form-label required">{{ form.pass_mark.label }}</span>
+                                    {% render_field form.pass_mark %}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label class="form-check form-switch">
+                                    {% render_field form.draft %}
+                                    <span class="form-check-label">{{ form.draft.label }}</span>
+                                </label>
+                                <span class="text-muted">Тесттер тізімінде көрсетілмейді және оны тек тестілерді өңдей алатын пайдаланушылар ғана тапсыра алады.</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label class="form-check form-switch">
+                                    {% render_field form.random_order %}
+                                    <span class="form-check-label">{{ form.random_order.label }}</span>
+                                </label>
+                                <span class="text-muted">Сұрақтарды кездейсоқ ретпен көрсету керек пе?</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label class="w-100">
+                                    <span class="form-label required">{{ form.description.label }}</span>
+                                    {% render_field form.description %}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label class="w-100">
+                                    <span class="form-label required">{{ form.success_text.label }}</span>
+                                    {% render_field form.success_text %}
+                                </label>
+                            </div>
+                            <div class="col mb-3">
+                                <label class="w-100">
+                                    <span class="form-label required">{{ form.fail_text.label }}</span>
+                                    {% render_field form.fail_text %}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label class="w-100">
+                                    <span class="form-label required">{{ form.start_time.label }}</span>
+                                    {% render_field form.start_time %}
+                                </label>
+                            </div>
+                            <div class="col mb-3">
+                                <label class="w-100">
+                                    <span class="form-label required">{{ form.end_time.label }}</span>
+                                    {% render_field form.end_time %}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label class="col">
+                                    <span class="form-label required">{{ form.duration.label }}</span>
+                                    {% render_field form.duration class="form-control w-auto d-inline-flex me-2" %}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label class="col">
+                                    <span class="form-label required">{{ form.questions.label }}</span>
+                                    {% render_field form.questions %}
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-ghost-secondary" data-bs-dismiss="modal">
+                            Болдырмау
+                        </a>
+                        <button type="submit" class="btn btn-primary ms-auto">Сақтау</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label class="">
-                                <span class="form-label required">{{ form.title.label }}</span>
-                                {% render_field form.title %}
-                            </label>
-                        </div>
-                        <div class="col mb-3">
-                            <label class="">
-                                <span class="form-label required">{{ form.url.label }}</span>
-                                {% render_field form.url %}
-                            </label>
-                        </div>
-                        <div class="col mb-3">
-                            <label class="">
-                                <span class="form-label required">{{ form.max_attempts.label }}</span>
-                                {% render_field form.max_attempts %}
-                            </label>
-                        </div>
-                        <div class="col mb-3">
-                            <label class="">
-                                <span class="form-label required">{{ form.pass_mark.label }}</span>
-                                {% render_field form.pass_mark %}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label class="form-check form-switch">
-                                {% render_field form.draft %}
-                                <span class="form-check-label">{{ form.draft.label }}</span>
-                            </label>
-                            <span class="text-muted">Тесттер тізімінде көрсетілмейді және оны тек тестілерді өңдей алатын пайдаланушылар ғана тапсыра алады.</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label class="form-check form-switch">
-                                {% render_field form.random_order %}
-                                <span class="form-check-label">{{ form.random_order.label }}</span>
-                            </label>
-                            <span class="text-muted">Сұрақтарды кездейсоқ ретпен көрсету керек пе?</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 mb-3">
-                            <label class="w-100">
-                                <span class="form-label required">{{ form.description.label }}</span>
-                                {% render_field form.description %}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label class="w-100">
-                                <span class="form-label required">{{ form.success_text.label }}</span>
-                                {% render_field form.success_text %}
-                            </label>
-                        </div>
-                        <div class="col mb-3">
-                            <label class="w-100">
-                                <span class="form-label required">{{ form.fail_text.label }}</span>
-                                {% render_field form.fail_text %}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label class="w-100">
-                                <span class="form-label required">{{ form.start_time.label }}</span>
-                                {% render_field form.start_time %}
-                            </label>
-                        </div>
-                        <div class="col mb-3">
-                            <label class="w-100">
-                                <span class="form-label required">{{ form.end_time.label }}</span>
-                                {% render_field form.end_time %}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label class="col">
-                                <span class="form-label required">{{ form.duration.label }}</span>
-                                {% render_field form.duration class="form-control w-auto d-inline-flex me-2" %}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label class="col">
-                                <span class="form-label required">{{ form.questions.label }}</span>
-                                {% render_field form.questions %}
-                            </label>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn btn-ghost-secondary" data-bs-dismiss="modal">
-                        Болдырмау
-                    </a>
-                    <button type="submit" class="btn btn-primary ms-auto">Сақтау</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
+            </form>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block extrascripts %}
