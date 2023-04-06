@@ -165,9 +165,11 @@
     background-color: #E15431;
     border-radius: 0.5rem;
 }
+
 .navbar-nav.content-sidebar > .nav-item > .nav-link svg {
     stroke-width: 2;
 }
+
 .navbar-nav.content-sidebar > li.active.nav-item > .nav-link {
     color: #fff;
 }
@@ -186,4 +188,22 @@
     pointer-events: none;
     filter: none;
     opacity: .5;
+}
+
+.datagrid {
+    --tblr-datagrid-padding: 1.5rem;
+    --tblr-datagrid-item-width: 15rem;
+    display: grid;
+    grid-gap: var(--tblr-datagrid-padding);
+    grid-template-columns:repeat(auto-fit, minmax(var(--tblr-datagrid-item-width), 1fr))
+}
+
+.datagrid-title {
+    font-size: .625rem;
+    font-weight: var(--tblr-font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    line-height: 1rem;
+    color: var(--tblr-muted);
+    margin-bottom: .25rem
 }

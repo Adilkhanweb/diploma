@@ -1,34 +1,86 @@
-{% for submission in submissions %}
-    <tr>
-        <td>{{ submission.files }}</td>
-        <td>{{ submission.created_at }}</td>
-        <td><a href="{{ submission.files.url }}" class="btn btn-icon">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 class="icon icon-tabler icon-tabler-file-search"
-                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                 stroke="currentColor"
-                 fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                <path d="M12 21h-5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v4.5"></path>
-                <path d="M16.5 17.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0"></path>
-                <path d="M18.5 19.5l2.5 2.5"></path>
-            </svg>
-        </a></td>
-        <td><a href="{% url 'assignments:delete_submission' submission.id %}"
-               class="btn btn-icon bg-danger btn-dark">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash"
-                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                 stroke="currentColor"
-                 fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M4 7l16 0"></path>
-                <path d="M10 11l0 6"></path>
-                <path d="M14 11l0 6"></path>
-                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-            </svg>
-        </a>
-        </td>
-    </tr>
-{% endfor %}
+{% if submission.files.exists %}
+    <form class="card" method="post"
+          id="bulk_form" hx-post="{% url 'assignments:bulk_delete_files' submission.id %}"
+          hx-target="#submissions"
+          hx-encoding="multipart/form-data" _="on change call form_on_change(me)">
+        {% csrf_token %}
+        <div class="card-header">
+            <h3 class="card-title">Invoices</h3>
+        </div>
+        <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap datatable">
+                <thead>
+                <tr>
+                    <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
+                                           aria-label="Select all invoices" data-bs-toggle="tooltip"
+                                           data-bs-placement="top" title="Барлығын таңдау" id="select-all"
+                                           _="on click call select_all_checkbox_func(me)">
+                    </th>
+                    <th>Атауы</th>
+                    <th>Мерзімі</th>
+                    <th>Шолу</th>
+                    <th class="w-1">Жою</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for file in submission.files.all %}
+                    <tr>
+                        <td><input class="form-check-input m-0 align-middle" type="checkbox" name="bulk_file"
+                                   value="{{ file.id }}"></td>
+                        <td><span class="text-muted">{{ file.filename }}</span></td>
+                        <td>{{ file.created_at|date:"d F, H:i" }}
+                        </td>
+                        <td><a href="{{ file.file.url }}" class="btn btn-icon" title="{{ file.filename }}">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="icon icon-tabler icon-tabler-file-search"
+                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                 stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                <path d="M12 21h-5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v4.5"></path>
+                                <path d="M16.5 17.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0"></path>
+                                <path d="M18.5 19.5l2.5 2.5"></path>
+                            </svg>
+                        </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'assignments:delete_submission' submission.id file.id %}"
+                               class="btn btn-icon bg-danger btn-dark">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash"
+                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                     stroke="currentColor"
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M4 7l16 0"></path>
+                                    <path d="M10 11l0 6"></path>
+                                    <path d="M14 11l0 6"></path>
+                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer d-flex align-items-center">
+            <p class="m-0 text-muted"><span id="selected_counter">0</span> файл таңдалды</p>
+            <button type="submit" class="ms-auto btn btn-danger disabled btn" id="submit-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash"
+                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                     stroke="currentColor"
+                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M4 7l16 0"></path>
+                    <path d="M10 11l0 6"></path>
+                    <path d="M14 11l0 6"></path>
+                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                </svg>
+                Жою
+            </button>
+        </div>
+    </form>
+{% endif %}

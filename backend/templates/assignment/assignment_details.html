@@ -1,4 +1,5 @@
 {% extends 'base/content.html' %}
+{% load widget_tweaks %}
 {% load quiz_tags %}
 {% block body %}
     <h1>{{ assignment.title }}</h1>
@@ -7,16 +8,18 @@
                 class="card-subtitle">{{ assignment.description|safe }}</span></h3></div>
         <div class="card-body">
             <form method="post" enctype="multipart/form-data"
-                  hx-post="" hx-target="#submissions" hx-encoding="multipart/form-data">
-                {% csrf_token %}
-                <input type="hidden" id="id_assignment" value="{{ assignment.id }}" class="form-control"
-                       name="assignment">
-                <input type="hidden" id="id_user" value="{{ request.user.id }}" class="form-control"
-                       name="user">
+                  hx-post="" hx-target="#submissions" hx-encoding="multipart/form-data"
+                  _="on htmx:afterRequest reset() me"
+            >
                 <div class="mb-3">
-                    <label class="form-label" for="id_files"></label>
-                    <input type="file" id="id_files" value="{{ assignment.id }}" class="form-control" name="files"
-                           multiple>
+                    <label class="form-label">
+                        {% render_field file_from.files %}
+                    </label>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">
+                        {% render_field submission_form.comment %}
+                    </label>
                 </div>
                 {% for error in form.errors %}
                     {{ error }}
@@ -26,34 +29,61 @@
             </form>
         </div>
     </div>
-    {% if submissions %}
-        <div class="card">
-            <div class="card-header card-title">Жүктелген файлдар
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-vcenter card-table">
-                        <thead>
-                        <tr>
-                            <th>Атауы</th>
-                            <th>Мерзімі</th>
-                            <th>Шолу</th>
-                            <th>Жою</th>
-                            <th class="w-1"></th>
-                        </tr>
-                        </thead>
-                        <tbody id="submissions">
-                        {% include 'assignment/partials/assignment-submissions-tbody.html' %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    {% endif %}
+    <div id="submissions">
+        {% include 'assignment/partials/assignment-submissions-tbody.html' %}
+    </div>
     {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
-        {% for submission in assignment.assignmentsubmission_set.all %}
-
+        {% for submission in assignment.submissions.all %}
+            {{ submission.user.email }}
         {% endfor %}
-
     {% endif %}
+{% endblock %}
+{% block extrascripts %}
+    <script>
+        tinymce.init({
+            height: '160',
+            selector: 'textarea',
+            menu: {},
+            menubar: '',
+            plugins: 'autolink charmap emoticons link lists',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+            },
+        });
+    </script>
+    <script>
+
+        function form_on_change(form) {
+            let selected = form.querySelectorAll('input[type=checkbox][name=bulk_file]:checked').length;
+            let all_options = form.querySelectorAll('input[type=checkbox][name=bulk_file]').length;
+            let select_all_checkbox = document.querySelector('#select-all');
+            let submit_button = document.querySelector('#submit-btn');
+            let selected_counter = document.querySelector('#selected_counter');
+            selected_counter.innerText = selected;
+            if (selected > 0) {
+                submit_button.classList.remove('disabled')
+
+            } else {
+                select_all_checkbox.checked = false;
+                submit_button.classList.add('disabled');
+            }
+            select_all_checkbox.checked = all_options === selected;
+        }
+
+        function select_all_checkbox_func(select_all_checkbox) {
+            let form = document.querySelector('#bulk_form');
+            if (select_all_checkbox.checked) {
+                form.querySelectorAll('input[type=checkbox]').forEach((element) => {
+                    element.checked = true;
+                });
+            } else {
+                form.querySelectorAll('input[type=checkbox]').forEach((element) => {
+                    element.checked = false;
+                });
+            }
+        }
+    </script>
 {% endblock %}

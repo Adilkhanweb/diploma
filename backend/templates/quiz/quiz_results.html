@@ -3,9 +3,9 @@
 
     <h1>{{ quiz.title }} Нәтижелері</h1>
     {% if attempt.is_passed %}
-        <p>{{ quiz.success_text }}</p>
+        <p>{{ quiz.success_text|safe }}</p>
     {% else %}
-        <p>{{ quiz.fail_text }}</p>
+        <p>{{ quiz.fail_text|safe }}</p>
     {% endif %}
     <p>Сіз {{ attempt.percentage }}% дұрыс жауап бердіңіз!</p>
     <div class="card p-3">

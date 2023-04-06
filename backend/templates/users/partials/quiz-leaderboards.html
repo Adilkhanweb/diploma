@@ -1,78 +1,128 @@
+{% load humanize %}
 {% load quiz_tags %}
+{% load static %}
 <h2 class="m-3">Тестілеуден Көшбасшылар тақталары</h2>
-{% if quizzes.exists %}
-    {% for quiz in quizzes %}
-        <div class="card m-3">
-            <div class="card-header">
-                <h3 class="card-title">{{ quiz.title }} көшбасшылар тақтасы</h3>
-            </div>
-            <div class="list-group list-group-flush list-group-hoverable">
-                {% with quiz.id|get_leaderboard_ordered:request.user.id as leadearboard %}
-                    {% for before in leadearboard.0 %}
-                        <div class="list-group-item">
-                            <div class="row align-items-center">
-                                <div class="col-auto"
-                                     style="font-weight: bold; font-size: 2rem;">{{ forloop.counter }}</div>
-                                <div class="col-auto">
-                                    <a href="#">
-                                        <span class="avatar"
-                                              style="background-image: url('{{ before.user.profile.picture.url }}')"></span>
-                                    </a>
-                                </div>
-                                <div class="col text-truncate">
-                                    <a href="#"
-                                       class="text-reset d-block">{{ before.user.get_full_name }}</a>
-                                    <div class="d-block text-muted text-truncate mt-n1">
-                                        Балл: {{ before.score }}</div>
-                                </div>
-                            </div>
+{#{% if quizzes.exists %}#}
+{#    {% for quiz in quizzes %}#}
+{#        <div class="card m-3">#}
+{#            <div class="card-header">#}
+{#                <h3 class="card-title">{{ quiz.title }} көшбасшылар тақтасы</h3>#}
+{#            </div>#}
+{#            <div class="list-group list-group-flush list-group-hoverable">#}
+{#                {% with quiz.id|get_leaderboard_ordered:request.user.id as leadearboard %}#}
+{#                    {% for before in leadearboard.0 %}#}
+{#                        <div class="list-group-item">#}
+{#                            <div class="row align-items-center">#}
+{#                                <div class="col-auto"#}
+{#                                     style="font-weight: bold; font-size: 2rem;">{{ forloop.counter }}</div>#}
+{#                                <div class="col-auto">#}
+{#                                    <a href="#">#}
+{#                                        <span class="avatar"#}
+{#                                              style="background-image: url('{{ before.user.profile.picture.url }}')"></span>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                                <div class="col text-truncate">#}
+{#                                    <a href="#"#}
+{#                                       class="text-reset d-block">{{ before.user.get_full_name }}</a>#}
+{#                                    <div class="d-block text-muted text-truncate mt-n1">#}
+{#                                        Балл: {{ before.score }}</div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                    <div class="list-group-item">#}
+{#                        <div class="row align-items-center">#}
+{#                            <div class="col-auto"#}
+{#                                 style="font-weight: bold; font-size: 2rem; color: #0b956c;">{{ leadearboard.0.count|add:1 }}#}
+{#                            </div>#}
+{#                            <div class="col-auto">#}
+{#                                <a href="#">#}
+{#                                        <span class="avatar"#}
+{#                                              style="background-image: url('{{ request.user.profile.picture.url }}')"></span>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                            <div class="col text-truncate">#}
+{#                                <a href="#"#}
+{#                                   class="text-reset d-block">{{ request.user.get_full_name }}</a>#}
+{#                                <div class="d-block text-muted text-truncate mt-n1">#}
+{#                                    Балл: {{ leadearboard.1.score }}</div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    {% for after in leadearboard.2 %}#}
+{#                        <div class="list-group-item">#}
+{#                            <div class="row align-items-center">#}
+{#                                <div class="col-auto"#}
+{#                                     style="font-weight: bold; font-size: 2rem;">{{ forloop.counter|add:leadearboard.0.count|add:1 }}</div>#}
+{#                                <div class="col-auto">#}
+{#                                    <a href="#">#}
+{#                                        <span class="avatar"#}
+{#                                              style="background-image: url('{{ after.user.profile.picture.url }}')"></span>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                                <div class="col text-truncate">#}
+{#                                    <a href="#"#}
+{#                                       class="text-reset d-block">{{ after.user.get_full_name }}</a>#}
+{#                                    <div class="d-block text-muted text-truncate mt-n1">#}
+{#                                        Балл: {{ after.score }}</div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                {% endwith %}#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endfor %}#}
+{#{% else %}#}
+{#    <div class="text-center">#}
+{#        <h3>Қазірше сізде ешқандай жетістік жоқ</h3>#}
+{#    </div>#}
+{#{% endif %}#}
+
+
+<div class="card m-3">
+    <div class="card-header gap-2">
+        <h3 class="card-title">Көшбасшылар тақтасы</h3>
+        <p class="card-subtitle">Сіз {% for user in leaderboard %}{% if user.email == request.user.email %}{{ forloop.counter|make_ordinal_kz }}{% endif %}{% endfor %} орындасыз</p>
+    </div>
+    <div class="list-group list-group-flush list-group-hoverable">
+        {% for user in leaderboard %}
+            <div class="list-group-item">
+                <div class="row align-items-center">
+                    <div class="col-auto"
+                         style="font-weight: bold; font-size: 2rem;">{{ forloop.counter }}
+                    </div>
+                    <div class="col-auto">
+
+                            <span class="avatar"
+                                  style="background-image: url('{% get_media_prefix %}{{ user.picture }}')"></span>
+                    </div>
+                    <div class="col text-truncate">
+                        <h3
+                                class="text-reset d-block">{{ user.first_name }} {{ user.last_name }}</h3>
+                        <div class="d-block text-muted text-truncate mt-n1">
+                            {{ user.email }}
                         </div>
-                    {% endfor %}
-                    <div class="list-group-item">
-                        <div class="row align-items-center">
-                            <div class="col-auto"
-                                 style="font-weight: bold; font-size: 2rem; color: #0b956c;">{{ leadearboard.0.count|add:1 }}
-                            </div>
-                            <div class="col-auto">
-                                <a href="#">
-                                        <span class="avatar"
-                                              style="background-image: url('{{ request.user.profile.picture.url }}')"></span>
-                                </a>
-                            </div>
-                            <div class="col text-truncate">
-                                <a href="#"
-                                   class="text-reset d-block">{{ request.user.get_full_name }}</a>
-                                <div class="d-block text-muted text-truncate mt-n1">
-                                    Балл: {{ leadearboard.1.score }}</div>
-                            </div>
+
+                        <div class="d-block text-muted text-truncate mt-n1">
+                            Балл: {{ user.score }}
                         </div>
                     </div>
-                    {% for after in leadearboard.2 %}
-                        <div class="list-group-item">
-                            <div class="row align-items-center">
-                                <div class="col-auto"
-                                     style="font-weight: bold; font-size: 2rem;">{{ forloop.counter|add:leadearboard.0.count|add:1 }}</div>
-                                <div class="col-auto">
-                                    <a href="#">
-                                        <span class="avatar"
-                                              style="background-image: url('{{ after.user.profile.picture.url }}')"></span>
-                                    </a>
-                                </div>
-                                <div class="col text-truncate">
-                                    <a href="#"
-                                       class="text-reset d-block">{{ after.user.get_full_name }}</a>
-                                    <div class="d-block text-muted text-truncate mt-n1">
-                                        Балл: {{ after.score }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endwith %}
+                </div>
             </div>
-        </div>
-    {% endfor %}
-{% else %}
-    <div class="text-center">
-        <h3>Қазірше сізде ешқандай жетістік жоқ</h3>
+        {% endfor %}
     </div>
-{% endif %}
+</div>
+
+{#<ol>#}
+{#    {% for user in leaderboard %}#}
+{#        {% if request.user.email == user.email %}#}
+{#            <li class="text-secondary">{{ user.first_name }}: {{ user.score }}</li>#}
+{#        {% else %}#}
+{#            <li>{{ user.first_name }}: {{ user.score }} <img src="{% get_media_prefix %}{{ user.picture }}"#}
+{#                                                             alt="">#}
+{#            </li>#}
+{#        {% endif %}#}
+{#    {% endfor %}#}
+{##}
+{#</ol>#}

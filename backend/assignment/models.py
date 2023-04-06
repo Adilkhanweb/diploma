@@ -26,15 +26,24 @@ class Assignment(models.Model):
 
 class AssignmentSubmission(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=False, null=True)
-    assignment = models.ForeignKey(Assignment, on_delete=models.SET_NULL, null=True, verbose_name=_("Тапсырма атауы"))
-    files = models.FileField(upload_to="assignment/", verbose_name=_("Файлдар"))
+    assignment = models.OneToOneField(Assignment, on_delete=models.SET_NULL, null=True,
+                                      verbose_name=_("Тапсырма атауы"), related_name="submissions")
+    comment = models.TextField(_("Сипаттама"))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     graded = models.BooleanField(default=False)
     grade = models.IntegerField(default=0)
 
-    def filename(self):
-        return os.path.basename(self.files.name)
-
     def __str__(self):
         return self.assignment.title
+
+
+class AssignmentSubmissionFiles(models.Model):
+    assignment_submission = models.ForeignKey(AssignmentSubmission, on_delete=models.CASCADE, related_name="files")
+    file = models.FileField(upload_to="assignment/", verbose_name=_("Файлдар"), null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def filename(self):
+        return os.path.basename(self.file.name)

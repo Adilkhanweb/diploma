@@ -57,6 +57,10 @@ class Quiz(models.Model):
     end_time = models.DateTimeField()
     duration = models.DurationField(default=timezone.timedelta(hours=2))
 
+    @property
+    def is_passed(self):
+        return timezone.now() > self.end_time
+
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
         if self.pass_mark > 100:
             raise ValidationError('%s is above 100' % self.pass_mark)

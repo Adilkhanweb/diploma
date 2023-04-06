@@ -63,6 +63,11 @@ def get_quiz_attempts(quiz_id, user_id):
 
 
 @register.filter
+def get_quiz_attempts_count(quiz_id, user_id):
+    return Attempt.objects.filter(quiz_id=quiz_id, status=Attempt.AttemptStatus.ATTEMPTED, user_id=user_id).count()
+
+
+@register.filter
 def get_leaderboard_ordered(quiz_id, user_id):
     user_score = Leaderboard.objects.filter(quiz_id=quiz_id, user_id=user_id).last()
     return Leaderboard.objects.filter(
@@ -72,3 +77,13 @@ def get_leaderboard_ordered(quiz_id, user_id):
         Q(quiz_id=quiz_id, score__lt=user_score.score) | Q(quiz_id=quiz_id, score=user_score.score,
                                                            pk__gt=user_score.pk)).order_by(
         'score')
+
+
+@register.filter
+def make_ordinal_kz(number):
+    juan = [6, 9, 10]
+    last_digit = abs(number) % 10
+    if last_digit in juan:
+        return f"{number}-шы"
+    else:
+        return f"{number}-ші"

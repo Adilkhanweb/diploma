@@ -1,17 +1,96 @@
 {% extends 'base/content.html' %}
 {% load humanize %}
+{% load quiz_tags %}
 {% block body %}
-    <h1>{{ quiz.title }}</h1>
-    <p>{{ quiz.description }}</p>
-    <p>Басталу Уақыты: {{ quiz.start_time|date:"d F, H:i" }}</p>
-    <p>Жабылу Уақыты: {{ quiz.end_time|date:"d F, H:i" }}</p>
-    <p id="duration"></p>
-    <p>Сәтті өту пайызы: {{ quiz.pass_mark }}%</p>
-    <p>Сұрақтар тәртібі: {% if quiz.random_order %}рандомды {% else %}тәртіппен{% endif %}</p>
-    <p>Максималды балл: {{ quiz.get_max_scores }}</p>
-    <p>Максималды әрекеттердің саны: {{ quiz.max_attempts }}</p>
-    {% widthratio quiz.attempts.count 1 -1 as opposite %}
-    <p>Жұмсалған әрекеттер саны: {{ quiz.attempts.count }} Қалғаны: {{ quiz.max_attempts|add:opposite }}</p>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">{{ quiz.title }}</h3>
+            {% if can_attempt %}
+            {% elif quiz.is_passed %}
+                <span class="badge bg-orange ms-auto">Тапсыру мерзімі аяқталды!</span>
+            {% else %}
+                <span class="badge bg-orange ms-auto">Әрекеттер қалмады!</span>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <div class="h3 fw-normal mb-4 text-muted">{{ quiz.description|safe }}</div>
+            <div class="datagrid">
+                <div class="datagrid-item">
+                    <div class="datagrid-title">Басталу Уақыты</div>
+                    <div class="datagrid-content">{{ quiz.start_time|date:"d F, H:i" }}</div>
+                </div>
+                <div class="datagrid-item">
+                    <div class="datagrid-title">Жабылу Уақыты</div>
+                    <div class="datagrid-content">{{ quiz.end_time|date:"d F, H:i" }}</div>
+                </div>
+                <div class="datagrid-item">
+                    <div class="datagrid-title">Уақыт Ұзақтығы</div>
+                    <div class="datagrid-content" id="duration"></div>
+                </div>
+                <div class="datagrid-item">
+                    <div class="datagrid-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trending-up"
+                             width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                             fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M3 17l6 -6l4 4l8 -8"></path>
+                            <path d="M14 7l7 0l0 7"></path>
+                        </svg>
+                        Сәтті өту пайызы
+                    </div>
+                    <div class="datagrid-content">{{ quiz.pass_mark }}%</div>
+                </div>
+                <div class="datagrid-item">
+                    <div class="datagrid-title">Сұрақтар тәртібі</div>
+                    <div class="datagrid-content d-flex align-items-center gap-2">
+                        {% if quiz.random_order %}
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-shuffle"
+                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M18 4l3 3l-3 3"></path>
+                                <path d="M18 20l3 -3l-3 -3"></path>
+                                <path d="M3 7h3a5 5 0 0 1 5 5a5 5 0 0 0 5 5h5"></path>
+                                <path d="M21 7h-5a4.978 4.978 0 0 0 -3 1m-4 8a4.984 4.984 0 0 1 -3 1h-3"></path>
+                            </svg>рандомды {% else %}
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-numbers"
+                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M11 6h9"></path>
+                                <path d="M11 12h9"></path>
+                                <path d="M12 18h8"></path>
+                                <path d="M4 16a2 2 0 1 1 4 0c0 .591 -.5 1 -1 1.5l-3 2.5h4"></path>
+                                <path d="M6 10v-6l-2 2"></path>
+                            </svg>тәртіппен{% endif %}
+                    </div>
+                </div>
+                <div class="datagrid-item">
+                    <div class="datagrid-title">Максималды балл</div>
+                    <div class="datagrid-content">{{ quiz.max_attempts }}</div>
+                </div>
+                <div class="datagrid-item">
+                    <div class="datagrid-title">Максималды әрекеттердің саны</div>
+                    <div class="datagrid-content">
+                        {{ quiz.max_attempts }}
+                    </div>
+                </div>
+                <div class="datagrid-item">
+                    <div class="datagrid-title">Жұмсалған әрекеттер саны</div>
+                    <div class="datagrid-content">
+                        {{ quiz|get_quiz_attempts_count:request.user.id }}
+                    </div>
+                </div>
+                <div class="datagrid-item">
+                    <div class="datagrid-title">Қалғаны</div>
+                    <div class="datagrid-content">
+                        {% widthratio quiz|get_quiz_attempts_count:request.user.id 1 -1 as opposite %}
+                        {{ quiz.max_attempts|add:opposite }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% if attempts %}
         <h5>Жұмсалған Әрекеттер:</h5>
         <table class="table">
@@ -20,8 +99,7 @@
                 <th scope="col">#</th>
                 <th scope="col">% Дұрыс</th>
                 <th scope="col">Сәтті ме?</th>
-                <th scope="col">Күйі</th>
-                <th scope="col">Results</th>
+                <th scope="col" class="w-1">Нәтиже</th>
             </tr>
             </thead>
             <tbody>
@@ -39,9 +117,17 @@
                     {% else %}
                         Submit to view results for this attempt
                     {% endif %}</td>
-                    <td>{{ attempt.get_status_display }}</td>
                     <td>{% if attempt.status == 'attempted' %}
-                        <a href="{% url 'quiz:results' quiz.url attempt.id %}">Нәтижесін көру</a>
+                        <a href="{% url 'quiz:results' quiz.url attempt.id %}" class="btn btn-outline-azure">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-zoom-check"
+                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                                <path d="M21 21l-6 -6"></path>
+                                <path d="M7 10l2 2l4 -4"></path>
+                            </svg>
+                            Шолу</a>
                     {% else %}
                         <a href="{% url 'quiz:attempt' quiz.url %}">Жалғастыру</a>
                     {% endif %} </td>
@@ -51,16 +137,20 @@
         </table>
     {% endif %}
     {% if can_attempt %}
-
         <a class="btn btn-primary"
            href="{% url 'quiz:attempt' quiz.url %}">Тапсыру</a>
+
+    {% elif quiz.is_passed %}
+        <a tabindex="-1" aria-disabled="true" role="button" class="btn btn-primary disabled"
+           href="{% url 'quiz:attempt' quiz.url %}">Тапсыру</a>
+
     {% else %}
-        <a tabindex="-1" aria-disabled="true" role="button" data-bs-toggle="button" class="btn btn-primary disabled"
+        <a tabindex="-1" aria-disabled="true" role="button" class="btn btn-primary disabled"
            href="{% url 'quiz:attempt' quiz.url %}">Тапсыру</a>
     {% endif %}
 {% endblock %}
 {% block extrascripts %}
-<script>
-    document.querySelector('#duration').innerText = "Уақыт Ұзақтығы: " + moment.duration('{{ quiz.duration }}').humanize();
-</script>
+    <script>
+        document.querySelector('#duration').innerText = moment.duration('{{ quiz.duration }}').humanize();
+    </script>
 {% endblock %}

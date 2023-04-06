@@ -3,39 +3,44 @@ import datetime
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
+from problems.models import Submission
 # Create your views here.
 
-from .models import Assignment, AssignmentSubmission
-from .forms import AssignmentSubmissionForm, AssignmentForm
+from .models import Assignment, AssignmentSubmission, AssignmentSubmissionFiles
+from .forms import AssignmentForm, AssignmentSubmissionForm, FileSubmissionForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 
 @login_required
 def assignment_details(request, assignment_id):
-    assignment = get_object_or_404(Assignment, id=assignment_id)
-    submissions = AssignmentSubmission.objects.filter(assignment=assignment).filter(user=request.user)
-    if request.method == "POST":
-        form = AssignmentSubmissionForm(request.POST, request.FILES)
-        files = request.FILES.getlist('files')
-        if form.is_valid():
-            for f in files:
-                file_instance = AssignmentSubmission(files=f, user=request.user, assignment=assignment)
-                file_instance.save()
-            return render(request, "assignment/partials/assignment-submissions-tbody.html", {
-                "form": AssignmentSubmissionForm(initial={'assignment': assignment, 'user': request.user}),
-                "submissions": submissions,
-                "assignment": assignment
-            })
-    return render(request, "assignment/assignment_details.html", {
-        "form": AssignmentSubmissionForm(initial={'assignment': assignment, 'user': request.user}),
-        "submissions": submissions,
-        "assignment": assignment
-    })
+    assignment = get_object_or_404(Assignment, pk=assignment_id)
+    submission = AssignmentSubmission.objects.filter(assignment=assignment, user=request.user).last()
+    if request.method == 'POST':
+        submission, created = AssignmentSubmission.objects.get_or_create(assignment=assignment, user=request.user)
+        submission_form = AssignmentSubmissionForm(request.POST, instance=submission)
+        file_from = FileSubmissionForm(request.POST, request.FILES)
+        if submission_form.is_valid() and file_from.is_valid():
+            submission_f = submission_form.save(commit=False)
+            submission_f.save()
+            for each in file_from.cleaned_data['files']:
+                AssignmentSubmissionFiles.objects.create(file=each, assignment_submission=submission)
+            return render(request, "assignment/partials/assignment-submissions-tbody.html",
+                          {'assignment': assignment, 'submission': submission,
+                           'form': AssignmentSubmissionForm()})
+        else:
+            print(submission_form.errors)
+            print(file_from.errors)
+    else:
+        submission_form = AssignmentSubmissionForm(instance=submission)
+        file_from = FileSubmissionForm()
+    return render(request, 'assignment/assignment_details.html',
+                  {'submission_form': submission_form, 'file_from': file_from, 'assignment': assignment,
+                   'submission': submission})
 
 
 @login_required
 def assignments(request):
-    assignments = Assignment.objects.filter(deadline__gt=datetime.datetime.now())
+    assignments = Assignment.objects.all()
     context = {
         "assignments": assignments,
         "form": AssignmentForm()
@@ -46,7 +51,7 @@ def assignments(request):
 
 @login_required
 def get_assignments_with_form(request):
-    assignments = Assignment.objects.filter(deadline__gt=datetime.datetime.now())
+    assignments = Assignment.objects.all()
     context = {
         "assignments": assignments,
         "form": AssignmentForm()
@@ -55,10 +60,10 @@ def get_assignments_with_form(request):
     return render(request, "assignment/partials/asignments-body.html", context)
 
 
-def delete_file(request, submission_id):
-    file = AssignmentSubmission.objects.get(id=submission_id)
-    assignment = file.assignment
-    file.delete()
+def delete_file(request, submission_id, file_id):
+    submission = AssignmentSubmission.objects.get(id=submission_id)
+    assignment = submission.assignment
+    get_object_or_404(AssignmentSubmissionFiles, id=file_id).delete()
     return redirect('assignments:assignment_detail', assignment.id)
 
 
@@ -100,3 +105,13 @@ def change_assignment(request, pk):
         form = AssignmentForm(instance=assignment)
         return render(request, "assignment/partials/assignment-change-form.html",
                       {'form': form, 'assignment': assignment})
+
+
+def bulk_delete_files(request, submission_id):
+    submission = get_object_or_404(AssignmentSubmission, id=submission_id)
+    if request.method == 'POST':
+        files = request.POST.getlist('bulk_file')
+        AssignmentSubmissionFiles.objects.filter(id__in=files).delete()
+    return render(request, "assignment/partials/assignment-submissions-tbody.html",
+                  {'assignment': submission.assignment, 'submission': submission,
+                   'form': AssignmentSubmissionForm(instance=submission)})
