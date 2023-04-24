@@ -1,0 +1,10 @@
+{% extends 'base/content.html' %}
+{% load crispy_forms_filters %}
+{% block body %}
+    <h1>Қолданушы Қосу</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn">Қосу</button>
+    </form>
+{% endblock %}

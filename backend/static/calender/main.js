@@ -10075,7 +10075,7 @@ var FullCalendar = (function (exports) {
 
     function sanitizeShrinkWidth(shrinkWidth) {
         /* why 4? if we do 0, it will kill any border, which are needed for computeSmallestCellWidth
-        4 accounts for 2 2-pixel borders. TODO: better solution? */
+        4 socialaccount for 2 2-pixel borders. TODO: better solution? */
         return shrinkWidth == null ? 4 : shrinkWidth;
     }
 

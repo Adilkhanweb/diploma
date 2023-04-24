@@ -1,0 +1,185 @@
+{% extends 'base/content.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap-duration-picker.css' %}">
+{% endblock %}
+{% block body %}
+    <form action="{% url 'quiz:quiz_change' quiz.url %}" method="post" class="modal-dialog" style="max-width: 1200px"
+          role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ quiz.title }} өзгерту</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col mb-3">
+                        <label class="">
+                            <span class="form-label required">{{ form.title.label }}</span>
+                            {% render_field form.title %}
+                        </label>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="">
+                            <span class="form-label required">{{ form.url.label }}</span>
+                            {% if form.url.errors %}
+                                {% render_field form.url class="form-control is-invalid" %}
+                                <div class="invalid-feedback">{{ form.url.errors }}</div>
+                            {% else %}
+                                {% render_field form.url class="form-control" %}
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="">
+                            <span class="form-label required">{{ form.max_attempts.label }}</span>
+                            {% if form.max_attempts.errors %}
+                                {% render_field form.max_attempts class="form-control is-invalid" %}
+                                <div class="invalid-feedback">{{ form.max_attempts.errors }}</div>
+                            {% else %}
+                                {% render_field form.max_attempts class="form-control" %}
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="">
+                            <span class="form-label required">{{ form.pass_mark.label }}</span>
+                            {% if form.pass_mark.errors %}
+                                {% render_field form.pass_mark class="form-control is-invalid" %}
+                                <div class="invalid-feedback">{{ form.pass_mark.errors }}</div>
+                            {% else %}
+                                {% render_field form.pass_mark class="form-control" %}
+                            {% endif %}
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label class="form-check form-switch">
+                            {% render_field form.draft %}
+                            <span class="form-check-label">{{ form.draft.label }}</span>
+                        </label>
+                        <span class="text-muted">Тесттер тізімінде көрсетілмейді және оны тек тестілерді өңдей алатын пайдаланушылар ғана тапсыра алады.</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label class="form-check form-switch">
+                            {% render_field form.random_order %}
+                            <span class="form-check-label">{{ form.random_order.label }}</span>
+                        </label>
+                        <span class="text-muted">Сұрақтарды кездейсоқ ретпен көрсету керек пе?</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label class="w-100">
+                            <span class="form-label required">{{ form.description.label }}</span>
+                            {% if form.description.errors %}
+                                {% render_field form.description class="form-control is-invalid" %}
+                                <div class="invalid-feedback">{{ form.description.errors }}</div>
+                            {% else %}
+                                {% render_field form.description class="form-control" %}
+                            {% endif %}
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label class="w-100">
+                            <span class="form-label required">{{ form.success_text.label }}</span>
+                            {% if form.success_text.errors %}
+                                {% render_field form.success_text class="form-control is-invalid" %}
+                                <div class="invalid-feedback">{{ form.success_text.errors }}</div>
+                            {% else %}
+                                {% render_field form.success_text class="form-control" %}
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="w-100">
+                            <span class="form-label required">{{ form.fail_text.label }}</span>
+                            {% if form.fail_text.errors %}
+                                {% render_field form.fail_text class="form-control is-invalid" %}
+                                <div class="invalid-feedback">{{ form.fail_text.errors }}</div>
+                            {% else %}
+                                {% render_field form.fail_text class="form-control" %}
+                            {% endif %}
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label class="w-100">
+                            <span class="form-label required">{{ form.start_time.label }}</span>
+                            {% if form.start_time.errors %}
+                                {% render_field form.start_time class="form-control is-invalid" %}
+                                <div class="invalid-feedback">{{ form.start_time.errors }}</div>
+                            {% else %}
+                                {% render_field form.start_time class="form-control" %}
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="w-100">
+                            <span class="form-label required">{{ form.end_time.label }}</span>
+                            {% if form.end_time.errors %}
+                                {% render_field form.end_time class="form-control is-invalid" %}
+                                <div class="invalid-feedback">{{ form.end_time.errors }}</div>
+                            {% else %}
+                                {% render_field form.end_time class="form-control" %}
+                            {% endif %}
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label class="col">
+                            <span class="form-label required">{{ form.duration.label }}</span>
+                            {% render_field form.duration class="d-inline-flex mb-2 ms-auto justify-content-between form-control w-auto me-2" %}
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label class="col">
+                            <span class="form-label required">{{ form.questions.label }}</span>
+                            {% render_field form.questions %}
+                        </label>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'quiz:quiz_list' %}" class="btn btn-ghost-secondary">
+                    Болдырмау
+                </a>
+                <button type="submit" class="btn btn-primary ms-auto">Сақтау</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+{% block extrascripts %}
+
+    <script src="{% static 'js/plugins/bootstrap-duration-picker.js' %}"></script>
+    <script>
+        tinymce.init({
+            height: '160',
+            selector: 'textarea',
+            menu: {},
+            menubar: '',
+            plugins: 'autolink charmap emoticons link lists',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+            },
+        });
+    </script>
+{% endblock %}

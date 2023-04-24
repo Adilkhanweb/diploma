@@ -1,24 +1,50 @@
 {% load quiz_tags %}
 {% for assignment in assignments %}
     <tr>
-        <td>{{ assignment.title }}</td>
+        <td><a href="{% url 'assignments:assignment_detail' assignment_id=assignment.id user_id=request.user.id %}"
+               class="link-dark">{{ assignment.title }}</a></td>
         <td>{{ assignment.deadline|date:"d F, H:i" }}</td>
-        <td _="init js return moment('{{ assignment.deadline.isoformat }}').fromNow() end then put it into me">{{ assignment.deadline.isoformat }}</td>
-        <td>
-            <a href="{% url 'assignments:assignment_detail' assignment_id=assignment.id %}"
-               class="btn btn-outline-azure">
-                Шолу
-            </a>
-            {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
-                <td class="d-flex gap-2"><a class="btn btn-outline"
-                                            hx-get="{% url 'assignments:change-assignment' assignment.pk %}"
-                                            hx-target="#assignment-form"
-                                            _="on htmx:afterRequest call reinitialize()"
-                >Өзгерту</a><a
-                        class="btn btn-outline-danger"
-                        hx-post="{% url 'assignments:delete-assignment' assignment.pk %}"
-                        hx-confirm="Сіз бұл тапсырманы жойғыңыз келетініне сенімдісіз бе?"
-                        hx-target="#assignments-list">Жою</a></td>
-            {% endif %}
+        <td {% if not assignment.is_passed %}_="init js return moment('{{ assignment.deadline.isoformat }}').fromNow() end then put it into me"{% endif %}>
+            ---
+        </td>
+        {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
+            <td>
+                <div class="d-flex gap-2">
+                    <a class="btn btn-outline-edu"
+                       hx-get="{% url 'assignments:change-assignment' assignment.pk %}"
+                       hx-target="#assignment-form"
+                       _="on htmx:afterRequest call reinitialize()">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="icon"
+                             width="40" height="40" viewBox="0 0 24 24" stroke-width="2"
+                             stroke="currentColor"
+                             fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
+                            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+                            <path d="M16 5l3 3"></path>
+                        </svg>
+                        Өзгерту
+                    </a>
+                    <a href="{% url 'assignments:delete-assignment' assignment.pk %}" hx-post="{% url 'assignments:delete-assignment' assignment.pk %}"
+                       hx-confirm="Сіз бұл тапсырманы жойғыңыз келетініне сенімдісіз бе?"
+                       hx-target="#assignments-list" class="btn btn-outline-danger">
+                        <!-- Download SVG icon from http://tabler-icons.io/i/rss -->
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="icon icon-tabler-trash-x"
+                             width="40" height="40" viewBox="0 0 24 24" stroke-width="2"
+                             stroke="currentColor"
+                             fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M4 7h16"></path>
+                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                            <path d="M10 12l4 4m0 -4l-4 4"></path>
+                        </svg>
+                        Жою
+                    </a>
+                </div>
+            </td>
+        {% endif %}
     </tr>
 {% endfor %}

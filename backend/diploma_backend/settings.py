@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ct4o%=1k(=^7=&*pt5zj916+yync&p#_94_)4rr_%n1rrj)f3u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "joohs.jcloud.kz", ]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "joohs.jcloud.kz", "0.0.0.0", "192.168.1.113", "*"]
 
 # Application definition
 
@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'course',
     'problems',
     'users',
+    'jquery',
+    'djangoformsetjs',
     'discussions',
     'durationwidget',
+    'crispy_forms',
+    "crispy_bootstrap5",
+    'django_ckeditor_5',
     'quiz_apps.quiz',
     'quiz_apps.singlechoice',
     'quiz_apps.multiplechoice',
@@ -60,6 +65,8 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -159,7 +166,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 #     'django.contrib.staticfiles.finders.FileSystemFinder',
 #     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 # )
-
+# WYSIWYG Editor
+CKEDITOR_UPLOAD_PATH = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 
@@ -167,7 +175,7 @@ JUDGE0_API_URL = 'http://localhost:2358'
 # JUDGE0_API_URL = 'https://judge0-ce.p.rapidapi.com'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/signin/'
 # Django All Auth settings
@@ -184,3 +192,95 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = None
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 3600
 ACCOUNT_FORMS = {'signup': 'users.forms.StudentCreationForm'}
+SOCIALACCOUNT_FORMS = {'signup': 'users.forms.MyCustomSocialSignupForm', }
+
+customColorPalette = [
+    {
+        'color': 'hsl(4, 90%, 58%)',
+        'label': 'Red'
+    },
+    {
+        'color': 'hsl(340, 82%, 52%)',
+        'label': 'Pink'
+    },
+    {
+        'color': 'hsl(291, 64%, 42%)',
+        'label': 'Purple'
+    },
+    {
+        'color': 'hsl(262, 52%, 47%)',
+        'label': 'Deep Purple'
+    },
+    {
+        'color': 'hsl(231, 48%, 48%)',
+        'label': 'Indigo'
+    },
+    {
+        'color': 'hsl(207, 90%, 54%)',
+        'label': 'Blue'
+    },
+]
+
+# CKEDITOR_5_CUSTOM_CSS = 'path_to.css'  # optional
+CKEDITOR_5_CONFIGS = {
+    'student': {
+        'toolbar': ['heading', '|', 'bold', 'italic', 'underline'],
+    },
+    'default': {
+        'toolbar': ['heading', '|', 'bold', 'italic', 'link',
+                    'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
+    },
+    'extends': {
+        'blockToolbar': [
+            'paragraph', 'heading1', 'heading2', 'heading3',
+            '|',
+            'bulletedList', 'numberedList',
+            '|',
+            'blockQuote',
+        ],
+        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
+                    'code', 'subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
+                    'bulletedList', 'numberedList', 'todoList', '|', 'blockQuote', 'imageUpload', '|',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'removeFormat',
+                    'insertTable', ],
+        'image': {
+            'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',
+                        'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side', '|'],
+            'styles': [
+                'full',
+                'side',
+                'alignLeft',
+                'alignRight',
+                'alignCenter',
+            ]
+
+        },
+        'table': {
+            'contentToolbar': ['tableColumn', 'tableRow', 'mergeTableCells',
+                               'tableProperties', 'tableCellProperties'],
+            'tableProperties': {
+                'borderColors': customColorPalette,
+                'backgroundColors': customColorPalette
+            },
+            'tableCellProperties': {
+                'borderColors': customColorPalette,
+                'backgroundColors': customColorPalette
+            }
+        },
+        'heading': {
+            'options': [
+                {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
+                {'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1'},
+                {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
+                {'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3'}
+            ]
+        }
+    },
+    'list': {
+        'properties': {
+            'styles': 'true',
+            'startIndex': 'true',
+            'reversed': 'true',
+        }
+    }
+}

@@ -1,3 +1,5 @@
+from email._header_value_parser import ContentType
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
@@ -5,18 +7,23 @@ from django.urls import reverse
 from django.utils import timezone
 from django.core.paginator import Paginator, PageNotAnInteger
 from django.http import JsonResponse, HttpResponse
-
-from quiz_apps.multiplechoice.models import Attempt, AttemptQuestion
-from quiz_apps.quiz.forms import AttemptQuestionForm, QuizForm
-from quiz_apps.quiz.models import Quiz
+from django.db import transaction
+from quiz_apps.multiplechoice.models import Attempt, AttemptQuestion, Answer, MultipleChoice
+from quiz_apps.quiz.forms import AttemptQuestionForm, QuizForm, ChoiceQuestionForm, MultipleChoiceQuestionForm, \
+    MAnswerInlineFormset
+from quiz_apps.quiz.models import Quiz, BaseQuestion
 from django.shortcuts import render
 
 from quiz_apps.quiz.utils import check_attempts, get_score, is_correct
+from django.forms import inlineformset_factory
+
+from quiz_apps.singlechoice.admin import SingleCorrectAnswerInlineFormset
+from quiz_apps.singlechoice.models import Choice
 
 
 # from formtools.wizard.views import SessionWizardView
 
-
+@login_required
 def save_question(request, url, id):
     attemptQuestion = AttemptQuestion.objects.get(id=id)
     if request.method == 'POST':
@@ -26,10 +33,10 @@ def save_question(request, url, id):
         # if we have all correct answers and no one incorrect
         if is_correct(given_answers, correct_answers):
             attemptQuestion.is_correct = True
-            attemptQuestion.score = get_score(correct_answers, given_answers)
+            attemptQuestion.score = get_score(correct_answers, given_answers, attemptQuestion.question)
         else:
             attemptQuestion.is_correct = False
-            attemptQuestion.score = get_score(correct_answers, given_answers)
+            attemptQuestion.score = get_score(correct_answers, given_answers, attemptQuestion.question)
         attemptQuestion.save()
         return HttpResponse(status=204)
 
@@ -45,20 +52,40 @@ def submit_attempt(request, url, attempt_id):
 @login_required
 def quiz_list(request):
     # quizzes = Quiz.objects.filter(draft=False, end_time__gt=timezone.now())
-    quizzes = Quiz.objects.filter(draft=False)
+    quizzes = Quiz.objects.all()
     if request.method == 'POST':
         form = QuizForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('quiz:quiz_list')
         else:
-            print(form.errors)
+            return render(request, 'quiz/partials/quiz-add-form.html', {'form': form})
     else:
         form = QuizForm()
         return render(request, "quiz/quiz_list.html", {
             "quizzes": quizzes,
             "form": form
         })
+
+
+@login_required
+def change_quiz(request, url):
+    quiz = get_object_or_404(Quiz, url=url)
+    if request.method == 'POST':
+        form = QuizForm(request.POST, instance=quiz)
+        if form.is_valid():
+            form.save()
+            return redirect('quiz:quiz_detail', quiz.url)
+    form = QuizForm(instance=quiz)
+    return render(request, "quiz/partials/quiz-change-form.html", {'form': form, 'quiz': quiz})
+
+
+@login_required
+def delete_quiz(request, url):
+    quiz = get_object_or_404(Quiz, url=url)
+    quiz.delete()
+    quizzes = Quiz.objects.filter(draft=False)
+    return render(request, "quiz/partials/quizzes-tbody.html", {'quizzes': quizzes})
 
 
 @login_required
@@ -98,43 +125,6 @@ def attempt(request, url):
         return redirect('quiz:quiz_detail', quiz.url)
 
 
-#
-# @login_required
-# def attempt(request, url):
-#     quiz = get_object_or_404(Quiz, url=url)
-#     forms = []
-#     if check_attempts(quiz, request.user):
-#         for question in quiz.get_questions():
-#             if question.figure:
-#                 forms.append({"figure": question.figure.url,
-#                               "form": QuestionForm(question=question, auto_id=False, prefix=f"{question.id}")})
-#             else:
-#                 forms.append(
-#                     {"figure": None, "form": QuestionForm(question=question, auto_id=False, prefix=f"{question.id}")})
-#         return render(request, "quiz/attempt.html", {
-#             "quiz": quiz,
-#             "forms": forms
-#         })
-#     else:
-#         return redirect('quiz:quiz_detail', quiz.url)
-
-"""
-@todo Куиз страницасында әр сұрақты бөлек сабмит жасай алатындай қылу керек.
-Ол үшін әр сұраққа AttempQuestion создать етіп user-дің ответін әр өзгерісте given_answer-ге сақтау керек.
-View параметріне quiz_url question_id, формадан answers алып AttemptQuestion get_or_create жасау керек.
-
-"""
-
-
-# def submit_question(request, url, question_id):
-#     quiz = get_object_or_404(Quiz, url=url)
-#     question = get_object_or_404(BaseQuestion, id=question_id)
-#     if request.method == 'POST' and check_attempts(quiz, request.user):
-#         attempt = Attempt.objects.get(quiz=quiz, user=request.user, status=Attempt.AttemptStatus.ATTEMPTING)
-#         answers = list(map(int, request.POST.getlist(f'{question.id}-answers')))
-#         attempt_question = AttemptQuestion.objects.get_or_create(attempt=attempt, question=question, answers=answers)
-
-
 @login_required
 def submit(request, url):
     quiz = get_object_or_404(Quiz, url=url)
@@ -163,7 +153,108 @@ def submit(request, url):
     return redirect('quiz:quiz_detail', quiz.url)
 
 
+@login_required
 def results(request, url, attempt_id, **kwargs):
     quiz = get_object_or_404(Quiz, url=url)
     attempt = get_object_or_404(Attempt, id=attempt_id)
     return render(request, "quiz/quiz_results.html", {"quiz": quiz, "attempt": attempt})
+
+
+@login_required
+def add_single_question(request):
+    choiceForm = ChoiceQuestionForm()
+    ChoiceFormSet = inlineformset_factory(Choice, Answer, fields=('content', 'correct'),
+                                          formset=SingleCorrectAnswerInlineFormset, max_num=4, min_num=4, extra=0,
+                                          can_delete=False)
+    if request.method == 'POST':
+        choiceFormSet = ChoiceFormSet(request.POST)
+        choiceForm = ChoiceQuestionForm(request.POST, request.FILES)
+        if choiceForm.is_valid() and choiceFormSet.is_valid():
+            with transaction.atomic():
+                choiceQuestion = choiceForm.save()
+                choiceFormSet.instance = choiceQuestion
+                choiceFormSet.save()
+            return redirect('quiz:add-single-question')
+        else:
+            print(choiceForm.errors)
+            print(choiceFormSet.errors)
+            return render(request, 'quiz/add_question.html', {'choiceForm': choiceForm, 'choiceFormSet': choiceFormSet})
+    return render(request, "quiz/add_question.html",
+                  {
+                      "choiceForm": ChoiceQuestionForm(),
+                      "choiceFormSet": ChoiceFormSet
+                  })
+
+
+@login_required
+def add_multiple_question(request):
+    multipleChoiceForm = MultipleChoiceQuestionForm()
+    MChoiceFormSet = inlineformset_factory(MultipleChoice, Answer, fields=('content', 'correct'),
+                                           formset=MAnswerInlineFormset,
+                                           max_num=6,
+                                           min_num=6,
+                                           can_delete=False,
+                                           extra=0)
+
+    if request.method == 'POST':
+        multipleChoiceFormSet = MChoiceFormSet(request.POST)
+        multipleChoiceForm = MultipleChoiceQuestionForm(request.POST, request.FILES)
+        if multipleChoiceForm.is_valid() and multipleChoiceFormSet.is_valid():
+            with transaction.atomic():
+                multipleChoiceQuestion = multipleChoiceForm.save()
+                multipleChoiceFormSet.instance = multipleChoiceQuestion
+                multipleChoiceFormSet.save()
+        return redirect('quiz:add-multiple-question')
+    return render(request, "quiz/add_question.html",
+                  {
+                      "multipleChoiceForm": MultipleChoiceQuestionForm(),
+                      'm_choiceformset': MChoiceFormSet
+                  })
+
+
+@login_required
+def question_list(request):
+    choice_questions = Choice.objects.all()
+    multiple_choice_questions = MultipleChoice.objects.all()
+    return render(request, "quiz/questions-list.html",
+                  {'choice_questions': choice_questions, 'multiple_choice_questions': multiple_choice_questions})
+
+
+@login_required
+def change_multiple_choice_question(request, id):
+    question = get_object_or_404(BaseQuestion, id=id)
+    if question.answers.count() > 4:
+        form = MultipleChoiceQuestionForm(instance=question)
+        MChoiceFormSet = inlineformset_factory(MultipleChoice, Answer, fields=('content', 'correct'),
+                                               formset=MAnswerInlineFormset,
+                                               max_num=6,
+                                               min_num=6,
+                                               can_delete=False,
+                                               extra=0)
+        formset = MChoiceFormSet(instance=question)
+        if request.method == 'POST':
+            form = MultipleChoiceQuestionForm(request.POST, request.FILES, instance=question)
+            formset = MChoiceFormSet(request.POST, instance=question)
+            if form.is_valid() and formset.is_valid():
+                form.save()
+                formset.save()
+                return redirect('quiz:questions_list')
+    else:
+
+        form = ChoiceQuestionForm(instance=question)
+        ChoiceFormSet = inlineformset_factory(Choice, Answer, fields=('content', 'correct'),
+                                              formset=MAnswerInlineFormset,
+                                              max_num=4,
+                                              min_num=4,
+                                              can_delete=False,
+                                              extra=0)
+        formset = ChoiceFormSet(instance=question)
+        if request.method == 'POST':
+            form = ChoiceQuestionForm(request.POST, request.FILES, instance=question)
+            formset = ChoiceFormSet(request.POST, instance=question)
+            if form.is_valid() and formset.is_valid():
+                form.save()
+                formset.save()
+                return redirect('quiz:questions_list')
+    return render(request, "quiz/multiple-choice-question-change.html",
+                  {'form': form, 'formset': formset, 'question': question})

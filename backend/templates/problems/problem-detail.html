@@ -7,166 +7,185 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css"
           integrity="sha512-gFMl3u9d0xt3WR8ZeW05MWm3yZ+ZfgsBVXLSOiFz2xeVrZ8Neg0+V1kkRIo9LikyA/T9HuS91kDfc2XWse0K0A=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
+    <style>
+        code {
+            background-color: #5e5c5c;
+            color: #f8f8f2;
+            border-radius: 0.3rem;
+            padding: 4px 5px 5px;
+            white-space: nowrap;
+        }
+    </style>
 {% endblock %}
+
 {% block body %}
     <h1><a href="{% url 'problems:problem-detail' problem.slug %}">
         {{ problem.title }}</a> {% if problem|problem_is_accepted:request.user %}
         <span class="badge bg-green">Шешілген</span>{% endif %}</h1>
     <div class="row">
-        <div class="col col-md-4" id="desc_collapse">
-            <div class="card">
-                <div class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs">
-                        <li class="nav-item">
-                            <a href="#tabs-home-ex1" class="nav-link active" data-bs-toggle="tab">Cипаттама</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#tabs-profile-ex1" class="nav-link" data-bs-toggle="tab">Тапсырым</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-body">
-                    <div class="tab-content">
-                        <div class="tab-pane active show" id="tabs-home-ex1">
-                            <h4>Қиындығы: {% if problem.difficulty == 1 %}
-                                <span class="badge bg-teal">{{ problem.get_difficulty_display }}</span>
-                            {% elif problem.difficulty == 2 %}
-                                <span class="badge bg-yellow">{{ problem.get_difficulty_display }}</span>
-                            {% elif problem.difficulty == 3 %}
-                                <span class="badge bg-danger">{{ problem.get_difficulty_display }}</span>
-                            {% endif %} </h4>
-                            <h4>Сипаттама:</h4>
-                            <p>{{ problem.description|safe }}</p>
-                            <h4>Мысал:</h4>
-                            <h5>Кіріс деректері</h5>
-                            <p>{{ problem.ex_input }}</p>
-                            <h5>Шығу деректері</h5>
-                            <p>{{ problem.ex_output }}</p>
-                            <h5>Мысал түсіндірмесі</h5>
-                            <p>{{ problem.ex_description }}</p>
-                        </div>
-                        <div class="tab-pane" id="tabs-profile-ex1">
-                            {% if problem.submission_set.exists %}
-                                {% for sub in problem.submission_set.all %}
-                                    <div class="accordion-item {% if sub.is_accepted %}bg-teal text-light{% endif %}">
-                                    <h2 class="accordion-header" id="headingOne">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true"
-                                                aria-controls="collapse{{ forloop.counter }}">
-
-                                            <span class="subtitle text-light">Тапсырым №{{ forloop.counter }}, {{ sub.created_at|date:"d M, H:i" }}</span>
-                                    </h2>
-                                    <div id="collapse{{ forloop.counter }}"
-                                         class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
-                                         aria-labelledby="heading{{ forloop.counter }}"
-                                         data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <pre><code class="text-dark">{{ sub.source_code }}</code></pre>
-                                            <div class="d-flex gap-2">
-                                                <span class="text-light">Уақыты: {{ sub.avg_time|floatformat:4 }}c</span>
-                                                <span class="text-light">Қолданылған жады: {{ sub.avg_memory }} килобайт</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            {% else %}
-                                <h2>Тапсырымдар жоқ</h2>
-                            {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="col" id="desc_collapse">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs lesson-tabs" data-bs-toggle="tabs">
+                    <li class="nav-item">
+                        <a href="#tabs-home-ex1" class="nav-link active" data-bs-toggle="tab">Cипаттама</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tabs-profile-ex1" class="nav-link" data-bs-toggle="tab">Тапсырым</a>
+                    </li>
+                </ul>
             </div>
-        </div>
-        <div class="col col-md-8">
-            <form id="form_code" action="{% url 'problems:submit' problem.slug %}" method="post" class="form-row">
-                {% csrf_token %}
-                {% if code %}
-                    <textarea class="form-control" name="code" id="id_code" required>{{ code }}</textarea>
-                {% elif problem.submission_set.exists %}
-                    <textarea class="form-control" name="code" id="id_code"
-                              required>{{ problem.submission_set.last.source_code }}</textarea>
-                {% elif problem.base_code %}
-                    <textarea class="form-control" name="code" id="id_code"
-                              required>{{ problem.base_code }}</textarea>
-                {% else %}
-                    <textarea class="form-control" name="code" id="id_code" required></textarea>
-                {% endif %}
-                <div class="row">
-                    <div class="col mt-4">
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="tabs-home-ex1">
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <h4>Қиындығы: {% if problem.difficulty == 1 %}
+                                    <span class="badge bg-teal">{{ problem.get_difficulty_display }}</span>
+                                {% elif problem.difficulty == 2 %}
+                                    <span class="badge bg-yellow">{{ problem.get_difficulty_display }}</span>
+                                {% elif problem.difficulty == 3 %}
+                                    <span class="badge bg-danger">{{ problem.get_difficulty_display }}</span>
+                                {% endif %} </h4>
+                                <h4>Сипаттама:</h4>
+                                <p>{{ problem.description|safe }}</p>
+                                <h4>Мысал:</h4>
+                                <h5>Кіріс деректері</h5>
+                                <p><code>{{ problem.ex_input }}</code></p>
+                                <h5>Шығу деректері</h5>
+                                <p><code>{{ problem.ex_output }}</code></p>
+                                <h5>Мысал түсіндірмесі</h5>
+                                <p>{{ problem.ex_description }}</p>
+                            </div>
+                            <div class="col">
+                                <form id="form_code" action="{% url 'problems:submit' problem.slug %}" method="post"
+                                      class="form-row">
+                                    {% csrf_token %}
+                                    {% if code %}
+                                        <textarea class="form-control" name="code" id="id_code"
+                                                  required>{{ code }}</textarea>
+                                    {% elif problem.submission_set.exists %}
+                                        <textarea class="form-control" name="code" id="id_code"
+                                                  required>{{ problem.submission_set.last.source_code }}</textarea>
+                                    {% elif problem.base_code %}
+                                        <textarea class="form-control" name="code" id="id_code"
+                                                  required>{{ problem.base_code }}</textarea>
+                                    {% else %}
+                                        <textarea class="form-control" name="code" id="id_code" required></textarea>
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col mt-4">
                             <textarea class="form-control" name="test" id="id_test" rows="1"
                                       placeholder="Test Input:">{% if input %}{{ input }}{% endif %}</textarea>
-                        {% if output %}
-                            <h4 class="mt-2">Output:</h4>
-                            <pre><code>{{ output }}</code></pre>
-                        {% endif %}
+                                            {% if output %}
+                                                <h4 class="mt-2">Output:</h4>
+                                                <pre><code>{{ output }}</code></pre>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col col-auto">
+                                            <button type="submit" class="btn btn-primary mt-4 float-end ms-3">Жіберу
+                                            </button>
+                                            <button type="submit" class="btn btn-outline-success mt-4 float-end ms-3"
+                                                    id="run-tests-btn"
+                                                    data-action="{% url 'problems:run_tests' problem.slug %}">Тесттерден
+                                                өткізу
+                                            </button>
+                                            <button type="submit" class="btn btn-secondary mt-4 float-end ms-3"
+                                                    id="run-test-btn"
+                                                    data-action="{% url 'problems:test' problem.slug %}">Тексеру
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="mt-4">
+                                    {% if statuses %}
+                                        <h3>Сынақ мысалдары:</h3>
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Күйі</th>
+                                                <th scope="col">Нәтиже</th>
+                                                <th scope="col">Күтілетін нәтиже</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for status in statuses %}
+                                                {% if status.status.id == 4 %}
+                                                    <tr class="table-warning">
+                                                        <td>{{ status.status.description }}</td>
+                                                        <td>
+                                                            <pre><code>{{ status.output }}</code></pre>
+                                                        </td>
+                                                        <td>
+                                                            <pre><code>{{ status.expected_output }}</code></pre>
+                                                        </td>
+                                                    </tr>
+                                                {% elif status.status.id == 3 %}
+                                                    <tr class="table-success">
+                                                        <td>
+                                                            <pre><code>{{ status.status.description }}</code></pre>
+                                                        </td>
+                                                        <td>
+                                                            <pre><code>{{ status.output }}</code></pre>
+                                                        </td>
+                                                        <td>
+                                                            <pre><code>{{ status.expected_output }}</code></pre>
+                                                        </td>
+                                                    </tr>
+                                                {% elif status.status.id == 11 %}
+                                                    <tr class="table-danger">
+                                                        <td>{{ status.status.description }}</td>
+                                                        <td>
+                                                            <pre><code>{{ status.output }}</code></pre>
+                                                        </td>
+                                                        <td>
+                                                            <pre><code>{{ status.expected_output }}</code></pre>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="col col-auto">
-                        <button type="submit" class="btn btn-primary mt-4 float-end ms-3">Жіберу</button>
-                        <button type="submit" class="btn btn-outline-success mt-4 float-end ms-3" id="run-tests-btn"
-                                data-action="{% url 'problems:run_tests' problem.slug %}">Тесттерден өткізу
-                        </button>
-                        <button type="submit" class="btn btn-secondary mt-4 float-end ms-3" id="run-test-btn"
-                                data-action="{% url 'problems:test' problem.slug %}">Тексеру
-                        </button>
+                    <div class="tab-pane" id="tabs-profile-ex1">
+                        {% if problem.submission_set.exists %}
+                            {% for sub in problem.submission_set.all %}
+                                <div class="accordion-item {% if sub.is_accepted %}bg-teal text-light{% endif %}">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true"
+                                            aria-controls="collapse{{ forloop.counter }}">
+
+                                        <span class="subtitle text-light">Тапсырым №{{ forloop.counter }}, {{ sub.created_at|date:"d M, H:i" }}</span>
+                                    </button>
+                                </h2>
+                                <div id="collapse{{ forloop.counter }}"
+                                     class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                                     aria-labelledby="heading{{ forloop.counter }}"
+                                     data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <pre><code class="text-dark">{{ sub.source_code }}</code></pre>
+                                        <div class="d-flex gap-2">
+                                            <span class="text-light">Уақыты: {{ sub.avg_time|floatformat:4 }}c</span>
+                                            <span class="text-light">Қолданылған жады: {{ sub.avg_memory }} килобайт</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <h2>Тапсырымдар жоқ</h2>
+                        {% endif %}
+                        </div>
                     </div>
                 </div>
-            </form>
-
-            <div class="mt-4">
-                {% if statuses %}
-                    <h3>Сынақ мысалдары:</h3>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Күйі</th>
-                            <th scope="col">Нәтиже</th>
-                            <th scope="col">Күтілетін нәтиже</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for status in statuses %}
-                            {% if status.status.id == 4 %}
-                                <tr class="table-warning">
-                                    <td>{{ status.status.description }}</td>
-                                    <td>
-                                        <pre><code>{{ status.output }}</code></pre>
-                                    </td>
-                                    <td>
-                                        <pre><code>{{ status.expected_output }}</code></pre>
-                                    </td>
-                                </tr>
-                            {% elif status.status.id == 3 %}
-                                <tr class="table-success">
-                                    <td>
-                                        <pre><code>{{ status.status.description }}</code></pre>
-                                    </td>
-                                    <td>
-                                        <pre><code>{{ status.output }}</code></pre>
-                                    </td>
-                                    <td>
-                                        <pre><code>{{ status.expected_output }}</code></pre>
-                                    </td>
-                                </tr>
-                            {% elif status.status.id == 11 %}
-                                <tr class="table-danger">
-                                    <td>{{ status.status.description }}</td>
-                                    <td>
-                                        <pre><code>{{ status.output }}</code></pre>
-                                    </td>
-                                    <td>
-                                        <pre><code>{{ status.expected_output }}</code></pre>
-                                    </td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                {% endif %}
-
             </div>
         </div>
+
     </div>
 {% endblock %}
 {% block extrascripts %}

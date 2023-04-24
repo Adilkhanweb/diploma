@@ -1,0 +1,90 @@
+{% extends 'base/content.html' %}
+{% block body %}
+    <div class="card">
+        <div class="table-responsive">
+            <table
+                    class="table table-vcenter card-table table-hover">
+                <thead class="bg-edu-primary">
+                <tr>
+                    <th class="w-1"></th>
+                    <th>Аты-жөні</th>
+                    <th>Электрондық пошта:</th>
+                    <th>Тіркелу Уақыты:</th>
+                    <th>Тобы:</th>
+                    <th class="w-1"></th>
+                </tr>
+                </thead>
+                <tbody id="quizzes-tbody">
+                {% for user in users %}
+                    <tr>
+                        <td>
+                            <div class="d-flex py-1 align-items-center">
+                                <span class="avatar me-2"
+                                      style="background-image: url({{ user.profile.picture.url }})"></span>
+                            </div>
+                        </td>
+                        <td>{{ user.get_full_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.date_joined|date:"d.m.Y, H:i" }}</td>
+                        <td>{% if user.groups.first.name == 'Students' %}
+                            Оқушы
+                        {% elif user.groups.first.name == 'Teachers' %}
+                            Мұғалім
+                        {% elif user.groups.first.name == 'Moderators' %}
+                            Модератор
+                        {% endif %} </td>
+                        <td>
+                            <div class="dropdown">
+                                <a href="#" class="btn-link text-dark align-text-top" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <!-- Download SVG icon from http://tabler-icons.io/i/dots -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                         stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" style="">
+                                    <a class="dropdown-item text-blue-fg" href="#">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="icon icon-tabler icon-tabler-edit"
+                                             width="40" height="40" viewBox="0 0 24 24" stroke-width="2"
+                                             stroke="currentColor"
+                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
+                                            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+                                            <path d="M16 5l3 3"></path>
+                                        </svg>
+                                        <span class="ms-2">Өзгерту</span>
+                                    </a>
+                                    <a class="dropdown-item text-red" href="#"
+                                       hx-post="#"
+                                       hx-confirm="Сіз бұл бақылауды жойғыңыз келетініне сенімдісіз бе?"
+                                       hx-target="#">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="icon text-red icon-tabler-trash-x"
+                                             width="40" height="40" viewBox="0 0 24 24" stroke-width="2"
+                                             stroke="currentColor"
+                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M4 7h16"></path>
+                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                            <path d="M10 12l4 4m0 -4l-4 4"></path>
+                                        </svg>
+                                        <span class="ms-2">Жою</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

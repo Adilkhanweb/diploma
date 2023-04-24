@@ -14,7 +14,7 @@ class AssignmentSubmissionForm(forms.ModelForm):
 
 
 class FileSubmissionForm(forms.Form):
-    files = MultiFileField(min_num=1, max_num=10, max_file_size=1024 * 1024 * 0.5)
+    files = MultiFileField(min_num=1, max_num=10, max_file_size=1024 * 1024 * 10)
 
 
 class AssignmentForm(forms.ModelForm):
@@ -30,3 +30,12 @@ updated_at
         deadline = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'auto_now_add': True}))
         model = Assignment
         fields = ['title', 'description', 'deadline']
+
+
+class AssigmentSubmissionForm(forms.ModelForm):
+    class Meta:
+        model = AssignmentSubmission
+        fields = ['grade', ]
+        widgets = {
+            'grade': forms.NumberInput(attrs={'max': 100, 'min': 0, 'required': True, 'step': 10})
+        }

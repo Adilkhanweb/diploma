@@ -1,13 +1,21 @@
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django.views.generic import View, ListView
+from django.views.generic import View, ListView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, PermissionsMixin
 
 from calendarapp.models import Event
 from course.models import Lesson
 from diploma_backend.forms import LessonForm
 from django.contrib.auth.decorators import login_required, user_passes_test
+
+from users.forms import UserCreationFormForAdmin
+from users.models import User
+
+
+class MainPageView(TemplateView):
+    template_name = "diploma_backend/home_page.html"
 
 
 class DashboardView(LoginRequiredMixin, View):
@@ -101,16 +109,12 @@ def delete_lesson(request, pk):
         return render(request, "diploma_backend/partials/lessons-list.html", {'lessons': lessons})
 
 
-def handler404(request, *args, **argv):
-    response = render("base/404.html", request, {})
-    response.status_code = 404
-    return response
+def handler404(request, exception):
+    return render(request, 'base/404.html', status=404)
 
 
-def handler500(request, *args, **argv):
-    response = render("base/500.html", request, {})
-    response.status_code = 500
-    return response
+def handler500(request):
+    return render(request, 'base/500.html', status=500)
 
 
 def lessons_list(request):
@@ -121,3 +125,23 @@ def lessons_list(request):
 def books_list(request):
     books = Lesson.objects.filter(type="book").order_by('-created_at')
     return render(request, "diploma_backend/partials/books-list.html", {'books': books})
+
+
+def create_user(request):
+    form = UserCreationFormForAdmin()
+    if request.method == 'POST':
+        form = UserCreationFormForAdmin(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            group = form.cleaned_data['group']
+            user.save()
+            user.groups.set([group.id])
+            return redirect('users')
+        else:
+            return render(request, "diploma_backend/create-user.html", {'form': form})
+    return render(request, "diploma_backend/create-user.html", {'form': form})
+
+
+def user_list(request):
+    users = User.objects.filter(is_superuser=False)
+    return render(request, "diploma_backend/users.html", {'users': users})

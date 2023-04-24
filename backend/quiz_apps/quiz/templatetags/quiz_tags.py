@@ -3,6 +3,7 @@ from django import template
 from django.db.models import Q
 from humanize import naturaldelta, activate, naturaltime, naturaldate
 
+from discussions.models import Reply, Discussion
 from leaderboard.models import Leaderboard
 from problems.models import Submission
 from quiz_apps.multiplechoice.models import Attempt
@@ -87,3 +88,29 @@ def make_ordinal_kz(number):
         return f"{number}-шы"
     else:
         return f"{number}-ші"
+
+
+@register.filter
+def reply_is_upvoted(reply_id, user_id):
+    votes = Reply.objects.get(id=reply_id).vote_set.all()
+    print(votes)
+    print(votes.filter(user__id=user_id, vote_type='up').exists())
+    return votes.filter(user__id=user_id, vote_type='up').exists()
+
+
+@register.filter
+def reply_is_downvoted(reply_id, user_id):
+    votes = Reply.objects.get(id=reply_id).vote_set.all()
+    return votes.filter(user__id=user_id, vote_type='down').exists()
+
+
+@register.filter
+def discussion_is_upvoted(discussion_id, user_id):
+    votes = Discussion.objects.get(id=discussion_id).discussionvote_set.all()
+    return votes.filter(user_id=user_id, vote_type='up').exists()
+
+
+@register.filter
+def discussion_is_downvoted(discussion_id, user_id):
+    votes = Discussion.objects.get(id=discussion_id).discussionvote_set.all()
+    return votes.filter(user__id=user_id, vote_type='down').exists()

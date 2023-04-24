@@ -1,0 +1,299 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block extracss %}
+    <style>
+        {#.benefits > .card {#}
+        {#    font-size: 2.5rem;#}
+        {#    border-radius: 1rem;#}
+        {#    padding: 4rem 2rem;#}
+        {#    max-width: 370px;#}
+        {#    gap: 2rem;#}
+        {#    text-align: center;#}
+        {#    align-items: center;#}
+        {#.benefits > .card > svg {#}
+        {#    margin-bottom: 1rem;#}
+
+        .benefits > .box {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 2rem;
+            padding: 1rem;
+        }
+
+        .benefits > .box > div {
+            border-radius: 2rem;
+            width: 100%;
+        }
+    </style>
+
+{% endblock %}
+{% block content %}
+
+    <section class="bg-primary-lt">
+        <div class="container">
+            <header
+                    class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+
+                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 align-items-center gap-4"
+                    style="font-size: 1.2rem;">
+                    <li>
+                        <img src="{% static 'images/logo-without-text.svg' %}" alt="" height="64px">
+                    </li>
+                    <li><a href="#" class="nav-link px-2 link-dark">Басты бет</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark">Артықшылықтар</a></li>
+                    <li><a href="#" class="nav-link px-2 link-dark">Кеңес беру</a></li>
+                </ul>
+
+
+                <!-- <div class="nav-item dropdown">
+                    <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
+                        aria-label="Open user menu" aria-expanded="false">
+                        <span class="avatar avatar-sm" style="background-image: none"></span>
+                        <div class="d-none d-xl-block ps-2">
+                            <div></div>
+                            <div class="mt-1 small text-muted">Оқушы</div>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <a href="#" class="dropdown-item">Портал</a>
+                        <span class="divide-x"></span>
+                        <a href="#" class="dropdown-item">Шығу</a>
+                    </div>
+                </div> -->
+                <!-- Егер студент аккаунтына кірмеген болса -->
+
+                {% if request.user.is_authenticated %}
+                    <div class="nav-item d-flex align-items-center gap-4">
+                        <div class="dropdown">
+                            <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
+                               aria-label="Open user menu" aria-expanded="false">
+                            <span class="avatar avatar-md"
+                                  style="background-image: url('{{ user.profile.picture.url }}')"></span>
+                                <div class="d-none d-xl-block ps-2">
+                                    <div>{{ request.user.get_full_name }}</div>
+                                    <div class="mt-1 small text-muted">Оқушы</div>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <a href="{% url 'dashboard' %}" class="dropdown-item">Портал</a>
+                                <a href="{% url 'users:profile' user.profile.id %}" class="dropdown-item">Профиль</a>
+                                <span class="divide-x"></span>
+                                <a href="{% url 'users:signout' %}" class="dropdown-item bg-danger-lt">Шығу</a>
+                            </div>
+                        </div>
+
+                        <a href="{% url 'dashboard' %}" class="btn btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right"
+                                 width="40" height="40" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M5 12l14 0"></path>
+                                <path d="M13 18l6 -6"></path>
+                                <path d="M13 6l6 6"></path>
+                            </svg>
+                            Портал</a>
+                    </div>
+                {% else %}
+                    <div class="col-md-3 text-end">
+                        <a href="{% url 'users:signin' %}" type="button" class="btn btn-outline-primary me-2">Кіру</a>
+                        <a href="{% url 'users:signup' %}" type="button" class="btn btn-primary">Тіркелу</a>
+                    </div>
+                {% endif %}
+            </header>
+        </div>
+    </section>
+
+    <div class="px-4 py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="{% static 'images/logo-dark.svg' %}" alt="">
+        <h1 class="display-5 fw-bold">ҰБТ-ға дайындық платформасы</h1>
+        <div class="col-lg-6 mx-auto">
+            <h2 class="mb-4">Өз болашағыңның авторы бол!</h2>
+        </div>
+    </div>
+    <div class="container">
+        <img src="{% static 'images/new.png' %}" width="110" height="110" alt="Tabler"
+             class="object-contain w-100 h-100"/>
+        <p class="text-secondary text-center py-4" style="font-size: 2rem;">МЕКТЕБІМІЗДІҢ ЕҢ НЕГІЗШІ АРТЫҚШЫЛЫҒЫ</p>
+        {#        <div class="d-flex justify-content-between align-items-center text-light benefits">#}
+        {#            <div class="card bg-orange">#}
+        {#                <svg width="138" height="131" viewBox="0 0 138 131" fill="none" xmlns="http://www.w3.org/2000/svg">#}
+        {#                    <path fill-rule="evenodd" clip-rule="evenodd"#}
+        {#                          d="M34.894 4.41101H89.2917C96.8893 4.41101 103.106 10.3126 103.106 17.5221V37.1084C101.278 36.6969 99.3706 36.4732 97.4098 36.4732C83.897 36.4732 72.9444 46.8706 72.9444 59.6976C72.9444 66.7527 76.2595 73.0688 81.4893 77.3293V94.7094H34.8966C27.2989 94.7094 21.085 88.8079 21.085 81.5984V17.5225C21.085 10.3102 27.3019 4.41148 34.8966 4.41148L34.894 4.41101ZM108.375 80.464V100.387L97.409 92.8167L86.4429 100.387V80.464C89.7419 82.0357 93.4646 82.9225 97.409 82.9225C101.353 82.9225 105.076 82.0358 108.375 80.464ZM97.409 41.179C108.183 41.179 116.92 49.4696 116.92 59.6973C116.92 69.925 108.186 78.2187 97.409 78.2187C86.6348 78.2187 77.9011 69.928 77.9011 59.6973C77.9011 49.4696 86.6348 41.179 97.409 41.179ZM40.1627 30.8255C38.795 30.8255 37.6854 29.7721 37.6854 28.4738C37.6854 27.1756 38.7951 26.1222 40.1627 26.1222H73.4857C74.8534 26.1222 75.963 27.1756 75.963 28.4738C75.963 29.7721 74.8533 30.8255 73.4857 30.8255H40.1627ZM40.1627 72.7286C38.795 72.7286 37.6854 71.6752 37.6854 70.377C37.6854 69.0788 38.7951 68.0254 40.1627 68.0254H60.0978C61.4654 68.0254 62.5751 69.0788 62.5751 70.377C62.5751 71.6752 61.4654 72.7286 60.0978 72.7286H40.1627ZM40.1627 51.7761C38.795 51.7761 37.6854 50.7227 37.6854 49.4245C37.6854 48.1263 38.7951 47.0728 40.1627 47.0728H60.0978C61.4654 47.0728 62.5751 48.1263 62.5751 49.4245C62.5751 50.7227 61.4654 51.7761 60.0978 51.7761H40.1627Z"#}
+        {#                          fill="white"/>#}
+        {#                </svg>#}
+        {##}
+        {#                <p>Білікті мамандар</p>#}
+        {#            </div>#}
+        {#            <div class="card bg-yellow">#}
+        {#                <svg width="142" height="139" viewBox="0 0 142 139" fill="none" xmlns="http://www.w3.org/2000/svg">#}
+        {#                    <path fill-rule="evenodd" clip-rule="evenodd"#}
+        {#                          d="M70.924 22.96C58.2138 22.96 46.0233 27.894 37.0367 36.6762C28.0491 45.4586 23 57.3709 23 69.7898C23 82.2086 28.0493 94.122 37.0367 102.903C46.0243 111.686 58.215 116.62 70.924 116.62C83.633 116.62 95.8247 111.686 104.811 102.903C113.799 94.121 118.848 82.2086 118.848 69.7898C118.848 57.3709 113.799 45.4576 104.811 36.6762C95.8237 27.8938 83.633 22.96 70.924 22.96ZM79.5525 51.3241C80.188 51.2962 80.7903 51.6028 81.131 52.127C81.4717 52.652 81.4995 53.3149 81.2031 53.8646L63.8105 87.2874C63.366 88.1415 62.297 88.4822 61.4229 88.0478C60.5489 87.6134 60.201 86.5697 60.6448 85.7155L78.0373 52.2927C78.3234 51.7235 78.9043 51.3519 79.5525 51.3241ZM54.9601 51.3272C55.6923 51.3117 56.3587 51.7376 56.6393 52.398C56.919 53.0593 56.7549 53.8205 56.2256 54.3153L40.1192 69.79L56.2256 85.2646C56.5711 85.5852 56.77 86.0281 56.7779 86.4927C56.7859 86.9581 56.6028 87.4072 56.2684 87.7386C55.9348 88.0708 55.4784 88.2574 55.0021 88.2574C54.5259 88.2566 54.0703 88.07 53.7367 87.7378L36.3441 71.0264C36.0049 70.7004 35.8132 70.2552 35.8132 69.7898C35.8132 69.3252 36.0041 68.8792 36.3433 68.5532L53.7359 51.8418C54.06 51.522 54.4998 51.3372 54.9601 51.3272ZM86.8331 51.3272C87.3133 51.3233 87.7744 51.5084 88.112 51.8421L105.505 68.5535C105.844 68.8795 106.035 69.3255 106.035 69.7901C106.035 70.2555 105.845 70.7007 105.505 71.0267L88.1128 87.7381C87.7792 88.0703 87.3228 88.2569 86.8465 88.2577C86.3703 88.2577 85.9139 88.0711 85.5803 87.7389C85.2459 87.4075 85.0628 86.9584 85.0707 86.493C85.0787 86.0284 85.2776 85.5855 85.6231 85.2649L101.73 69.7902L85.6231 54.3156C85.1017 53.8277 84.9337 53.0797 85.1999 52.4239C85.4654 51.768 86.1112 51.3341 86.8331 51.3272Z"#}
+        {#                          fill="white"/>#}
+        {#                </svg>#}
+        {#                <p>Заманауи әдістер</p>#}
+        {#            </div>#}
+        {#            <div class="card bg-edu-primary ">#}
+        {#                <svg width="114" height="115" viewBox="0 0 114 115" fill="none" xmlns="http://www.w3.org/2000/svg">#}
+        {#                    <g clip-path="url(#clip0_1363_1716)">#}
+        {#                        <path d="M16.339 35.4578H18.049V45.9997L28.309 35.6497H57.5695C60.2293 35.6497 62.5093 33.3497 62.5093 30.6666V4.98214C62.6995 2.29902 60.4195 -0.000976562 57.5695 -0.000976562H16.339C13.489 -0.000976562 11.209 2.29902 11.209 4.98214V30.4744C11.209 33.3494 13.489 35.4575 16.339 35.4575V35.4578ZM52.819 13.4172C55.099 13.4172 56.9992 15.3335 56.9992 17.8253C56.9992 20.3172 55.099 22.2335 52.6294 22.2335C50.1592 22.2335 48.2596 20.3166 48.2596 17.8253C48.4492 15.3335 50.3494 13.4172 52.819 13.4172ZM36.859 13.4172C39.3292 13.4172 41.2288 15.3341 41.2288 17.8253C41.2288 20.3172 39.3286 22.2335 36.859 22.2335C34.3888 22.2335 32.4892 20.3166 32.4892 17.8253C32.6794 15.3335 34.579 13.4172 36.859 13.4172ZM21.0892 13.4172C23.5594 13.4172 25.459 15.3341 25.459 17.8253C25.459 20.3172 23.5588 22.2335 21.0892 22.2335C18.619 22.2335 16.7194 20.3166 16.7194 17.8253C16.7194 15.3335 18.8092 13.4172 21.0892 13.4172Z"#}
+        {#                              fill="white"/>#}
+        {#                        <path d="M98.2301 9.19995H66.3101V21.6581C67.8299 22.2331 68.7803 23.7662 68.7803 25.3C68.7803 27.025 67.8306 28.3668 66.3101 28.9418V30.2837C66.3101 35.0756 62.3201 39.1006 57.5699 39.1006H56.6201C57.3803 40.4425 58.9001 41.4006 60.4199 41.4006H87.0193L96.3296 50.7925V41.4006H98.0396C100.51 41.4006 102.6 39.2925 102.6 36.8006V13.8006C102.79 11.3087 100.699 9.20061 98.2298 9.20061L98.2301 9.19995ZM79.4201 29.5172C77.1401 29.5172 75.4301 27.7922 75.4301 25.4922C75.4301 23.3841 77.1401 21.4672 79.4201 21.4672C81.7001 21.4672 83.4101 23.1922 83.4101 25.4922C83.2199 27.6003 81.5099 29.5172 79.4201 29.5172ZM93.6701 29.5172C91.3901 29.5172 89.6801 27.7922 89.6801 25.4922C89.6801 23.3841 91.3901 21.4672 93.6701 21.4672C95.9501 21.4672 97.6601 23.1922 97.6601 25.4922C97.6601 27.6003 95.9501 29.5172 93.6701 29.5172Z"#}
+        {#                              fill="white"/>#}
+        {#                        <path d="M32.1102 71.875C22.0397 71.875 13.6796 78.775 11.3996 88.1669C11.0198 90.0838 12.3494 92 14.4398 92H49.7798C51.68 92 53.1998 90.0831 52.82 88.1669C50.5394 78.775 42.1796 71.875 32.1095 71.875H32.1102Z"#}
+        {#                              fill="white"/>#}
+        {#                        <path d="M41.7999 57.1173C41.7999 62.5155 37.4612 66.8923 32.1099 66.8923C26.7579 66.8923 22.4199 62.5155 22.4199 57.1173C22.4199 51.7184 26.7579 47.3423 32.1099 47.3423C37.4612 47.3423 41.7999 51.7184 41.7999 57.1173Z"#}
+        {#                              fill="white"/>#}
+        {#                        <path d="M81.7 71.875C71.6302 71.875 63.2695 78.775 60.9895 88.3578C60.6097 90.2747 61.9392 92.1909 64.0297 92.1909H99.3697C101.27 92.1909 102.79 90.274 102.41 88.3578C100.129 78.7747 91.7695 71.875 81.6993 71.875H81.7Z"#}
+        {#                              fill="white"/>#}
+        {#                        <path d="M91.3898 57.1173C91.3898 62.5155 87.0511 66.8923 81.6998 66.8923C76.3478 66.8923 72.0098 62.5155 72.0098 57.1173C72.0098 51.7184 76.3478 47.3423 81.6998 47.3423C87.0511 47.3423 91.3898 51.7184 91.3898 57.1173Z"#}
+        {#                              fill="white"/>#}
+        {#                    </g>#}
+        {#                    <defs>#}
+        {#                        <clipPath id="clip0_1363_1716">#}
+        {#                            <rect width="114" height="115" fill="white"/>#}
+        {#                        </clipPath>#}
+        {#                    </defs>#}
+        {#                </svg>#}
+        {#                <p>Өзара әрекеттесу</p>#}
+        {#            </div>#}
+        {#        </div>#}
+        <p class="text-secondary text-center py-4" style="font-size: 2rem;">КОНСУЛЬТАЦИЯҒА ТІРКЕЛУ</p>
+        <div class="section section-light pt-6 pb-6">
+            <div class="container img-overlap-padding">
+                <div class="row text-center justify-content-center text-light benefits">
+                    <div class="box col-md-6 col-lg">
+                        <div class="bg-orange py-5 px-3 h-100">
+                            <div class="shape shape-primary shape-md mb-3">
+                                <svg width="138" height="131" viewBox="0 0 138 131" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                          d="M34.894 4.41101H89.2917C96.8893 4.41101 103.106 10.3126 103.106 17.5221V37.1084C101.278 36.6969 99.3706 36.4732 97.4098 36.4732C83.897 36.4732 72.9444 46.8706 72.9444 59.6976C72.9444 66.7527 76.2595 73.0688 81.4893 77.3293V94.7094H34.8966C27.2989 94.7094 21.085 88.8079 21.085 81.5984V17.5225C21.085 10.3102 27.3019 4.41148 34.8966 4.41148L34.894 4.41101ZM108.375 80.464V100.387L97.409 92.8167L86.4429 100.387V80.464C89.7419 82.0357 93.4646 82.9225 97.409 82.9225C101.353 82.9225 105.076 82.0358 108.375 80.464ZM97.409 41.179C108.183 41.179 116.92 49.4696 116.92 59.6973C116.92 69.925 108.186 78.2187 97.409 78.2187C86.6348 78.2187 77.9011 69.928 77.9011 59.6973C77.9011 49.4696 86.6348 41.179 97.409 41.179ZM40.1627 30.8255C38.795 30.8255 37.6854 29.7721 37.6854 28.4738C37.6854 27.1756 38.7951 26.1222 40.1627 26.1222H73.4857C74.8534 26.1222 75.963 27.1756 75.963 28.4738C75.963 29.7721 74.8533 30.8255 73.4857 30.8255H40.1627ZM40.1627 72.7286C38.795 72.7286 37.6854 71.6752 37.6854 70.377C37.6854 69.0788 38.7951 68.0254 40.1627 68.0254H60.0978C61.4654 68.0254 62.5751 69.0788 62.5751 70.377C62.5751 71.6752 61.4654 72.7286 60.0978 72.7286H40.1627ZM40.1627 51.7761C38.795 51.7761 37.6854 50.7227 37.6854 49.4245C37.6854 48.1263 38.7951 47.0728 40.1627 47.0728H60.0978C61.4654 47.0728 62.5751 48.1263 62.5751 49.4245C62.5751 50.7227 61.4654 51.7761 60.0978 51.7761H40.1627Z"
+                                          fill="white"/>
+                                </svg>
+                            </div>
+                            <h2 class="h1">Білікті мамандар</h2>
+                        </div>
+                    </div>
+                    <div class="box col col-md-6 col-lg">
+                        <div class="bg-yellow py-5 px-3 h-100">
+                            <div class="shape shape-primary shape-md mb-3">
+                                <svg width="142" height="139" viewBox="0 0 142 139" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                          d="M70.924 22.96C58.2138 22.96 46.0233 27.894 37.0367 36.6762C28.0491 45.4586 23 57.3709 23 69.7898C23 82.2086 28.0493 94.122 37.0367 102.903C46.0243 111.686 58.215 116.62 70.924 116.62C83.633 116.62 95.8247 111.686 104.811 102.903C113.799 94.121 118.848 82.2086 118.848 69.7898C118.848 57.3709 113.799 45.4576 104.811 36.6762C95.8237 27.8938 83.633 22.96 70.924 22.96ZM79.5525 51.3241C80.188 51.2962 80.7903 51.6028 81.131 52.127C81.4717 52.652 81.4995 53.3149 81.2031 53.8646L63.8105 87.2874C63.366 88.1415 62.297 88.4822 61.4229 88.0478C60.5489 87.6134 60.201 86.5697 60.6448 85.7155L78.0373 52.2927C78.3234 51.7235 78.9043 51.3519 79.5525 51.3241ZM54.9601 51.3272C55.6923 51.3117 56.3587 51.7376 56.6393 52.398C56.919 53.0593 56.7549 53.8205 56.2256 54.3153L40.1192 69.79L56.2256 85.2646C56.5711 85.5852 56.77 86.0281 56.7779 86.4927C56.7859 86.9581 56.6028 87.4072 56.2684 87.7386C55.9348 88.0708 55.4784 88.2574 55.0021 88.2574C54.5259 88.2566 54.0703 88.07 53.7367 87.7378L36.3441 71.0264C36.0049 70.7004 35.8132 70.2552 35.8132 69.7898C35.8132 69.3252 36.0041 68.8792 36.3433 68.5532L53.7359 51.8418C54.06 51.522 54.4998 51.3372 54.9601 51.3272ZM86.8331 51.3272C87.3133 51.3233 87.7744 51.5084 88.112 51.8421L105.505 68.5535C105.844 68.8795 106.035 69.3255 106.035 69.7901C106.035 70.2555 105.845 70.7007 105.505 71.0267L88.1128 87.7381C87.7792 88.0703 87.3228 88.2569 86.8465 88.2577C86.3703 88.2577 85.9139 88.0711 85.5803 87.7389C85.2459 87.4075 85.0628 86.9584 85.0707 86.493C85.0787 86.0284 85.2776 85.5855 85.6231 85.2649L101.73 69.7902L85.6231 54.3156C85.1017 53.8277 84.9337 53.0797 85.1999 52.4239C85.4654 51.768 86.1112 51.3341 86.8331 51.3272Z"
+                                          fill="white"/>
+                                </svg>
+                            </div>
+                            <h2 class="h1">Заманауи әдістер</h2>
+                        </div>
+                    </div>
+                    <div class="box col-md-6 col-lg">
+                        <div class="bg-edu-primary py-5 px-3 h-100">
+                            <div class="shape shape-primary shape-md mb-3">
+                                <svg width="114" height="115" viewBox="0 0 114 115" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_1363_1716)">
+                                        <path d="M16.339 35.4578H18.049V45.9997L28.309 35.6497H57.5695C60.2293 35.6497 62.5093 33.3497 62.5093 30.6666V4.98214C62.6995 2.29902 60.4195 -0.000976562 57.5695 -0.000976562H16.339C13.489 -0.000976562 11.209 2.29902 11.209 4.98214V30.4744C11.209 33.3494 13.489 35.4575 16.339 35.4575V35.4578ZM52.819 13.4172C55.099 13.4172 56.9992 15.3335 56.9992 17.8253C56.9992 20.3172 55.099 22.2335 52.6294 22.2335C50.1592 22.2335 48.2596 20.3166 48.2596 17.8253C48.4492 15.3335 50.3494 13.4172 52.819 13.4172ZM36.859 13.4172C39.3292 13.4172 41.2288 15.3341 41.2288 17.8253C41.2288 20.3172 39.3286 22.2335 36.859 22.2335C34.3888 22.2335 32.4892 20.3166 32.4892 17.8253C32.6794 15.3335 34.579 13.4172 36.859 13.4172ZM21.0892 13.4172C23.5594 13.4172 25.459 15.3341 25.459 17.8253C25.459 20.3172 23.5588 22.2335 21.0892 22.2335C18.619 22.2335 16.7194 20.3166 16.7194 17.8253C16.7194 15.3335 18.8092 13.4172 21.0892 13.4172Z"
+                                              fill="white"/>
+                                        <path d="M98.2301 9.19995H66.3101V21.6581C67.8299 22.2331 68.7803 23.7662 68.7803 25.3C68.7803 27.025 67.8306 28.3668 66.3101 28.9418V30.2837C66.3101 35.0756 62.3201 39.1006 57.5699 39.1006H56.6201C57.3803 40.4425 58.9001 41.4006 60.4199 41.4006H87.0193L96.3296 50.7925V41.4006H98.0396C100.51 41.4006 102.6 39.2925 102.6 36.8006V13.8006C102.79 11.3087 100.699 9.20061 98.2298 9.20061L98.2301 9.19995ZM79.4201 29.5172C77.1401 29.5172 75.4301 27.7922 75.4301 25.4922C75.4301 23.3841 77.1401 21.4672 79.4201 21.4672C81.7001 21.4672 83.4101 23.1922 83.4101 25.4922C83.2199 27.6003 81.5099 29.5172 79.4201 29.5172ZM93.6701 29.5172C91.3901 29.5172 89.6801 27.7922 89.6801 25.4922C89.6801 23.3841 91.3901 21.4672 93.6701 21.4672C95.9501 21.4672 97.6601 23.1922 97.6601 25.4922C97.6601 27.6003 95.9501 29.5172 93.6701 29.5172Z"
+                                              fill="white"/>
+                                        <path d="M32.1102 71.875C22.0397 71.875 13.6796 78.775 11.3996 88.1669C11.0198 90.0838 12.3494 92 14.4398 92H49.7798C51.68 92 53.1998 90.0831 52.82 88.1669C50.5394 78.775 42.1796 71.875 32.1095 71.875H32.1102Z"
+                                              fill="white"/>
+                                        <path d="M41.7999 57.1173C41.7999 62.5155 37.4612 66.8923 32.1099 66.8923C26.7579 66.8923 22.4199 62.5155 22.4199 57.1173C22.4199 51.7184 26.7579 47.3423 32.1099 47.3423C37.4612 47.3423 41.7999 51.7184 41.7999 57.1173Z"
+                                              fill="white"/>
+                                        <path d="M81.7 71.875C71.6302 71.875 63.2695 78.775 60.9895 88.3578C60.6097 90.2747 61.9392 92.1909 64.0297 92.1909H99.3697C101.27 92.1909 102.79 90.274 102.41 88.3578C100.129 78.7747 91.7695 71.875 81.6993 71.875H81.7Z"
+                                              fill="white"/>
+                                        <path d="M91.3898 57.1173C91.3898 62.5155 87.0511 66.8923 81.6998 66.8923C76.3478 66.8923 72.0098 62.5155 72.0098 57.1173C72.0098 51.7184 76.3478 47.3423 81.6998 47.3423C87.0511 47.3423 91.3898 51.7184 91.3898 57.1173Z"
+                                              fill="white"/>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_1363_1716">
+                                            <rect width="114" height="115" fill="white"/>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <h2 class="h1">Өзара әрекеттесу</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="{% static 'images/Rectangle 1351.png' %}" class="imgHome"/>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-evenly flex-column">
+                <label class="form-label">Аты</label>
+                <input type="text" class="form-control" name="example-text-input">
+
+                <label class="form-label">Тегі</label>
+                <input type="text" class="form-control" name="example-password-input">
+
+                <label class="form-label">Сыныбы</label>
+                <input type="text" class="form-control" name="example-text-input">
+
+
+                <label class="form-label">Байланыс телефоны</label>
+                <input type="text" class="form-control" name="example-password-input">
+
+                <label class="form-label">Эл.пошта</label>
+                <input type="text" class="form-control" name="example-password-input">
+
+                <div class="text-center">
+                    <button type="button" class="btn btn-orange btn-pill btn-lg mt-2">Жазылу</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="text-center mt-4">
+            <div class="col-lg-6 mx-auto">
+                <p class="" id="profileHeader3">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/brand-instagram -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="30" height="24" viewBox="0 0 24 24"
+                         stroke-width="5" stroke="currentColor" fill="none" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <rect x="4" y="4" width="16" height="16" rx="4"/>
+                        <circle cx="12" cy="12" r="3"/>
+                        <line x1="16.5" y1="7.5" x2="16.5" y2="7.501"/>
+                    </svg>
+                    <!-- Download SVG icon from http://tabler-icons.io/i/brand-telegram -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"/>
+                    </svg>
+                    <!-- Download SVG icon from http://tabler-icons.io/i/brand-youtube -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <rect x="3" y="5" width="18" height="14" rx="4"/>
+                        <path d="M10 9l5 3l-5 3z"/>
+                    </svg>
+                    <!-- Download SVG icon from http://tabler-icons.io/i/brand-whatsapp -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"/>
+                        <path d="M9 10a0.5 .5 0 0 0 1 0v-1a0.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a0.5 .5 0 0 0 0 -1h-1a0.5 .5 0 0 0 0 1"/>
+                    </svg>
+                    <!-- Download SVG icon from http://tabler-icons.io/i/brand-facebook -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3"/>
+                    </svg>
+                </p>
+            </div>
+            <p>ТОО “JOO Analytics” © 2021 Все правы защищены.</p>
+        </div>
+
+    </div>
+{% endblock %}

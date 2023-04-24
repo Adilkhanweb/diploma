@@ -1,0 +1,39 @@
+{% extends 'base/content.html' %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Сұрақ қосу
+{% endblock %}
+{% block extracss %}
+    <style>
+        .ck.ck-content.ck-editor__editable {
+            min-height: 100px !important;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    {% include 'quiz/add_single_question.html' %}
+    {% include 'quiz/add_multiple_question.html' %}
+
+{% endblock %}
+{% block extrascripts %}
+    <script>
+        function reinitForm(form, number) {
+            const checkboxes = form.querySelectorAll('input[type=checkbox]');
+            const maxChecked = number;
+
+            const checkedCount = form.querySelectorAll('input[type=checkbox]:checked').length;
+            if (checkedCount >= maxChecked) {
+                checkboxes.forEach(cb => {
+                    if (!cb.checked) {
+                        cb.disabled = true;
+                    }
+                });
+            } else {
+                checkboxes.forEach(cb => {
+                    cb.disabled = false;
+                });
+            }
+        }
+    </script>
+{% endblock %}

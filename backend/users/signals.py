@@ -9,6 +9,7 @@ from users.models import Profile
 
 @receiver(post_save, sender=Student)
 @receiver(post_save, sender=Teacher)
+@receiver(post_save, sender=get_user_model())
 def crete_profile(sender, instance, created, **kwargs):
     """Create profile when user signs up"""
     if created:

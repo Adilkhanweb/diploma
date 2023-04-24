@@ -1,4 +1,5 @@
 import os
+from django.utils import timezone
 
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -20,19 +21,19 @@ class Assignment(models.Model):
         return self.title
 
     @property
-    def get_absolute_url(self):
-        return reverse('assignments:assignment_detail', kwargs={'assignment_id': self.id})
+    def is_passed(self):
+        return timezone.now() > self.deadline
 
 
 class AssignmentSubmission(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, blank=False, null=True)
-    assignment = models.OneToOneField(Assignment, on_delete=models.SET_NULL, null=True,
-                                      verbose_name=_("Тапсырма атауы"), related_name="submissions")
+    assignment = models.ForeignKey(Assignment, on_delete=models.SET_NULL, null=True,
+                                   verbose_name=_("Тапсырма атауы"), related_name="submissions")
     comment = models.TextField(_("Сипаттама"))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    graded = models.BooleanField(default=False)
-    grade = models.IntegerField(default=0)
+    graded = models.BooleanField(default=False, verbose_name="Бағаланды ма?")
+    grade = models.IntegerField(default=0, verbose_name="Баға")
 
     def __str__(self):
         return self.assignment.title

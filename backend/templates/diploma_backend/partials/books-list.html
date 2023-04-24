@@ -1,8 +1,7 @@
 {% load quiz_tags %}
 {% for book in books %}
-    <div class="col-lg-4 col-md-4 col-6" id="book-{{ book.id }}">
+    <div class="col-lg-3 col-md-4 col col-sm-12" id="book-{{ book.id }}">
         <div class="card">
-
             <div class="img-responsive img-responsive-3x4 card-img-top"
                  style="background-image: url({{ book.banner.url }})">
             </div>

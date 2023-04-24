@@ -10,52 +10,51 @@ from django.utils import timezone
 from model_utils.managers import InheritanceManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class Quiz(models.Model):
     title = models.CharField(
-        verbose_name=_("Title"),
+        verbose_name="Атауы",
         max_length=60, blank=False)
 
     description = models.TextField(
-        verbose_name=_("Description"),
-        blank=True, help_text=_("a description of the quiz"))
+        verbose_name="Сипаттама",
+        blank=True, help_text="Бақылаудың қысқаша сипаттамасы")
 
     url = models.SlugField(
         max_length=60, blank=False,
-        help_text=_("a user friendly url"),
-        verbose_name=_("user friendly url"))
+        help_text="бақылауға сілтеме",
+        verbose_name="Сілтеме")
 
     random_order = models.BooleanField(
         blank=False, default=False,
-        verbose_name=_("Random Order"),
-        help_text=_("Display the questions in "
-                    "a random order or as they "
-                    "are set?"))
-    max_attempts = models.PositiveIntegerField(null=True, verbose_name=_("Allowed number of attempts"),
+        verbose_name="Рандомды тәртіппен",
+        help_text="Сұрақтарды кездейсоқ ретпен немесе олар орнатылған ретпен көрсету керек пе?")
+    max_attempts = models.PositiveIntegerField(null=True, verbose_name="Әрекеттердің рұқсат етілген саны",
                                                default=1)
 
     pass_mark = models.SmallIntegerField(
         blank=True, default=0,
-        verbose_name=_("Pass Mark"),
-        help_text=_("Percentage required to pass exam."),
+        verbose_name="Өту балы",
+        help_text="Сәтті тапсыру үшін қажетті пайыз",
         validators=[MaxValueValidator(100)])
 
     success_text = models.TextField(
-        blank=True, help_text=_("Displayed if user passes."),
-        verbose_name=_("Success Text"))
+        blank=True, help_text=_("Егер пайдаланушы сәтті тапсырса, көрсетілетін мәтін."),
+        verbose_name="Сәтті мәтіні")
 
     fail_text = models.TextField(
-        verbose_name=_("Fail Text"),
-        blank=True, help_text=_("Displayed if user fails."))
+        verbose_name="Сәтсіз мәтіні",
+        blank=True, help_text="Егер пайдаланушы сәтсіз тапсырса, көрсетілетін мәтін.")
     draft = models.BooleanField(
         blank=True, default=False,
-        verbose_name=_("Draft"),
-        help_text=_(
-            'If yes, the quiz is not displayed in the quiz list and can only be taken by users who can edit quizzes.'))
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
-    duration = models.DurationField(default=timezone.timedelta(hours=2))
+        verbose_name="Уақытша",
+        help_text='Олай болса, тест тесттер тізімінде көрсетілмейді және оны тек тестілерді өңдей алатын пайдаланушылар ғана тапсыра алады.')
+    start_time = models.DateTimeField(verbose_name="Басталу уақыты")
+    end_time = models.DateTimeField(verbose_name="Аяқталу уақыты")
+    duration = models.DurationField(default=timezone.timedelta(hours=2), verbose_name="Уақыт",
+                                    help_text="Тапсыруға берілетін уақыт")
 
     @property
     def is_passed(self):
@@ -93,34 +92,29 @@ class BaseQuestion(models.Model):
     Shared properties placed here.
     """
     quiz = models.ManyToManyField(Quiz,
-                                  verbose_name=_("Quiz"),
+                                  verbose_name="Бақылау",
                                   blank=True, related_name="questions")
 
     figure = models.ImageField(upload_to='uploads/%Y/%m/%d',
                                blank=True,
                                null=True,
-                               verbose_name=_("Figure"))
+                               verbose_name="Фото")
 
     content = models.CharField(max_length=1000,
                                blank=False,
-                               help_text=_("Enter the question text that "
-                                           "you want displayed"),
-                               verbose_name=_('Question'))
+                               help_text="Көрсеткіңіз келетін сұрақтың мәтінін енгізіңіз",
+                               verbose_name="Сұрақ")
 
-    explanation = models.TextField(max_length=2000,
-                                   blank=True,
-                                   help_text=_("Explanation to be shown "
-                                               "after the question has "
-                                               "been answered."),
-                                   verbose_name=_('Explanation'))
+    explanation = CKEditor5Field("Түсіндірме", blank=True,
+                                 config_name='student')
 
     score = models.PositiveIntegerField(default=1)
     correct_answers_count = models.PositiveIntegerField(default=1)
     objects = InheritanceManager()
 
     class Meta:
-        verbose_name = _("Question")
-        verbose_name_plural = _("Questions")
+        verbose_name = "Сұрақ"
+        verbose_name_plural = "Сұрақтар"
 
     def __str__(self):
         return self.content

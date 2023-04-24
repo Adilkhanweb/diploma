@@ -1,0 +1,106 @@
+{% load quiz_tags %}
+{% for quiz in quizzes %}
+    <tr>
+        <td><a href="{% url 'quiz:quiz_detail' quiz.url %}" class="link-dark">{{ quiz.title }}</a></td>
+        <td class="text-muted">{{ quiz.start_time|date:"d M, H:i" }}</td>
+        <td class="text-muted">{{ quiz.end_time|date:"d M, H:i" }}</td>
+        <td class="text-muted" data-duration="{{ quiz.duration.total_seconds }}"></td>
+        {% if request.user|has_group:"Moderators" or request.user|has_group:"Teachers" or request.user.is_superuser %}
+            <td>
+                <div class="dropdown">
+                    <a href="#" class="btn-link text-dark align-text-top" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <!-- Download SVG icon from http://tabler-icons.io/i/dots -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                            <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                            <path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                        </svg>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end" style="">
+                        <a class="dropdown-item text-blue-fg" href="{% url 'quiz:quiz_change' quiz.url %}">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="icon icon-tabler icon-tabler-edit"
+                                 width="40" height="40" viewBox="0 0 24 24" stroke-width="2"
+                                 stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
+                                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+                                <path d="M16 5l3 3"></path>
+                            </svg>
+                            <span class="ms-2">Өзгерту</span>
+                        </a>
+                        <a class="dropdown-item text-red" href="#"
+                           hx-post="{% url 'quiz:delete-quiz' quiz.url %}"
+                           hx-confirm="Сіз бұл бақылауды жойғыңыз келетініне сенімдісіз бе?"
+                           hx-target="#quizzes-tbody">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="icon text-red icon-tabler-trash-x"
+                                 width="40" height="40" viewBox="0 0 24 24" stroke-width="2"
+                                 stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M4 7h16"></path>
+                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                <path d="M10 12l4 4m0 -4l-4 4"></path>
+                            </svg>
+                            <span class="ms-2">Жою</span>
+                        </a>
+                    </div>
+                </div>
+            </td>
+        {% endif %}
+    </tr>
+{% endfor %}
+{% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
+
+    <tr>
+        <td colspan="12">
+            <a href="#addQuiz" data-bs-toggle="modal" data-bs-target="#addQuiz"
+               class="btn btn-outline-edu w-100 fw-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
+                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M12 5l0 14"></path>
+                    <path d="M5 12l14 0"></path>
+                </svg>
+                Бақылау Қосу
+            </a>
+        </td>
+    </tr>
+    <tr class="w-100">
+        <td colspan="12">
+        <span class="d-flex gap-2">
+            <a href="{% url 'quiz:add-single-question' %}"
+               class="btn btn-outline-edu w-100 fw-bold" style="border-style: dashed; border-width: 1px">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-check" width="24"
+                 height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                <path d="M9 12l2 2l4 -4"></path>
+            </svg>
+            Бір Жауаптық Сұрақ қосу
+        </a>
+
+        <a href="{% url 'quiz:add-multiple-question' %}"
+           class="btn btn-outline-edu w-100 fw-bold" style="border-style: dashed; border-width: 1px">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-check" width="24"
+                 height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+                <path d="M9 12l2 2l4 -4"></path>
+            </svg>
+            Бірнеше Жауаптық Сұрақ қосу
+        </a>
+        </span>
+        </td>
+    </tr>
+{% endif %}

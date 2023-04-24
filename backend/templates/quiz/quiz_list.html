@@ -2,10 +2,13 @@
 {% load widget_tweaks %}
 {% load static %}
 {% load quiz_tags %}
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap-duration-picker.css' %}">
+{% endblock %}
 {% block body %}
     <h1>Бақылау</h1>
     <div class="row">
-        <div class="col-6 offset-3 my-4">
+        <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 my-4">
             <img src="{% static 'images/alua2.svg' %}" width="100%"/>
         </div>
     </div>
@@ -13,172 +16,35 @@
         <div class="table-responsive">
             <table
                     class="table table-vcenter card-table">
-                <thead>
+                <thead class="bg-edu-primary">
                 <tr>
                     <th>Атауы</th>
                     <th>Басталу Уақыты:</th>
                     <th>Аяқталу Уақыты:</th>
                     <th>Уақыт Ұзақтығы:</th>
-                    <th>Сілтемесі</th>
+                    <th class="w-1"></th>
                 </tr>
                 </thead>
-                <tbody>
-                {% for quiz in quizzes %}
-                    <tr>
-                        <td>{{ quiz.title }}</td>
-                        <td>{{ quiz.start_time|date:"d F, H:i" }}</td>
-                        <td>{{ quiz.end_time|date:"d F, H:i" }}</td>
-                        <td data-duration="{{ quiz.duration }}"></td>
-                        <td>
-                            <a href="{% url 'quiz:quiz_detail' quiz.url %}"
-                               class="btn btn-outline-azure">
-                                Шолу
-                            </a>
-                        </td>
-
-                    </tr>
-                {% endfor %}
+                <tbody id="quizzes-tbody">
+                {% include 'quiz/partials/quizzes-tbody.html' %}
                 </tbody>
             </table>
         </div>
     </div>
     {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
-
-        <a href="#addQuestion" class="mt-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#addQuestion">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
-                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                 stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M12 5l0 14"></path>
-                <path d="M5 12l14 0"></path>
-            </svg>
-            Сұрақ қосу
-        </a>
-        <a href="#addQuiz" class="mt-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#addQuiz">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24"
-                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                 stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M12 5l0 14"></path>
-                <path d="M5 12l14 0"></path>
-            </svg>
-            Бақылау қосу
-        </a>
         <div class="modal" tabindex="-1" id="addQuiz">
+            {% include 'quiz/partials/quiz-add-form.html' %}
+        </div>
+        <div class="modal" tabindex="-1" id="addQuestion">
             <form action="{% url 'quiz:quiz_list' %}" method="post" class="modal-dialog" style="max-width: 1200px"
                   role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Бақылау қосу</h5>
+                        <h5 class="modal-title">Сұрақ қосу</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col mb-3">
-                                <label class="">
-                                    <span class="form-label required">{{ form.title.label }}</span>
-                                    {% render_field form.title %}
-                                </label>
-                            </div>
-                            <div class="col mb-3">
-                                <label class="">
-                                    <span class="form-label required">{{ form.url.label }}</span>
-                                    {% render_field form.url %}
-                                </label>
-                            </div>
-                            <div class="col mb-3">
-                                <label class="">
-                                    <span class="form-label required">{{ form.max_attempts.label }}</span>
-                                    {% render_field form.max_attempts %}
-                                </label>
-                            </div>
-                            <div class="col mb-3">
-                                <label class="">
-                                    <span class="form-label required">{{ form.pass_mark.label }}</span>
-                                    {% render_field form.pass_mark %}
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-3">
-                                <label class="form-check form-switch">
-                                    {% render_field form.draft %}
-                                    <span class="form-check-label">{{ form.draft.label }}</span>
-                                </label>
-                                <span class="text-muted">Тесттер тізімінде көрсетілмейді және оны тек тестілерді өңдей алатын пайдаланушылар ғана тапсыра алады.</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-3">
-                                <label class="form-check form-switch">
-                                    {% render_field form.random_order %}
-                                    <span class="form-check-label">{{ form.random_order.label }}</span>
-                                </label>
-                                <span class="text-muted">Сұрақтарды кездейсоқ ретпен көрсету керек пе?</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 mb-3">
-                                <label class="w-100">
-                                    <span class="form-label required">{{ form.description.label }}</span>
-                                    {% render_field form.description %}
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-3">
-                                <label class="w-100">
-                                    <span class="form-label required">{{ form.success_text.label }}</span>
-                                    {% render_field form.success_text %}
-                                </label>
-                            </div>
-                            <div class="col mb-3">
-                                <label class="w-100">
-                                    <span class="form-label required">{{ form.fail_text.label }}</span>
-                                    {% render_field form.fail_text %}
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-3">
-                                <label class="w-100">
-                                    <span class="form-label required">{{ form.start_time.label }}</span>
-                                    {% render_field form.start_time %}
-                                </label>
-                            </div>
-                            <div class="col mb-3">
-                                <label class="w-100">
-                                    <span class="form-label required">{{ form.end_time.label }}</span>
-                                    {% render_field form.end_time %}
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-3">
-                                <label class="col">
-                                    <span class="form-label required">{{ form.duration.label }}</span>
-                                    {% render_field form.duration class="form-control w-auto d-inline-flex me-2" %}
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-3">
-                                <label class="col">
-                                    <span class="form-label required">{{ form.questions.label }}</span>
-                                    {% render_field form.questions %}
-                                </label>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" class="btn btn-ghost-secondary" data-bs-dismiss="modal">
-                            Болдырмау
-                        </a>
-                        <button type="submit" class="btn btn-primary ms-auto">Сақтау</button>
+                        {{ question_form.as_p }}
                     </div>
                 </div>
             </form>
@@ -187,6 +53,7 @@
 {% endblock %}
 
 {% block extrascripts %}
+    <script src="{% static 'js/plugins/bootstrap-duration-picker.js' %}"></script>
     <script>
         tinymce.init({
             height: '160',
@@ -201,8 +68,36 @@
                 });
             },
         });
-        durationRows = document.querySelectorAll('[data-duration]').forEach((element, index) => {
-            element.innerHTML = moment.duration(element.dataset.duration).humanize();
+        document.querySelectorAll('[data-duration]').forEach((element, index) => {
+            let date = moment.duration({seconds: element.dataset.duration});
+
+            let text = ""
+            if (date.days() > 0) {
+                text += date.days() + " күн "
+            }
+            if (date.hours() > 0) {
+                text += date.hours() + " сағат "
+            }
+            if (date.minutes() > 0) {
+                text += date.minutes() + " минут "
+            }
+            if (date.seconds() > 0) {
+                text += date.seconds() + " секунд"
+            }
+            element.innerHTML = text;
+        });
+
+        $('#duration').durationPicker({
+            translations: {
+                day: 'күн',
+                hour: 'сағат',
+                minute: 'минут',
+                second: 'секунд',
+                days: 'күн',
+                hours: 'сағат',
+                minutes: 'минут',
+                seconds: 'секунд',
+            }
         });
     </script>
 {% endblock %}

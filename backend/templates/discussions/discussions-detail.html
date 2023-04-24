@@ -1,0 +1,181 @@
+{% extends 'base/content.html' %}
+{% load widget_tweaks %}
+{% load crispy_forms_filters %}
+{% load quiz_tags %}
+{% block title %}
+    {{ discussion.title }}
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-auto d-flex flex-column gap-2 align-items-center justify-content-center">
+            <a href="{% url 'discussions:discussion-vote' discussion.slug 'up' %}"
+               class="btn btn-icon {% if discussion.id|discussion_is_upvoted:request.user.id %}btn-danger{% endif %}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-big-up" width="24"
+                     height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M9 20v-8h-3.586a1 1 0 0 1 -.707 -1.707l6.586 -6.586a1 1 0 0 1 1.414 0l6.586 6.586a1 1 0 0 1 -.707 1.707h-3.586v8a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
+                </svg>
+            </a>
+            <span>{{ discussion.score }}</span>
+            <a href="{% url 'discussions:discussion-vote' discussion.slug 'down' %}" class="btn btn-icon
+{% if discussion.id|discussion_is_downvoted:request.user.id %}btn-danger{% endif %}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-big-down" width="24"
+                     height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M15 4v8h3.586a1 1 0 0 1 .707 1.707l-6.586 6.586a1 1 0 0 1 -1.414 0l-6.586 -6.586a1 1 0 0 1 .707 -1.707h3.586v-8a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1z"></path>
+                </svg>
+            </a>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row g-2 align-items-center">
+                        <div class="col-auto">
+                    <span class="avatar avatar-lg"
+                          style="background-image: url({{ discussion.creator.profile.picture.url }})"></span>
+                        </div>
+                        <div class="col">
+                            <h4 class="card-title m-0">
+                                <a href="#">{{ discussion.creator.get_full_name }}</a>
+                            </h4>
+                            <div class="text-muted">
+                                {{ discussion.created_at|date:"d F, H:i" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h1>{{ discussion.title }}</h1>
+                    <div>
+                        {{ discussion.description|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row my-4">
+    <h2>Жауаптар:</h2>
+        {% for reply in replies %}
+            <div class="row mb-4">
+                <div class="col-auto d-flex flex-column gap-2 align-items-center justify-content-center">
+                    <a href="{% url 'discussions:vote' reply.id 'up' %}"
+                       class="btn btn-icon {% if reply.id|reply_is_upvoted:request.user.id %}btn-danger{% endif %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-big-up"
+                             width="24"
+                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M9 20v-8h-3.586a1 1 0 0 1 -.707 -1.707l6.586 -6.586a1 1 0 0 1 1.414 0l6.586 6.586a1 1 0 0 1 -.707 1.707h-3.586v8a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
+                        </svg>
+                    </a>
+                    <span>{{ reply.score }}</span>
+                    <a href="{% url 'discussions:vote' reply.id 'down' %}"
+                       class="btn btn-icon {% if reply.id|reply_is_downvoted:request.user.id %}btn-danger{% endif %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-big-down"
+                             width="24"
+                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M15 4v8h3.586a1 1 0 0 1 .707 1.707l-6.586 6.586a1 1 0 0 1 -1.414 0l-6.586 -6.586a1 1 0 0 1 .707 -1.707h3.586v-8a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1z"></path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        {% if discussion.correct == reply %}
+                            <div class="card-stamp">
+                                <div class="card-stamp-icon bg-success">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checks"
+                                         width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                         stroke="currentColor"
+                                         fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M7 12l5 5l10 -10"></path>
+                                        <path d="M2 12l5 5m5 -5l5 -5"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="card-status-start bg-success"></div>
+                        {% endif %}
+                        <div class="card-body">
+                            {{ reply.description|safe }}
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="avatar"
+                                         style="background-image: url('{{ reply.user.profile.picture.url }}')">
+                                    </div>
+                                    <span>{{ reply.user.get_full_name }}</span></div>
+                                <span>{{ reply.created_at|date:"d F, H:i" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto d-flex flex-column gap-2 align-items-center justify-content-center">
+                    {% if discussion.creator == request.user %}
+                        <a href="{% url 'discussions:discussion-set-correct' discussion.slug reply.id %}"
+                           class="btn btn-icon btn-outline-success" data-bs-toggle="tooltip"
+                           data-bs-placement="right" title="Жауап ретінде қабылдау">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checks"
+                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M7 12l5 5l10 -10"></path>
+                                <path d="M2 12l5 5m5 -5l5 -5"></path>
+                            </svg>
+                        </a>
+                    {% endif %}
+                    {% if reply.user == request.user %}
+                        <a href="{% url 'discussions:delete-reply' reply.id %}" class="btn btn-danger btn-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash"
+                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M4 7l16 0"></path>
+                                <path d="M10 11l0 6"></path>
+                                <path d="M14 11l0 6"></path>
+                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                            </svg>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="card">
+        <div class="card-content">
+            <div class="card-header">Жауап қосу</div>
+            <div class="card-body">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary">Қосу</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extrascripts %}
+    <script>
+        tinymce.init({
+            height: '160',
+            selector: 'textarea',
+            menu: {},
+            menubar: '',
+            plugins: 'autolink charmap emoticons link lists image imagetools',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+            },
+        });
+    </script>
+{% endblock %}

@@ -5,7 +5,9 @@ app_name = "assignments"
 
 urlpatterns = [
     path('', views.assignments, name="assignment_list"),
-    path('<int:assignment_id>/', views.assignment_details, name="assignment_detail"),
+    path('<int:assignment_id>/<int:user_id>/', views.assignment_details, name="assignment_detail"),
+    path('<int:assignment_id>/grade/', views.grade_submissions, name="grade_submissions"),
+    path('<int:assignment_id>/<int:user_id>/zip/', views.download_to_zip, name="download_to_zip"),
     path('delete/<int:submission_id>/<int:file_id>', views.delete_file, name="delete_submission"),
     path('delete/<int:submission_id>/', views.bulk_delete_files, name="bulk_delete_files"),
     path('addAssignment', views.add_assignment, name="add_assignment"),

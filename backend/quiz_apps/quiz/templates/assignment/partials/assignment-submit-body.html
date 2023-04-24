@@ -1,0 +1,16 @@
+{% load quiz_tags %}
+<h1>{{ assignment.title }}</h1>
+
+{% if not submission.graded %}
+    <div class="card mb-3">
+        <div class="card-header card-title"><h3>Файл жүктеу <span
+                class="card-subtitle">{{ assignment.description|safe }}</span></h3></div>
+        <div class="card-body">
+            {% include 'assignment/partials/assignment-submit-form.html' %}
+        </div>
+    </div>
+{% else %}
+{% endif %}
+<div id="submissions">
+    {% include 'assignment/partials/assignment-submissions-tbody.html' %}
+</div>

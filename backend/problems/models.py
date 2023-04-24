@@ -21,17 +21,19 @@ class Problem(Time):
         MEDIUM = 2, _("Орташа")
         HARD = 3, _("Қиын")
 
-    title = models.CharField(max_length=128)
-    slug = models.SlugField(unique=True)
-    description = models.TextField(max_length=1000, null=True)
-    ex_input = models.TextField(max_length=1000, null=True)
-    ex_output = models.TextField(max_length=1000, null=True)
-    ex_description = models.TextField(max_length=1000, null=True)
-    difficulty = models.IntegerField(max_length=128, choices=Difficulty.choices, default=Difficulty.EASY)
-    base_code = models.TextField(null=True, blank=True)
-    points = models.PositiveSmallIntegerField(default=1)
+    title = models.CharField(max_length=128, verbose_name="Атауы")
+    slug = models.SlugField(unique=True, verbose_name="Сілтемесі")
+    description = models.TextField(max_length=1000, null=True, verbose_name="Сипаттама")
+    ex_input = models.TextField(max_length=1000, null=True, verbose_name="Кіріс дерегі мысалы")
+    ex_output = models.TextField(max_length=1000, null=True, verbose_name="Шығу мысалы")
+    ex_description = models.TextField(max_length=1000, null=True, verbose_name="Мысал түсіндірмесі")
+    difficulty = models.IntegerField(max_length=128, choices=Difficulty.choices, default=Difficulty.EASY,
+                                     verbose_name="Қиындығы")
+    base_code = models.TextField(null=True, blank=True, verbose_name="Бастапқы берілген код")
+    points = models.PositiveSmallIntegerField(default=1, verbose_name="Балл")
     testcases_count = models.PositiveSmallIntegerField(default=0)
-    time_limit = models.FloatField(default=3, help_text="Time limit in seconds")
+    time_limit = models.FloatField(default=3, help_text="Кодты орындауға кететін уақыт (секундпен)",
+                                   verbose_name="Уақыт шегі")
 
     class Meta:
         verbose_name = _("Бағдаламалау Мәселесі")
@@ -43,9 +45,14 @@ class Problem(Time):
 
 class TestCase(Time):
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE, related_name="testcases")
-    input = models.TextField()
-    expected_output = models.TextField()
-    is_hidden = models.BooleanField(default=True)
+    input = models.TextField(verbose_name="Кіріс дерегі")
+    expected_output = models.TextField(verbose_name="Күтілген нәтиже")
+    is_hidden = models.BooleanField(default=True, verbose_name="Жабық сынақ?",
+                                    help_text="Кіріс ж-е шығыс деректері қолданушыға көрінбейді")
+
+    class Meta:
+        verbose_name = "Бағдарламалау Сынағы"
+        verbose_name_plural = "Бағдарламалау Сынақтары"
 
     def __str__(self):
         return f'{self.input}: {self.expected_output}'

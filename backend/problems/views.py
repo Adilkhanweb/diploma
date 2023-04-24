@@ -1,8 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 import judge0api as api
 
+from .forms import ProblemForm, TestCaseForm
 from .models import *
 from django.conf import settings
+from django.forms import inlineformset_factory
+from django.db import transaction
+from django.utils.safestring import mark_safe
 
 STATUSES = [
     {
@@ -75,6 +79,46 @@ def problem_detail(request, slug):
     return render(request, "problems/problem-detail.html", {'problem': problem,
                                                             'is_accepted': problem.submission_set.filter(
                                                                 user=request.user, is_accepted=True).exists()})
+
+
+TestCaseFormSet = inlineformset_factory(Problem, TestCase, form=TestCaseForm, extra=1, can_delete=True)
+
+
+def add_problem(request):
+    form = ProblemForm()
+    if request.method == "POST":
+        form = ProblemForm(request.POST)
+        formset = TestCaseFormSet(request.POST)
+        if form.is_valid() and formset.is_valid():
+            with transaction.atomic():
+                problem = form.save()
+                formset.instance = problem
+                formset.save()
+                problem.testcases_count = problem.testcases.count()
+                problem.save()
+            return redirect('problems:problems')
+    return render(request, "problems/add-problem.html", {'form': ProblemForm(), 'formset': TestCaseFormSet})
+
+
+def change_problem(request, slug):
+    problem = get_object_or_404(Problem, slug=slug)
+    form = ProblemForm(instance=problem)
+    formset = TestCaseFormSet(instance=problem)
+    if request.method == "POST":
+        form = ProblemForm(request.POST, instance=problem)
+        formset = TestCaseFormSet(request.POST, instance=problem)
+        if form.is_valid() and formset.is_valid():
+            with transaction.atomic():
+                problem = form.save()
+                formset.instance = problem
+                formset.save()
+                problem.testcases_count = problem.testcases.count()
+                problem.save()
+            return redirect('problems:problems')
+        else:
+            return redirect('problems:change-problem')
+    return render(request, "problems/change-problem.html",
+                  {'form': ProblemForm(instance=problem), 'formset': formset, 'problem': problem})
 
 
 def submit(request, slug):
@@ -180,3 +224,9 @@ def test(request, slug):
                       {'problem': problem, 'output': stdout, 'code': code,
                        'input': test_input})
     return render(request, "problems/problem-detail.html", {'problem': problem})
+
+
+def delete_problem(request, slug):
+    problem = get_object_or_404(Problem, slug=slug)
+    problem.delete()
+    return render(request, 'problems/partails/problem-list-body.html', {'problems': Problem.objects.all()})

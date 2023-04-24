@@ -1,0 +1,21 @@
+{% load widget_tweaks %}
+<form method="post" enctype="multipart/form-data"
+      hx-post="" hx-target="#assignment-submit-body" hx-encoding="multipart/form-data"
+      _="on htmx:afterRequest wait 1s call reinit()"
+>
+    <div class="mb-3">
+        <label class="form-label">
+            <span class="fallback">
+                {% render_field file_form.files class="dropzone" %}
+            </span>
+            {{ file_form.files.errors }}
+        </label>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">
+            {% render_field submission_form.comment %}
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-outline-danger">Тапсыру</button>
+</form>

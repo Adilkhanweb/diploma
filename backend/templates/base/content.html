@@ -10,13 +10,13 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <h1 class="navbar-brand navbar-brand-autodark">
-                    <a href="/">
+                    <a href="{% url 'dashboard' %}">
                         <img src="{% static 'images/logo-light.svg' %}" width="110" height="110" alt="Tabler"
                              class="navbar-brand-image">
                     </a>
                 </h1>
                 <div class="navbar-nav flex-row d-lg-none">
-                    <div class="nav-item dropdown d-none d-md-flex me-3">
+                    <div class="nav-item dropdown d-md-flex me-3">
                         <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1"
                            aria-label="Show notifications">
                             <!-- Download SVG icon from http://tabler-icons.io/i/bell -->
@@ -39,22 +39,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
-                           aria-label="Open user menu">
-                            <span class="avatar avatar-sm"
-                                  style="background-image: url('{{ request.user.profile.picture.url }}')"></span>
-                            <div class="d-none d-xl-block ps-2">
-                                <div>Paweł Kuna</div>
-                                <div class="mt-1 small text-muted">UI Designer</div>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <a href="#" class="dropdown-item">Профиль</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="{% url 'users:signout' %}" class="dropdown-item text-danger">Шығу</a>
-                        </div>
-                    </div>
                 </div>
                 {% include 'base/sidebar.html' %}
             </div>
@@ -67,7 +51,7 @@
             <div class="page-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col px-4">
+                        <div class="col">
                             <div class="page-header d-print-none">
                                 <div class="row align-items-center">
                                     <div class="col">
@@ -91,11 +75,11 @@
                                         <div class="row g-3 align-items-start">
                                             <div class="col-auto">
                                                 <span class="avatar avatar-md avatar-rounded bg-cyan"
-                                                      style="background: url('{{ user.profile.picture.url }}') no-repeat center; background-size: cover;"></span>
+                                                      style="background: url('{{ request.user.profile.picture.url }}') no-repeat center; background-size: cover;"></span>
                                             </div>
                                             <div class="col">
                                                 <h2 class="m-0">
-                                                    <a href="{% url 'users:profile' user.profile.id %}">{{ user.first_name }} {{ user.last_name }}</a>
+                                                    <a href="{% url 'users:profile' user.id %}">{{ user.first_name }} {{ user.last_name }}</a>
                                                 </h2>
                                                 <div class="text-muted">
                                                     {% if request.user|has_group:"Moderators" %}
@@ -109,7 +93,7 @@
                                                     {% endif %}
                                                 </div>
                                             </div>
-                                            <div class="col">
+                                            <div class="col-12 col-md-12 col-lg">
                                                 <div class="input-group mb-2 search-bar">
                                                     <input type="text" class="form-control" placeholder="Іздеу...">
                                                     <a class="btn p-2">

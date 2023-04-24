@@ -1,0 +1,94 @@
+{% extends 'base/content.html' %}
+{% load widget_tweaks %}
+{% load crispy_forms_filters %}
+{% block title %}
+    Сұрақты өзгерту
+{% endblock %}
+{% block body %}
+    <form method="post" action=""
+          _="on load call reinitForm(me, {% if question.answers.count > 4 %}3{% else %}1{% endif %})
+    on change call reinitForm(me, {% if question.answers.count > 4 %}3{% else %}1{% endif %})" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        {{ formset.management_form }}
+        <table class="table table-success table-striped">
+            {% for form in formset.forms %}
+                {% if forloop.first %}
+                    <thead>
+                    <tr>
+                        <th class="w-1">№</th>
+                        {% for field in form.visible_fields %}
+                            <th {% if forloop.last %}style="width: min-content" {% endif %}><span
+                                    class="form-label required">{{ field.label|capfirst }}</span>
+                                <span class="text-muted">{{ field.help_text }}</span>
+                            </th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                {% endif %}
+                <tr class="formset_row">
+                    <td>{{ forloop.counter }}</td>
+                    {% for field in form.visible_fields %}
+                        <td>
+                            {# Include the hidden fields in the form #}
+                            {% if forloop.first %}
+                                {% for hidden in form.hidden_fields %}
+                                    {{ hidden }}
+                                {% endfor %}
+                            {% endif %}
+                            {{ field.errors.as_ul }}
+                            {% if field.name == 'content' %}
+                                {% render_field field class="form-control" %}
+                            {% else %}
+                                {% render_field field class="form-check-input" %}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="d-flex">
+            <button class="btn" _="on click reset() me">Болдырмау</button>
+            <button type="submit" class="btn btn-primary ms-auto">Сақтау</button>
+        </div>
+    </form>
+{% endblock %}
+{% block extrascripts %}
+
+    <script>
+        tinymce.init({
+            height: '160',
+            selector: 'textarea',
+            menu: {},
+            menubar: '',
+            plugins: 'autolink charmap emoticons link lists',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+            },
+        });
+
+    </script>
+
+    <script>
+        function reinitForm(form, number) {
+            const checkboxes = form.querySelectorAll('input[type=checkbox]');
+            const maxChecked = number;
+
+            const checkedCount = form.querySelectorAll('input[type=checkbox]:checked').length;
+            if (checkedCount >= maxChecked) {
+                checkboxes.forEach(cb => {
+                    if (!cb.checked) {
+                        cb.disabled = true;
+                    }
+                });
+            } else {
+                checkboxes.forEach(cb => {
+                    cb.disabled = false;
+                });
+            }
+        }
+    </script>
+{% endblock %}

@@ -7,16 +7,15 @@ from calendarapp.models import Event
 from quiz_apps.quiz.models import Quiz
 
 
-#
-# @receiver(post_save, sender=Assignment)
-# def create_event(sender, instance, created, **kwargs):
-#     """Create event when assignment will be created"""
-#     if created:
-#         event, created = Event.objects.get_or_create(title=instance.title, start_time=instance.created_at,
-#                                                      end_time=instance.deadline,
-#                                                      url=reverse('assignments:assignment_detail',
-#                                                                  kwargs={'assignment_id': instance.id}))
-#
+@receiver(post_save, sender=Assignment)
+def create_event(sender, instance, created, **kwargs):
+    """Create event when assignment will be created"""
+    if created:
+        event, created = Event.objects.get_or_create(title=instance.title, start_time=instance.created_at,
+                                                     end_time=instance.deadline,
+                                                     url=reverse('assignments:assignment_detail',
+                                                                 kwargs={'assignment_id': instance.id}))
+
 
 @receiver(post_save, sender=Quiz)
 def create_quiz_event(sender, instance, created, **kwargs):

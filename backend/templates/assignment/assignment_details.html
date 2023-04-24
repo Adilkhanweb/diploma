@@ -1,41 +1,80 @@
 {% extends 'base/content.html' %}
 {% load widget_tweaks %}
 {% load quiz_tags %}
+{% block extracss %}
+{% endblock %}
 {% block body %}
-    <h1>{{ assignment.title }}</h1>
-    <div class="card mb-3">
-        <div class="card-header card-title"><h3>Файл жүктеу <span
-                class="card-subtitle">{{ assignment.description|safe }}</span></h3></div>
-        <div class="card-body">
-            <form method="post" enctype="multipart/form-data"
-                  hx-post="" hx-target="#submissions" hx-encoding="multipart/form-data"
-                  _="on htmx:afterRequest reset() me"
-            >
-                <div class="mb-3">
-                    <label class="form-label">
-                        {% render_field file_from.files %}
-                    </label>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">
-                        {% render_field submission_form.comment %}
-                    </label>
-                </div>
-                {% for error in form.errors %}
-                    {{ error }}
-                {% endfor %}
-
-                <button type="submit" class="btn btn-outline-danger">Тапсыру</button>
-            </form>
+    {% if request.user|has_group:"Students" %}
+        <div id="assignment-submit-body">
+            {% include 'assignment/partials/assignment-submit-body.html' %}
         </div>
-    </div>
-    <div id="submissions">
-        {% include 'assignment/partials/assignment-submissions-tbody.html' %}
-    </div>
+    {% endif %}
     {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
-        {% for submission in assignment.submissions.all %}
-            {{ submission.user.email }}
-        {% endfor %}
+        <h1>{{ assignment.title }} бағалау</h1>
+        <form method="post" action="{% url 'assignments:grade_submissions' assignment.id %}">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            <table class="table table-hover table-vcenter">
+                {% if formset.forms %}
+                    {% for form in formset.forms %}
+                        {% if forloop.first %}
+                            <thead class="bg-edu-primary">
+                            <tr>
+                                <th class="w-1">№</th>
+                                <th>Қолданушы</th>
+                                {% for field in form.visible_fields %}
+                                    <th {% if forloop.last %}style="width: min-content" {% endif %}>{{ field.label|capfirst }}
+                                    </th>
+                                {% endfor %}
+                                <th class="w-1">Файлдар</th>
+                            </tr>
+                            </thead>
+                        {% endif %}
+                        <tr class="formset_row">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ form.instance.user }}</td>
+                            {% for field in form.visible_fields %}
+                                <td>
+                                    {# Include the hidden fields in the form #}
+                                    {% if forloop.first %}
+                                        {% for hidden in form.hidden_fields %}
+                                            {{ hidden }}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {{ field.errors.as_ul }}
+                                    {% render_field field class="form-control" %}
+                                </td>
+                            {% endfor %}
+                            <td>
+                                <a href="{% url 'assignments:download_to_zip' assignment_id=assignment.id user_id=form.instance.user.id %}"
+                                   class="btn btn-icon btn-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="icon icon-tabler icon-tabler-file-zip"
+                                         width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                         stroke="currentColor"
+                                         fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M6 20.735a2 2 0 0 1 -1 -1.735v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-1"></path>
+                                        <path d="M11 17a2 2 0 0 1 2 2v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-2a2 2 0 0 1 2 -2z"></path>
+                                        <path d="M11 5l-1 0"></path>
+                                        <path d="M13 7l-1 0"></path>
+                                        <path d="M11 9l-1 0"></path>
+                                        <path d="M13 11l-1 0"></path>
+                                        <path d="M11 13l-1 0"></path>
+                                        <path d="M13 15l-1 0"></path>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr><td colspan="12"><h2 class="text-center text-muted">Әлі ешкім үй жұмысын тапсырмады</h2></td></tr>
+                {% endif %}
+            </table>
+            <div class="d-flex">
+                <button class="btn ms-auto" type="submit">Сақтау</button>
+            </div>
+        </form>
     {% endif %}
 {% endblock %}
 {% block extrascripts %}
@@ -55,6 +94,23 @@
         });
     </script>
     <script>
+        function reinit() {
+            tinymce.remove()
+            tinymce.init({
+                height: '160',
+                selector: 'textarea',
+                menu: {},
+                menubar: '',
+                plugins: 'autolink charmap emoticons link lists',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        editor.save();
+                    });
+                },
+            });
+            console.log('fesfs');
+        }
 
         function form_on_change(form) {
             let selected = form.querySelectorAll('input[type=checkbox][name=bulk_file]:checked').length;

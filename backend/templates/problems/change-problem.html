@@ -1,0 +1,237 @@
+{% extends 'base/content.html' %}
+{% load widget_tweaks %}
+{% load crispy_forms_filters %}
+{% load formset_tags %}
+
+{% block title %}
+    {{ problem }} тапсырмасын өзгерту
+{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"
+          integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css"
+          integrity="sha512-gFMl3u9d0xt3WR8ZeW05MWm3yZ+ZfgsBVXLSOiFz2xeVrZ8Neg0+V1kkRIo9LikyA/T9HuS91kDfc2XWse0K0A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+{% endblock %}
+{% block body %}
+    <h1>{{ problem }} тапсырмасын өзгерту</h1>
+    <form method="post" action="{% url 'problems:change-problem' problem.id %}" id="form-container">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="{{ form.title.id_for_label }}" class="form-label required">{{ form.title.label }}</label>
+                {% render_field form.title _="on keyup call slugify(me) then set #id_slug.value to it" %}
+                <span class="">{{ form.title.errors }}</span>
+
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="{{ form.slug.id_for_label }}" class="form-label required">{{ form.slug.label }}</label>
+                {% render_field form.slug class="form-control" placeholder="problem-no-1" %}
+                <span class="">{{ form.slug.errors }}</span>
+            </div>
+            <div class="col-md-6 mb-3 pb-4">
+                <label for="{{ form.description.id_for_label }}"
+                       class="form-label required">{{ form.description.label }}</label>
+                {% render_field form.description class="form-control h-100" %}
+                <span class="">{{ form.description.errors }}</span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="{{ form.base_code.id_for_label }}"
+                       class="form-label required">{{ form.base_code.label }}</label>
+                {% render_field form.base_code class="form-control" rows=4 %}
+                <span class="">{{ form.base_code.errors }}</span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="{{ form.ex_input.id_for_label }}"
+                       class="form-label required">{{ form.ex_input.label }}</label>
+                {% render_field form.ex_input class="form-control" rows=4 %}
+                <span class="">{{ form.ex_input.errors }}</span>
+
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="{{ form.ex_output.id_for_label }}"
+                       class="form-label required">{{ form.ex_output.label }}</label>
+                {% render_field form.ex_output class="form-control" rows=4 %}
+                <span class="">{{ form.ex_output.errors }}</span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="{{ form.ex_description.id_for_label }}"
+                       class="form-label required">{{ form.ex_description.label }}</label>
+                {% render_field form.ex_description class="form-control" rows=6 %}
+                <span class="">{{ form.ex_description.errors }}</span>
+            </div>
+            <div class="col col-6">
+                <div class="row">
+                    <div class="col-md-6 mb-1">
+                        <label for="{{ form.points.id_for_label }}"
+                               class="form-label required">{{ form.points.label }}</label>
+                        {% render_field form.points class="form-control mb-3" %}
+                        <span class="">{{ form.points.errors }}</span>
+                    </div>
+                    <div class="col-md-6 mb-1">
+                        <label for="{{ form.difficulty.id_for_label }}"
+                               class="form-label required">{{ form.difficulty.label }}</label>
+                        {% render_field form.difficulty class="form-select mb-3" %}
+                        <span class="">{{ form.difficulty.errors }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="{{ form.time_limit.id_for_label }}"
+                               class="form-label required">{{ form.time_limit.label }}</label>
+                        {% render_field form.time_limit class="form-control" %}
+                        <span class="text-muted">{{ form.time_limit.help_text }}</span>
+                        <span class="">{{ form.time_limit.errors }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="testcases-formset" data-formset-prefix="{{ formset.prefix }}">
+            {{ formset.management_form }}
+            <table class="table table-success table-striped">
+                {% for form in formset.forms %}
+                    {% if forloop.first %}
+                        <thead>
+                        <tr>
+                            {% for field in form.visible_fields %}
+                                <th {% if forloop.last %}style="width: min-content" {% endif %}>
+                                    <span class="form-label required">{{ field.label|capfirst }}</span>
+                                    <span class="text-muted">{{ field.help_text }}</span>
+                                </th>
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                        <tbody data-formset-body>
+                    {% endif %}
+                    <tr class="formset_row testcase-form" data-formset-form>
+                        {% for field in form.visible_fields %}
+                            <td>
+                                {# Include the hidden fields in the form #}
+                                {% if forloop.first %}
+                                    {% for hidden in form.hidden_fields %}
+                                        {{ hidden }}
+                                    {% endfor %}
+                                {% endif %}
+                                {{ field.errors.as_ul }}
+                                {% if field.name != 'is_hidden' and field.name != 'DELETE' %}
+                                    {% render_field field class="form-control" %}
+                                {% elif field.name == 'DELETE' %}
+                                    {% render_field field class="form-check-input d-none" %}
+                                    <button class="btn btn-icon btn-danger" type="button" data-formset-delete-button>
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="icon icon-tabler icon-tabler-trash-x" width="24" height="24"
+                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                             stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M4 7h16"></path>
+                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                            <path d="M10 12l4 4m0 -4l-4 4"></path>
+                                        </svg>
+                                    </button>
+                                {% else %}
+                                    {% render_field field class="form-check-input" %}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+                <tr>
+                    <td>
+                        <!-- The empty form template. By wrapping this in a <script> tag, the
+        __prefix__ placeholder can easily be replaced in both attributes and
+        any scripts -->
+                        <script type="form-template" data-formset-empty-form>
+                            {% escapescript %}
+
+                                <tr class="formset_row testcase-form" data-formset-form="">
+                                    <td>
+                                        <input type="hidden" name="testcases-__prefix__-id"
+                                               id="id_testcases-__prefix__-id">
+                                        <input type="hidden" name="testcases-__prefix__-problem"
+                                               id="id_testcases-__prefix__-problem">
+                                        <textarea name="testcases-__prefix__-input" cols="40" rows="3"
+                                                  class="form-control"
+                                                  id="id_testcases-__prefix__-input"></textarea>
+                                    </td>
+                                    <td>
+                    <textarea name="testcases-__prefix__-expected_output" cols="40" rows="3" class="form-control"
+                              id="id_testcases-__prefix__-expected_output"></textarea>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="testcases-__prefix__-is_hidden"
+                                               class="form-check-input"
+                                               id="id_testcases-__prefix__-is_hidden" checked="">
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="testcases-__prefix__-DELETE"
+                                               class="form-check-input d-none"
+                                               id="id_testcases-__prefix__-DELETE">
+                                        <button class="btn btn-icon btn-danger" type="button"
+                                                data-formset-delete-button>
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 class="icon icon-tabler icon-tabler-trash-x" width="24" height="24"
+                                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                 stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M4 7h16"></path>
+                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                                                <path d="M10 12l4 4m0 -4l-4 4"></path>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endescapescript %}
+                        </script>
+                        <button class="btn btn-sm btn-primary" type="button" data-formset-add>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24"
+                                 height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M12 5l0 14"></path>
+                                <path d="M5 12l14 0"></path>
+                            </svg>
+                            Сынақ қосу
+                        </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <button class="btn btn-primary" type="submit">Сақтау</button>
+    </form>
+{% endblock %}
+{% block extrascripts %}
+    {{ formset.media }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"
+            integrity="sha512-8RnEqURPUc5aqFEN04aQEiPlSAdE0jlFS/9iGgUyNtwFnSKCXhmB6ZTNl7LnDtDWKabJIASzXrzD0K+LYexU9g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/python/python.min.js"
+            integrity="sha512-2M0GdbU5OxkGYMhakED69bw0c1pW3Nb0PeF3+9d+SnwN1ryPx3wiDdNqK3gSM7KAU/pEV+2tFJFbMKjKAahOkQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        base_code_area = document.querySelector('textarea#id_base_code')
+        let myCodeMirror = CodeMirror.fromTextArea(base_code_area, {
+            lineNumbers: true,
+            mode: "python",
+            theme: "dracula",
+        });
+    </script>
+    <script>
+        jQuery(function ($) {
+            $(".testcases-formset").formset({
+                animateForms: true,
+                reorderMode: 'dom',
+            });
+        });
+    </script>
+{% endblock %}

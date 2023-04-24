@@ -14,14 +14,14 @@ from users.models import Profile
 
 
 @login_required
-def profile(request, user_profile_id):
+def profile(request, user_id):
     quizzes = Quiz.objects.filter(attempts__user=request.user).order_by(
         '-end_time').distinct().prefetch_related('attempts')
     leaderboard = Leaderboard.objects.values(email=F('user__email'), first_name=F('user__first_name'),
                                              last_name=F('user__last_name'),
                                              picture=F('user__profile__picture')).order_by(
         'user').distinct().annotate(score=Sum('score')).order_by('-score')
-    user_profile = Profile.objects.get(id=user_profile_id)
+    user_profile, created = Profile.objects.get_or_create(user_id=user_id)
     profile_form = ProfileForm()
     user_form = UserUpdateForm(instance=request.user)
     password_form = PasswordUpdateForm(user=request.user)
@@ -41,9 +41,14 @@ def profile(request, user_profile_id):
     if request.method == 'GET':
         if user_profile.user != request.user:
             return render(request, "base/404.html")
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
     return render(request, 'users/profile.html',
                   {'profile': user_profile, 'profile_form': profile_form, "user_form": user_form,
-                   "password_form": password_form, "quizzes": quizzes, 'leaderboard': leaderboard})
+                   "password_form": password_form, "quizzes": quizzes, 'leaderboard': leaderboard, 'ip_address': ip})
 
 
 @login_required

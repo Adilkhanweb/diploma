@@ -17,31 +17,34 @@
                     <th>Атауы</th>
                     <th>Қиындығы</th>
                     <th>Күйі</th>
-                    <th>Тапсыру</th>
+                    {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
+                        <th class="w-1"></th>
+                    {% endif %}
                 </tr>
                 </thead>
                 <tbody>
-                {% for problem in problems %}
-                    <tr>
-                        <td>{{ problem.title }}</td>
-                        <td>{% if problem.difficulty == 1 %}
-                            <span class="badge bg-teal">{{ problem.get_difficulty_display }}</span>
-                        {% elif problem.difficulty == 2 %}
-                            <span class="badge bg-yellow">{{ problem.get_difficulty_display }}</span>
-                        {% elif problem.difficulty == 3 %}
-                            <span class="badge bg-danger">{{ problem.get_difficulty_display }}</span>
-                        {% endif %} </td>
-                        <td>{% if problem|problem_is_accepted:request.user %}
-                            <span class="badge bg-green">Шешілген</span>{% else %}
-                            <span class="badge bg-danger-lt">Шешілмеген</span>{% endif %}</td>
-                        <td>
-                            <a href="{% url 'problems:problem-detail' problem.slug %}"
-                               class="btn btn-outline-azure">
-                                Тапсыру
-                            </a>
-                    </tr>
-                {% endfor %}
+                {% include 'problems/partails/problem-list-body.html' %}
                 </tbody>
+                {% if request.user|has_group:"Moderators" or request.user|has_group:"Teachers" or request.user.is_superuser %}
+
+                    <tr>
+                        <td colspan="12">
+                            <a href="{% url 'problems:add-problem' %}" class="btn btn-outline-edu w-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus"
+                                     width="24"
+                                     height="24"
+                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M12 5l0 14"></path>
+                                    <path d="M5 12l14 0"></path>
+                                </svg>
+                                Бағдарламалау тапсырмасын
+                                қосу</a>
+                        </td>
+                    </tr>
+                {% endif %}
             </table>
         </div>
     </div>

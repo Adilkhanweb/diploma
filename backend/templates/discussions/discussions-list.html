@@ -1,7 +1,94 @@
 {% extends 'base/content.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
 {% block title %}
-Талқылаулар
+    Талқылаулар
 {% endblock %}
 {% block body %}
-    <h3 class="text-center">Жасалу үстінде</h3>
+    <h1>Талқылаулар</h1>
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 my-4">
+            <img src="{% static 'images/alua.svg' %}" width="100%"/>
+        </div>
+    </div>
+    <div class="card">
+        <div class="table-responsive">
+            <table
+                    class="table table-vcenter card-table table-hover">
+                <thead class="bg-edu-primary">
+                <th>Атауы</th>
+                <th>Қолданушы</th>
+                <th>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24"
+                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"></path>
+                    </svg>
+                    Көрді
+                </th>
+                <th>Уақыты</th>
+                <th>Күйі</th>
+                </thead>
+                <tbody>
+                {% for discussion in discussions %}
+                    <tr>
+                        <td><a href="{% url 'discussions:discussion-detail' discussion.slug %}"
+                               class="link-dark">{{ discussion.title }}</a></td>
+
+                        <td>
+                            <div class="d-flex py-1 align-items-center">
+                                <span class="avatar me-2"
+                                      style="background-image: url({{ discussion.creator.profile.picture.url }})"></span>
+                                <div class="flex-fill">
+                                    <div class="font-weight-medium">{{ discussion.creator.get_full_name }}</div>
+                                    <div class="text-muted"><a href="#"
+                                                               class="text-reset">{{ discussion.creator.email }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ discussion.visits }}</td>
+                        <td>{{ discussion.created_at|date:"d F, H:i" }}</td>
+                        <td>{% if discussion.status == 'answered' %}
+                            <span class="badge bg-success">{{ discussion.get_status_display }}</span>
+                        {% elif discussion.status == 'not_answered' %}
+                            <span class="badge bg-secondary-lt">{{ discussion.get_status_display }}</span>
+                        {% endif %}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-header"><h2>Талқылау</h2></div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary">Жариялау</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extrascripts %}
+    <script>
+        tinymce.init({
+            height: '160',
+            selector: 'textarea',
+            menu: {},
+            menubar: '',
+            plugins: 'autolink charmap emoticons link lists image imagetools',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+            },
+        });
+    </script>
 {% endblock %}

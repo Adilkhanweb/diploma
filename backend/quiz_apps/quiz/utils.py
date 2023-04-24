@@ -21,7 +21,7 @@ def is_correct(correct_answers, given_answers):
         given_answers).difference(set(correct_answers)) == set()
 
 
-def get_score(correct_answers, given_answers):
+def get_score(correct_answers, given_answers, question):
     """
     If correct answers are [A, B, C] and given answers are [A, B, E] (2 correct, 1 incorrect)
     then the score is 2 / 3 * 2 =
@@ -29,7 +29,7 @@ def get_score(correct_answers, given_answers):
     # Создаем множества правильных и даных ответов
     correct_set = set(correct_answers)
     given_set = set(given_answers)
-    max_possible_score = 2 if len(correct_set) > 1 else 1
+    max_possible_score = 2 if question.answers.count() > 4 else 1
     # Находим пересечение множеств, чтобы найти правильные ответы,
     # которые были даны студентом
     correct_given = correct_set.intersection(given_set)
