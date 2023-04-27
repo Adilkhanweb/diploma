@@ -14,8 +14,16 @@ from users.forms import UserCreationFormForAdmin
 from users.models import User
 
 
-class MainPageView(TemplateView):
-    template_name = "diploma_backend/home_page.html"
+# class MainPageView(TemplateView):
+#     template_name = "diploma_backend/home_page.html"
+
+
+def main_page(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+
+    else:
+        return render(request, "diploma_backend/home_page.html")
 
 
 class DashboardView(LoginRequiredMixin, View):
