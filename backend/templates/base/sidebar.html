@@ -4,6 +4,7 @@
 {% url 'problems:problems' as problems_page %}
 {% url 'users' as users_page %}
 {% url 'create-user' as create_user_page %}
+{% url 'consultations' as consultations_page %}
 <aside class="collapse navbar-collapse py-4" id="navbar-menu">
     <ul class="navbar-nav pt-lg-3 content-sidebar">
         <li class="nav-item {% if request.path == main_page %}active{% endif %}">
@@ -155,6 +156,23 @@
                 </span>
                     <span class="nav-link-title">
                                     Қолданушылар
+                </span>
+                </a>
+            </li>
+            <li class="nav-item {% if request.path == consultations_page %}active{% endif %}">
+                <a class="nav-link" href="{{ consultations_page }}">
+                <span class="nav-link-icon d-md-none d-lg-inline-block">
+
+                <!-- Download SVG icon from http://tabler-icons.io/i/file-text -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone-incoming" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
+   <path d="M15 9l5 -5"></path>
+   <path d="M15 5l0 4l4 0"></path>
+</svg>
+                </span>
+                    <span class="nav-link-title">
+                                    Консультация
                 </span>
                 </a>
             </li>

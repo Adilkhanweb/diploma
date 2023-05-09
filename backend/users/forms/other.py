@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
 
-from users.models import Profile, User
+from users.models import Profile, User, Consultation
 from allauth.socialaccount.forms import SignupForm
 from django.contrib.auth.models import Group
 
@@ -77,3 +77,9 @@ class UserUpdateForm(forms.ModelForm):
 
 class PasswordUpdateForm(PasswordChangeForm):
     pass
+
+
+class ConsultationForm(forms.ModelForm):
+    class Meta:
+        model = Consultation
+        fields = '__all__'

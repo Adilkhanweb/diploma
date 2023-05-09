@@ -9,9 +9,9 @@ from calendarapp.models import Event
 from course.models import Lesson
 from diploma_backend.forms import LessonForm, SearchForm
 from django.contrib.auth.decorators import login_required, user_passes_test
-
-from users.forms import UserCreationFormForAdmin
-from users.models import User
+from django.contrib import messages
+from users.forms import UserCreationFormForAdmin, ConsultationForm
+from users.models import User, Consultation
 
 
 # class MainPageView(TemplateView):
@@ -55,6 +55,21 @@ class DashboardView(LoginRequiredMixin, View):
         }
 
         return render(request, self.template_name, context)
+
+
+def consultations_page(request):
+    consultations = Consultation.objects.all()
+    return render(request, "diploma_backend/consultations_page.html", {'consultations': consultations})
+
+
+def create_consultation(request):
+    if request.method == 'POST':
+        form = ConsultationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, *(messages.SUCCESS, "Сәтті жіберілді! Жауабын күтіңіз"))
+            return redirect('main_page')
+    return redirect('main_page')
 
 
 @login_required

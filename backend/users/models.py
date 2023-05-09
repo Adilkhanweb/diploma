@@ -6,6 +6,21 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.hashers import make_password
 
 
+class Consultation(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    grade = models.PositiveSmallIntegerField(max_length=2)
+    phone_number = models.CharField(max_length=25)
+    email = models.EmailField(max_length=200)
+
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name + ': ' + self.phone_number
+
+    def get_phone_number(self):
+        return self.phone_number.replace('(', '').replace(')',
+                                                          '').replace(' ', '').replace('-', '')
+
+
 class UserManager(BaseUserManager):
     use_in_migrations = True
 

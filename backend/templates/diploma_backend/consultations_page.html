@@ -1,0 +1,30 @@
+{% extends 'base/content.html' %}
+{% block body %}
+    <h1>Консультацияға жазылғандар</h1>
+    <div class="card">
+        <div class="table-responsive">
+            <table
+                    class="table table-vcenter card-table table-hover">
+                <thead class="bg-edu-primary">
+                <tr>
+                    <th>Аты-жөні</th>
+                    <th>Электрондық пошта:</th>
+                    <th>Сыныбы:</th>
+                    <th>Байланыс телефоны:</th>
+                </tr>
+                </thead>
+                <tbody id="quizzes-tbody">
+                {% for consultation in consultations %}
+                    <tr>
+                        <td>{{ consultation.first_name }} {{ consultation.last_name }}</td>
+                        <td>{{ consultation.email }}</td>
+                        <td>{{ consultation.grade }}</td>
+                        <td><a href="call:{{ consultation.get_phone_number }}">{{ consultation.phone_number }}</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

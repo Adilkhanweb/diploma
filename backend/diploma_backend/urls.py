@@ -8,6 +8,8 @@ from diploma_backend.views import *
 app_name = "core"
 urlpatterns = [
     path("", main_page, name="main_page"),
+    path("create-consultation/", create_consultation, name="create_consultation"),
+    path("consultations/", consultations_page, name="consultations"),
     path("q/", searchbar, name="searchbar"),
     path("create-user/", create_user, name="create-user"),
     path("users/", user_list, name="users"),
