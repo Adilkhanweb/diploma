@@ -71,14 +71,20 @@ STATUSES = [
 # Create your views here.
 def index(request):
     problems = Problem.objects.all()
+
+    q = request.GET.get('q', None)
+    if q is not None:
+        problems = problems.filter(title__istartswith=q)
     return render(request, "problems/problems-list.html", {'problems': problems})
 
 
 def problem_detail(request, slug):
     problem = Problem.objects.get(slug=slug)
+    submissions = Submission.objects.filter(problem=problem, user=request.user)
     return render(request, "problems/problem-detail.html", {'problem': problem,
                                                             'is_accepted': problem.submission_set.filter(
-                                                                user=request.user, is_accepted=True).exists()})
+                                                                user=request.user, is_accepted=True).exists(),
+                                                            "submissions": submissions})
 
 
 TestCaseFormSet = inlineformset_factory(Problem, TestCase, form=TestCaseForm, extra=1, can_delete=True)
@@ -195,7 +201,6 @@ def run_tests(request, slug):
             testcase_statuses.append(
                 {"status": next(item for item in STATUSES if item['id'] == submission.status['id']), "output": stdout,
                  "expected_output": submission.expected_output.decode('utf-8')})
-        print(testcase_statuses)
         return render(request, "problems/problem-detail.html",
                       {'problem': problem, 'statuses': testcase_statuses, 'code': code})
     return render(request, "problems/problem-detail.html", {'problem': problem})

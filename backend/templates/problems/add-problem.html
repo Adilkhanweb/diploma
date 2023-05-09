@@ -14,7 +14,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css"
           integrity="sha512-gFMl3u9d0xt3WR8ZeW05MWm3yZ+ZfgsBVXLSOiFz2xeVrZ8Neg0+V1kkRIo9LikyA/T9HuS91kDfc2XWse0K0A=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
 
+        .table-edu {
+            --tblr-table-bg: #d2e1f3;
+            --tblr-table-striped-bg: #c9d8ea;
+            --tblr-table-striped-color: #0a4368;
+            --tblr-table-active-bg: #c0cfe1;
+            --tblr-table-active-color: #f8fafc;
+            --tblr-table-hover-bg: #c5d3e5;
+            --tblr-table-hover-color: #0a4368;
+            color: #0a4368;
+            border-color: #c0cfe1;
+        }
+    </style>
 {% endblock %}
 {% block body %}
     <h1>Бағдарламалау тапсырмасын қосу</h1>
@@ -91,15 +104,15 @@
         </div>
         <div class="testcases-formset" data-formset-prefix="{{ formset.prefix }}">
             {{ formset.management_form }}
-            <table class="table table-success table-striped">
+            <table class="table table-edu table-striped table-hover">
                 {% for form in formset.forms %}
                     {% if forloop.first %}
-                        <thead>
+                        <thead class="bg-edu-primary">
                         <tr>
                             {% for field in form.visible_fields %}
                                 <th {% if forloop.last %}style="width: min-content" {% endif %}>
                                     <span class="form-label required">{{ field.label|capfirst }}</span>
-                                    <span class="text-muted">{{ field.help_text }}</span>
+                                    <span class="text-light">{{ field.help_text }}</span>
                                 </th>
                             {% endfor %}
                         </tr>

@@ -4,18 +4,48 @@
 {% block extracss %}
 {% endblock %}
 {% block body %}
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">{{ assignment.title }}</h3>
+            {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
+                <a href="{% url 'assignments:change-assignment' assignment.pk %}" class="btn ms-2">Өзгерту</a>
+            {% endif %}
+            {% if assignment.is_passed %}
+                <span class="badge bg-orange ms-auto">Тапсыру мерзімі аяқталды!</span>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <div class="h3 fw-normal mb-4 text-muted">{{ assignment.description|safe }}</div>
+            <div class="datagrid">
+                <div class="datagrid-item">
+                    <div class="datagrid-title">Басталу Уақыты</div>
+                    <div class="datagrid-content">{{ assignment.created_at|date:"d F, H:i" }}</div>
+                </div>
+                <div class="datagrid-item">
+                    <div class="datagrid-title">Тапсыру Уақыты</div>
+                    <div class="datagrid-content">{{ assignment.deadline|date:"d F, H:i" }}</div>
+                </div>
+                <div class="datagrid-item">
+                    <div class="datagrid-title">Қалған Уақыт</div>
+                    <div class="datagrid-content"
+                         _="init js return moment('{{ assignment.deadline.isoformat }}').fromNow() end then put it into me">{{ assignment.deadline|date:"d F, H:i" }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% if request.user|has_group:"Students" %}
         <div id="assignment-submit-body">
             {% include 'assignment/partials/assignment-submit-body.html' %}
         </div>
     {% endif %}
     {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
-        <h1>{{ assignment.title }} бағалау</h1>
-        <form method="post" action="{% url 'assignments:grade_submissions' assignment.id %}">
-            {% csrf_token %}
-            {{ formset.management_form }}
-            <table class="table table-hover table-vcenter">
-                {% if formset.forms %}
+        {% if formset.forms %}
+            <h1>{{ assignment.title }} бағалау</h1>
+            <form method="post" action="{% url 'assignments:grade_submissions' assignment.id %}">
+                {% csrf_token %}
+                {{ formset.management_form }}
+                <table class="table table-hover table-vcenter">
                     {% for form in formset.forms %}
                         {% if forloop.first %}
                             <thead class="bg-edu-primary">
@@ -67,15 +97,16 @@
                             </td>
                         </tr>
                     {% endfor %}
-                    {% else %}
-                    <tr><td colspan="12"><h2 class="text-center text-muted">Әлі ешкім үй жұмысын тапсырмады</h2></td></tr>
-                {% endif %}
-            </table>
-            <div class="d-flex">
-                <button class="btn ms-auto" type="submit">Сақтау</button>
-            </div>
-        </form>
+                </table>
+                <div class="d-flex">
+                    <button class="btn ms-auto" type="submit">Сақтау</button>
+                </div>
+            </form>
+        {% else %}
+            <h2 class="text-center text-muted">Әлі ешкім үй жұмысын тапсырмады</h2>
+        {% endif %}
     {% endif %}
+
 {% endblock %}
 {% block extrascripts %}
     <script>

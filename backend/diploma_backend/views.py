@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Per
 
 from calendarapp.models import Event
 from course.models import Lesson
-from diploma_backend.forms import LessonForm
+from diploma_backend.forms import LessonForm, SearchForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 from users.forms import UserCreationFormForAdmin
@@ -36,6 +36,10 @@ class DashboardView(LoginRequiredMixin, View):
         lesson_form = LessonForm(initial={"type": "lesson"})
         lessons = Lesson.objects.filter(type="lesson").order_by('-created_at')
         books = Lesson.objects.filter(type="book").order_by('-created_at')
+        q = request.GET.get('q', None)
+        if q is not None:
+            lessons = lessons.filter(title__istartswith=q)
+            books = books.filter(title__istartswith=q)
         events = Event.objects.get_all_events()
         running_events = Event.objects.get_running_events()
         latest_events = Event.objects.filter().order_by("-id")[:10]
@@ -144,7 +148,7 @@ def create_user(request):
             group = form.cleaned_data['group']
             user.save()
             user.groups.set([group.id])
-            return redirect('users')
+            return render(request, "diploma_backend/create-user.html", {'form': UserCreationFormForAdmin()})
         else:
             return render(request, "diploma_backend/create-user.html", {'form': form})
     return render(request, "diploma_backend/create-user.html", {'form': form})
@@ -153,3 +157,22 @@ def create_user(request):
 def user_list(request):
     users = User.objects.filter(is_superuser=False)
     return render(request, "diploma_backend/users.html", {'users': users})
+
+
+def searchbar(request):
+    page = request.GET.get('page', None)
+    q = request.GET.get('q', None)
+    url = request.get_full_path()
+    if page is not None and q is not None:
+        if page == 'course-materials':
+            url = reverse('dashboard')
+        elif page == 'quiz':
+            url = reverse('quiz:quiz_list')
+        elif page == 'assignment':
+            url = reverse('assignments:assignment_list')
+        elif page == 'discussion':
+            url = reverse('discussions:discussions-list')
+        elif page == 'programming':
+            url = reverse('problems:problems')
+        url += f'?q={q}&page={page}'
+        return redirect(url)

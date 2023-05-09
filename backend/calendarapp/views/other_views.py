@@ -57,28 +57,28 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
         "endTime": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
         "url": "/events/"
         """
-        for event in events:
-            if not event.start_time:
-                event_list.append({
-                    "title": event.title,
-                    "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
-                    "url": event.url,
-                })
-            elif event.url:
-                event_list.append({
-                    "title": event.title,
-                    "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
-                    "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
-                    "url": event.url,
-                })
-            else:
-                event_list.append(
-                    {
-                        "title": event.title,
-                        "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
-                        "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
-                    }
-                )
+        # for event in events:
+        #     if not event.start_time:
+        #         event_list.append({
+        #             "title": event.title,
+        #             "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+        #             "url": event.url,
+        #         })
+        #     elif event.url:
+        #         event_list.append({
+        #             "title": event.title,
+        #             "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
+        #             "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+        #             "url": event.url,
+        #         })
+        #     else:
+        #         event_list.append(
+        #             {
+        #                 "title": event.title,
+        #                 "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
+        #                 "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+        #             }
+        #         )
         for event in recurring_events:
             event_list.append({
                 "title": event.title,

@@ -21,10 +21,16 @@
                         <path d="M19 16v6"></path>
                     </svg>
                     {#                            <span class="avatar-upload-text text-white">Add</span>#}
-                    {% render_field profile_form.picture class="d-none" %}
+                    {% if progile_form.picture.errors %}
+                        {% render_field profile_form.picture class="d-none is-invalid" %}
+                        <div class="invalid-feedback">{{ profile_form.picture.errors }}</div>
+                    {% else %}
+                        {% render_field profile_form.picture class="d-none" %}
+                    {% endif %}
                 </label>
             </div>
             <div class="col">
+                <h3>Аты-жөні: {{ profile.user.get_full_name }}</h3>
                 <h3>Соңғы кіру: {{ user.last_login|date:"d F Y, H:i" }}</h3>
                 <h3>IP мекенжайы: {{ ip_address }}</h3>
                 <h3>Тіркелген
@@ -35,33 +41,25 @@
         <div class="row g-3">
             <div class="col-md-6">
                 <label for="id_first_name" class="form-label required">Аты</label>
-                {% render_field user_form.first_name class="form-control" %}
                 {% if user_form.first_name.errors %}
+                    {% render_field user_form.first_name class="form-control is-invalid" %}
+                {% else %}
+                    {% render_field user_form.first_name class="form-control" %}
+
                     <div class="invalid-feedback">{{ user_form.first_name.errors }}</div>
                 {% endif %}
             </div>
             <div class="col-md-6">
                 <label for="id_last_name" class="form-label required">Жөні</label>
-                {% render_field user_form.last_name class="form-control" %}
+
                 {% if user_form.last_name.errors %}
+                    {% render_field user_form.last_name class="form-control is-invalid" %}
                     <div class="invalid-feedback">{{ user_form.last_name.errors }}</div>
+                {% else %}
+                    {% render_field user_form.last_name class="form-control" %}
                 {% endif %}
             </div>
         </div>
-        {#        <label for="id_email" class="mt-4 required form-label">Электрондық пошта</label>#}
-        {#        <div>#}
-        {#            <div class="row g-2">#}
-        {#                <div class="col-auto">#}
-        {##}
-        {#                    {% if user_form.email.errors %}#}
-        {#                        {% render_field user_form.email class="form-control is-invalid" %}#}
-        {#                        <div class="invalid-feedback">{{ user_form.email.errors }}</div>#}
-        {#                    {% else %}#}
-        {#                        {% render_field user_form.email class="form-control" %}#}
-        {#                    {% endif %}#}
-        {#                </div>#}
-        {#            </div>#}
-        {#        </div>#}
         <h3 class="card-title mt-4">Құпия сөз</h3>
         <p class="card-subtitle">Құпия сөз кемінде 8 символдан(сандар мен әріптерден) тұруы тиіс, және
             электронды поштаға ұқсамауын қадағалаңыз!</p>

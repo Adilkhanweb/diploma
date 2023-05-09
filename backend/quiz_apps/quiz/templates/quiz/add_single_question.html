@@ -1,5 +1,6 @@
 {% load widget_tweaks %}
 {% load crispy_forms_filters %}
+{% load quiz_tags %}
 {% if choiceForm %}
     <form action="" method="post" enctype="multipart/form-data"
           _="on load call reinitForm(me, 3) on change call reinitForm(me, 1)">
@@ -15,7 +16,7 @@
         {{ choiceForm|crispy }}
         {{ choiceForm.errors }}
         {{ choiceFormSet.management_form }}
-        <table class="table table-success table-striped">
+        <table class="table table-primary table-striped">
             {% for form in choiceFormSet.forms %}
                 {% if forloop.first %}
                     <thead>
@@ -31,7 +32,7 @@
                     </thead>
                 {% endif %}
                 <tr class="formset_row">
-                    <td>{{ forloop.counter }}</td>
+                    <td>{{ forloop.counter|to_char }}</td>
                     {% for field in form.visible_fields %}
                         <td>
                             {# Include the hidden fields in the form #}

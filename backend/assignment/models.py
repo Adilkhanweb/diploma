@@ -11,9 +11,9 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 class Assignment(models.Model):
-    title = models.CharField(max_length=128)
-    description = models.TextField()
-    deadline = models.DateTimeField()
+    title = models.CharField(max_length=128, verbose_name="Атауы")
+    description = models.TextField(verbose_name="Сипаттама")
+    deadline = models.DateTimeField(verbose_name="Аяқталу мерзімі")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

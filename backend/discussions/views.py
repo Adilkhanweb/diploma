@@ -8,6 +8,10 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request):
     discussions = Discussion.objects.order_by('-score', '-visits')
+
+    q = request.GET.get('q', None)
+    if q is not None:
+        discussions = discussions.filter(title__istartswith=q)
     form = DiscussionForm()
     if request.method == 'POST':
         form = DiscussionForm(request.POST)

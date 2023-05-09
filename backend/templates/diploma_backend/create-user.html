@@ -1,10 +1,95 @@
 {% extends 'base/content.html' %}
+{% load widget_tweaks %}
 {% load crispy_forms_filters %}
+{% block extracss %}
+    <style>
+        .form-selectgroup > .form-selectgroup-item {
+            flex: 1;
+        }
+    </style>
+{% endblock %}
 {% block body %}
     <h1>Қолданушы Қосу</h1>
     <form method="post">
+
         {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn">Қосу</button>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="form-label">{{ form.first_name.label }}</div>
+                {% render_field form.first_name class="form-control" %}
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-label">{{ form.last_name.label }}</div>
+                {% render_field form.last_name class="form-control" %}
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+                <div class="form-label">{{ form.email.label }}</div>
+                {% render_field form.email class="form-control" %}
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-label">{{ form.group.label }}</div>
+                <div class="form-selectgroup d-flex justify-content-between">
+                    <label class="form-selectgroup-item">
+                        <input type="radio" name="group" value="1" class="form-selectgroup-input" checked="">
+                        <span class="form-selectgroup-label"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user me-1"
+                                       width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                       fill="none" stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+   <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+</svg>
+                                  Оқушы</span>
+                    </label>
+                    <label class="form-selectgroup-item">
+                        <input type="radio" name="group" value="2" class="form-selectgroup-input">
+                        <span class="form-selectgroup-label"><!-- Download SVG icon from http://tabler-icons.io/i/user -->
+                                 <svg xmlns="http://www.w3.org/2000/svg"
+                                      class="icon icon-tabler icon-tabler-user-heart me-1"
+                                      width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                      fill="none" stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+   <path d="M6 21v-2a4 4 0 0 1 4 -4h.5"></path>
+   <path d="M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z"></path>
+</svg>
+                                  Мұғалім</span>
+                    </label>
+                    <label class="form-selectgroup-item">
+                        <input type="radio" name="group" value="3" class="form-selectgroup-input">
+                        <span class="form-selectgroup-label"><!-- Download SVG icon from http://tabler-icons.io/i/circle -->
+                                  <svg xmlns="http://www.w3.org/2000/svg"
+                                       class="icon icon-tabler icon-tabler-user-cog me-1"
+                                       width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                       fill="none" stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+   <path d="M6 21v-2a4 4 0 0 1 4 -4h2.5"></path>
+   <path d="M19.001 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+   <path d="M19.001 15.5v1.5"></path>
+   <path d="M19.001 21v1.5"></path>
+   <path d="M22.032 17.25l-1.299 .75"></path>
+   <path d="M17.27 20l-1.3 .75"></path>
+   <path d="M15.97 17.25l1.3 .75"></path>
+   <path d="M20.733 20l1.3 .75"></path>
+</svg>
+                                  Модератор</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-label">{{ form.password1.label }}</div>
+                {% render_field form.password1 class="form-control" %}
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-label">{{ form.password2.label }}</div>
+                {% render_field form.password2 class="form-control" %}
+            </div>
+        </div>
+        <div class="d-flex w-100">
+            <button type="submit" class="btn btn-dark bg-edu-primary ms-auto">Қосу</button>
+        </div>
     </form>
 {% endblock %}

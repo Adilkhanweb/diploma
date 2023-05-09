@@ -1,0 +1,3 @@
+#: allauth/socialaccount/adapter.py:205
+msgid "Successfully signed in as %(name)s"
+msgstr "%(name)s ретінде жүйеге сәтті кірді!"

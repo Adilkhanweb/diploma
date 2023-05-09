@@ -5,6 +5,7 @@ from django.dispatch import receiver
 
 from users.models import Student, Teacher
 from users.models import Profile
+from allauth.account.signals import user_signed_up
 
 
 @receiver(post_save, sender=Student)
@@ -15,3 +16,9 @@ def crete_profile(sender, instance, created, **kwargs):
     if created:
         profile = Profile(user=instance)
         profile.save()
+
+
+@receiver(user_signed_up)
+def add_to_student_group(sender, request, user, **kwargs):
+    group, created = Group.objects.get_or_create(name='Students')
+    user.groups.add(group)

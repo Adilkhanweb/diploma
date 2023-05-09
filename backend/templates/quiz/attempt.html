@@ -20,21 +20,25 @@
         <h2 id="demo" class="text-danger"></h2></div>
     {% for form in forms %}
         <form method="post" class="form-control question-form mb-2"
-              hx-post="{% url 'quiz:save' quiz.url form.attempt_question_id %}" hx-trigger="change delay:500ms"
+                {#  HTMX usage  #}
+              hx-post="{% url 'quiz:save' quiz.url form.attempt_question_id %}"
+              hx-trigger="change delay:500ms"
               hx-indicator="#ind-{{ form.attempt_question_id }}"
+                {# hyperscript usage #}
               _="on htmx:afterRequest put 'Сақталды' into the #q-{{ form.attempt_question_id }}
-on htmx:beforeRequest put '' into the #q-{{ form.attempt_question_id }}
-on change call reinitForm(me)
-on load call reinitForm(me)"
-        ><h3>{{ form.question }}</h3>
+                 on htmx:beforeRequest put '' into the #q-{{ form.attempt_question_id }}
+                 on change call reinitForm(me)
+                 on load call reinitForm(me)"
+        >
+            <h3>{{ form.question }}</h3>
             {% if form.figure %}
-                <img src="{{ form.figure.url }}" alt="" height="200px">
+                <img src="{{ form.figure.url }}" alt="" style="max-height: 200px; width: fit-content;">
             {% endif %}
             {{ form.form }}
 
             <button class="btn btn-ghost-danger clear-choice-btn btn"
-                    hx-post="{% url 'quiz:save' quiz.url form.attempt_question_id %}" hx-trigger="click">Таңдауды
-                тазалау
+                    hx-post="{% url 'quiz:save' quiz.url form.attempt_question_id %}" hx-trigger="click">
+                Таңдауды тазалау
             </button>
             <img id="ind-{{ form.attempt_question_id }}"
                  src="{% static 'images/bars.svg' %}"
@@ -164,7 +168,6 @@ on load call reinitForm(me)"
                     cb.disabled = false;
                 });
             }
-            console.log("Check");
         }
 
         $('.clear-choice-btn').click(function (e) {

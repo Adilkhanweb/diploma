@@ -1,0 +1,63 @@
+{% extends 'base/content.html' %}
+{% load widget_tweaks %}
+{% load quiz_tags %}
+{% load crispy_forms_filters %}
+{% block extracss %}
+{% endblock %}
+{% block body %}
+    <a href="{% url 'assignments:assignment_detail' assignment.id %}" class="btn mb-3">< Артқа</a>
+    <form class="card" method="post" action="{% url 'assignments:change-assignment' assignment.pk %}">
+        <div class="card-header">
+            <h3 class="card-title">"{{ assignment.title }}" өзгерту</h3>
+        </div>
+        <div class="card-body">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-dark bg-edu-primary">Сақтау</button>
+        </div>
+    </form>
+{% endblock body %}
+{% block extrascripts %}
+    <script>
+        tinymce.init({
+            height: '160',
+            selector: 'textarea',
+            menu: {},
+            menubar: '',
+            plugins: 'autolink charmap emoticons link lists',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+            },
+        });
+
+
+        function reinitialize() {
+            {#tinymce.execCommand('mceRemoveControl', true, '#change-form-textarea');#}
+            try {
+                tinymce.remove('textarea');
+            } catch (e) {
+            }
+            tinymce.init({
+                height: '160',
+                selector: 'textarea',
+                menu: {},
+                menubar: '',
+                plugins: 'autolink charmap emoticons link lists',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        editor.save();
+                    });
+                },
+            });
+        }
+
+        function geTimeUntil(datetime) {
+            return moment(datetime).fromNow();
+        }
+
+    </script>
+{% endblock %}

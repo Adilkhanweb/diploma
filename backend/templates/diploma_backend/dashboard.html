@@ -30,6 +30,7 @@
                 width: 100%;
                 max-width: 100%;
             }
+
             #books .card {
                 margin: 0 auto;
             }
@@ -51,7 +52,7 @@
                 Оқулықтар</a>
         </li>
     </ul>
-    <div class="card-body">
+    <div class="card-body px-0">
         <div class="tab-content">
             <div class="tab-pane active" id="tab-lessons">
                 {% include 'diploma_backend/partials/lessons-form.html' %}
@@ -77,7 +78,7 @@
             menu: {},
             menubar: '',
             plugins: 'autolink charmap emoticons link lists',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+            toolbar: 'bold italic underline strikethrough | link image',
             setup: function (editor) {
                 editor.on('change', function () {
                     editor.save();
@@ -119,13 +120,14 @@
                 tinymce.remove('textarea');
             } catch (e) {
             }
+
             tinymce.init({
                 height: '160',
                 selector: 'textarea',
                 menu: {},
                 menubar: '',
                 plugins: 'autolink charmap emoticons link lists',
-                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image',
+                toolbar: 'bold italic underline strikethrough | link image',
                 setup: function (editor) {
                     editor.on('change', function () {
                         editor.save();

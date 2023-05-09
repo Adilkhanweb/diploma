@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
 
-from users.models import Profile
+from users.models import Profile, User
 from allauth.socialaccount.forms import SignupForm
 from django.contrib.auth.models import Group
 
@@ -50,9 +50,10 @@ class MyCustomSocialSignupForm(SignupForm):
         # Ensure you call the parent class's save.
         # .save() returns a User object.
         user = super(MyCustomSocialSignupForm, self).save(request)
-        students_group, created = Group.objects.get_or_create(name="Students")
-        user.groups.set([students_group])
-        profile, created = Profile.objects.get_or_create(user=user)
+        if not user.is_superuser:
+            students_group, created = Group.objects.get_or_create(name="Students")
+            user.groups.set([students_group])
+            profile, created = Profile.objects.get_or_create(user=user)
         # Add your own processing here.
 
         # You must return the original result.
@@ -69,7 +70,7 @@ class ProfileForm(forms.ModelForm):
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
-        model = get_user_model()
+        model = User
         # fields = ('first_name', 'last_name', 'email')
         fields = ('first_name', 'last_name')
 

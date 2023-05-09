@@ -11429,7 +11429,7 @@ h1, h2, h3, h4, h5,
 }
 
 .ftco-section {
-    padding: 7em 0;
+    padding: 2rem 0;
 }
 
 .ftco-no-pt {
@@ -11749,4 +11749,19 @@ textarea.form-control {
     border: 1px solid transparent;
     background: #6807f9;
     color: #fff;
+}
+
+.btn-google {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+
+    border: 1px solid #D5D1D1;
+    border-radius: 6px;
+}
+
+.btn-edu-orange {
+    background: linear-gradient(90deg, #FA5E37 21.45%, #FFBA77 92.25%);
+    border-radius: 20px;
 }

@@ -1,34 +1,37 @@
 {% load quiz_tags %}
-{% for book in books %}
-    <div class="col-lg-3 col-md-4 col col-sm-12" id="book-{{ book.id }}">
-        <div class="card">
-            <div class="img-responsive img-responsive-3x4 card-img-top"
-                 style="background-image: url({{ book.banner.url }})">
-            </div>
-
-            <div class="card-body">
-                <h3 class="card-title"><a
-                        href="{{ book.document.url }}" target="_blank">{{ book.title }}</a>
-                </h3>
-                <div class="d-flex gap-2">
+{% if books.exists %}
+    {% for book in books %}
+        <div class="col-lg-3 col-md-4 col col-sm-12" id="book-{{ book.id }}">
+            <div class="card">
+                <div class="img-responsive img-responsive-3x4 card-img-top"
+                     style="background-image: url({{ book.banner.url }})">
                 </div>
-                <p class="text-muted">{{ book.description|safe }}</p>
-            </div>
-            {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
 
-                <div class="card-footer">
-                    <div class="d-flex">
-                        <a hx-get="{% url 'update-lesson' book.pk %}"
-                           _="on htmx:afterRequest call reinitialize()"
-                           hx-target="#book-{{ book.id }}" class="btn">Өзгерту
-                        </a>
-                        <a hx-post="{% url 'delete_lesson' book.pk %}"
-                           _="on htmx:afterRequest call reinitialize()"
-                           hx-target="#books" class="btn btn-danger ms-auto">Жою
-                        </a>
+                <div class="card-body">
+                    <h3 class="card-title"><a
+                            href="{{ book.document.url }}" target="_blank">{{ book.title }}</a>
+                    </h3>
+                    <div class="d-flex gap-2">
                     </div>
+                    <p class="text-muted">{{ book.description|safe }}</p>
                 </div>
-            {% endif %}
+                {% if request.user|has_group:"Teachers" or request.user|has_group:"Moderators" or request.user.is_superuser %}
+                    <div class="card-footer">
+                        <div class="d-flex">
+                            <a hx-get="{% url 'update-lesson' book.pk %}"
+                               _="on htmx:afterRequest call reinitialize()"
+                               hx-target="#book-{{ book.id }}" class="btn">Өзгерту
+                            </a>
+                            <a hx-post="{% url 'delete_lesson' book.pk %}"
+                               _="on htmx:afterRequest call reinitialize()"
+                               hx-target="#books" class="btn btn-danger ms-auto">Жою
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
         </div>
-    </div>
-{% endfor %}
+    {% endfor %}
+{% else %}
+    <h2 class="text-center">Оқулықтар табылмады!</h2>
+{% endif %}

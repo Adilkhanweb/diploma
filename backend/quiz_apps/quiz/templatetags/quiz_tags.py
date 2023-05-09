@@ -2,7 +2,7 @@ import humanize
 from django import template
 from django.db.models import Q
 from humanize import naturaldelta, activate, naturaltime, naturaldate
-
+from django.utils import timezone
 from discussions.models import Reply, Discussion
 from leaderboard.models import Leaderboard
 from problems.models import Submission
@@ -28,6 +28,23 @@ def split(value, key):
         Returns the value turned into a list.
     """
     return value.split(key)
+
+
+@register.filter(name='event_color')
+def event_color(end_time):
+    today = timezone.now().date()
+    days = (end_time.date() - today).days
+    if days > 30:
+        return generate_hex_color(1)
+    else:
+        return generate_hex_color(days / 30)
+
+
+def generate_hex_color(coefficient):
+    r = int((1 - coefficient) * 255)
+    g = int(coefficient * 255)
+    b = 0
+    return f"#{r:02x}{g:02x}{b:02x}"
 
 
 #

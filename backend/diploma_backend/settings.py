@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os.path
 from pathlib import Path
+from django.contrib import messages
 
 import users
 
@@ -81,6 +82,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'diploma_backend.middleware.HtmxMessageMiddleware',
 ]
 
 ROOT_URLCONF = 'diploma_backend.urls'
@@ -148,6 +150,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'kk'
 
+LANGUAGES = [
+    ('kk', 'Kazakh'),
+]
 TIME_ZONE = 'Asia/Almaty'
 
 USE_I18N = True
@@ -174,7 +179,7 @@ AUTH_USER_MODEL = 'users.User'
 JUDGE0_API_URL = 'http://localhost:2358'
 # JUDGE0_API_URL = 'https://judge0-ce.p.rapidapi.com'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/signin/'
@@ -184,6 +189,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_UNIQUE_EMAIL = True
@@ -192,7 +198,6 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = None
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 3600
 ACCOUNT_FORMS = {'signup': 'users.forms.StudentCreationForm'}
-SOCIALACCOUNT_FORMS = {'signup': 'users.forms.MyCustomSocialSignupForm', }
 
 customColorPalette = [
     {
@@ -283,4 +288,18 @@ CKEDITOR_5_CONFIGS = {
             'reversed': 'true',
         }
     }
+}
+
+# Sets the minimum message level that will be recorded by the messages framework
+# https://docs.djangoproject.com/en/4.1/ref/settings/#message-level
+MESSAGE_LEVEL = messages.DEBUG
+
+# This sets the mapping of message level to message tag, which is typically rendered as a CSS class in HTML.
+# https://docs.djangoproject.com/en/4.1/ref/settings/#message-tags
+MESSAGE_TAGS = {
+    messages.DEBUG: "bg-light",
+    messages.INFO: "text-white bg-primary",
+    messages.SUCCESS: "text-white bg-success",
+    messages.WARNING: "text-dark bg-warning",
+    messages.ERROR: "text-white bg-danger",
 }

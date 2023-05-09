@@ -30,13 +30,10 @@ def get_score(correct_answers, given_answers, question):
     correct_set = set(correct_answers)
     given_set = set(given_answers)
     max_possible_score = 2 if question.answers.count() > 4 else 1
-    # Находим пересечение множеств, чтобы найти правильные ответы,
-    # которые были даны студентом
     correct_given = correct_set.intersection(given_set)
-
-    # Вычисляем баллы на основе количества правильных ответов,
-    # которые были даны студентом
-    score = len(correct_given) / len(correct_set) * max_possible_score
-
-    # Округляем баллы и возвращаем как целое число
-    return int(score)
+    wrong_given = given_set.difference(correct_set)
+    if len(wrong_given) >= len(correct_given):
+        return 0
+    else:
+        score = len(correct_given) / len(correct_set) * max_possible_score
+        return int(score)

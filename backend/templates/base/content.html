@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load widget_tweaks %}
 {% load static %}
 {% load humanize %}
 {% load quiz_tags %}
@@ -16,29 +17,6 @@
                     </a>
                 </h1>
                 <div class="navbar-nav flex-row d-lg-none">
-                    <div class="nav-item dropdown d-md-flex me-3">
-                        <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1"
-                           aria-label="Show notifications">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/bell -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                 stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                <path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/>
-                                <path d="M9 17v1a3 3 0 0 0 6 0v-1"/>
-                            </svg>
-                            <span class="badge bg-red"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet
-                                    consectetur exercitationem fugiat in ipsa ipsum, natus odio quidem quod repudiandae
-                                    sapiente. Amet debitis et magni maxime necessitatibus ullam.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 {% include 'base/sidebar.html' %}
             </div>
@@ -52,68 +30,54 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col">
-                            <div class="page-header d-print-none">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <!-- Page pre-title -->
-                                        <div class="page-pretitle">
-                                            Joo high school
-                                        </div>
-                                        <h2 class="page-title">
-                                            Студенттік Басқару тақтасы
-                                        </h2>
-                                    </div>
-
-                                    <!-- <div class="col-auto ms-auto d-print-none">
-
-                                    </div> -->
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="">
-                                    <div class="card-body">
-                                        <div class="row g-3 align-items-start">
-                                            <div class="col-auto">
-                                                <span class="avatar avatar-md avatar-rounded bg-cyan"
-                                                      style="background: url('{{ request.user.profile.picture.url }}') no-repeat center; background-size: cover;"></span>
-                                            </div>
-                                            <div class="col">
-                                                <h2 class="m-0">
-                                                    <a href="{% url 'users:profile' user.id %}">{{ user.first_name }} {{ user.last_name }}</a>
-                                                </h2>
-                                                <div class="text-muted">
-                                                    {% if request.user|has_group:"Moderators" %}
-                                                        Модератор
-                                                    {% elif request.user|has_group:"Students" %}
-                                                        Оқушы
-                                                    {% elif request.user|has_group:"Teachers" %}
-                                                        Мұғалім
-                                                    {% else %}
-                                                        Админ
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-12 col-lg">
-                                                <div class="input-group mb-2 search-bar">
-                                                    <input type="text" class="form-control" placeholder="Іздеу...">
-                                                    <a class="btn p-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                             class="icon icon-tabler icon-tabler-search m-0" width="40"
-                                                             height="40" viewBox="0 0 24 24" stroke-width="2"
-                                                             stroke="#fff" fill="none" stroke-linecap="round"
-                                                             stroke-linejoin="round">
-                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
-                                                            <path d="M21 21l-6 -6"></path>
-                                                        </svg>
-                                                    </a>
-                                                </div>
+                            <div class="col px-md-4">
+                                <div class="row align-items-center gap-2">
+                                    <div class="col-auto d-flex align-items-center gap-4 bg-muted-lt rounded ps-0 pe-4"
+                                         style="border-radius: 12px!important; border: 1px solid #C1C1C1">
+                                                <span class="avatar avatar-lg bg-cyan"
+                                                      style="background: url('{{ request.user.profile.picture.url }}') no-repeat center; background-size: cover;border-radius: 12px!important;"></span>
+                                        <div>
+                                            <h2 class="m-0">
+                                                <a href="{% url 'users:profile' user.id %}"
+                                                   class="text-edu-primary">{{ user.first_name }} {{ user.last_name }}</a>
+                                            </h2>
+                                            <div class="text-muted">
+                                                {% if request.user|has_group:"Moderators" %}
+                                                    Модератор
+                                                {% elif request.user|has_group:"Students" %}
+                                                    Оқушы
+                                                {% elif request.user|has_group:"Teachers" %}
+                                                    Мұғалім
+                                                {% else %}
+                                                    Админ
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-12 col-md-12 col-lg p-0">
+
+                                        <form class="input-group mb-2 search-bar ms-auto" action="{% url 'searchbar' %}"
+                                              method="get">
+                                            <div class="container p-0" style="width: 120px">
+                                                {{ search_form.page }}
+                                            </div>
+                                            {{ search_form.q }}
+                                            <button class="btn btn-dark p-2 bg-edu-primary" type="submit">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                     class="icon icon-tabler icon-tabler-search m-0" width="40"
+                                                     height="40" viewBox="0 0 24 24" stroke-width="2"
+                                                     stroke="#fff" fill="none" stroke-linecap="round"
+                                                     stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                                                    <path d="M21 21l-6 -6"></path>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col mt-4">
+                            <div class="col mt-4 px-md-4">
                                 {% block body %}
 
                                 {% endblock %}
@@ -128,23 +92,42 @@
                             </div>
                             <h2 class="mt-2"><a href="{% url 'calendarapp:calendar' %}">Тапсырмалар</a></h2>
                             <div class="card tasks">
-                                {#                                                                <div id="calendar-tasks">#}
-                                {##}
-                                {#                                                                </div>#}
                                 {% for event in running_events %}
-                                    <div class="list-group-item">
-                                        <div class="row align-items-center">
-                                            <div class="col-auto">
-                                                <h2 class="text-reset mb-0">{{ event.end_time|date:"G:i" }}</h2>
-                                            </div>
-                                            <div class="col-auto"><span class="badge bg-red"></span></div>
-                                            <div class="col text-truncate">
-                                                <a href="{% if event.url %}{{ event.url }}{% else %}#{% endif %}"
-                                                   class="text-reset d-block">{{ event.title }}</a>
-                                                <div class="d-block text-muted text-truncate mt-n1">{{ event.end_time|date:"d F" }}</div>
+                                    {% if event.assignment %}
+                                        <div class="list-group-item">
+                                            <div class="row align-items-center">
+                                                <div class="col-4 text-center">
+                                                    <h2 class="text-reset mb-0">{{ event.assignment.deadline|date:"G:i" }}</h2>
+                                                    <h3 class="mb-0 ">{{ event.assignment.deadline|date:"d.m" }}</h3>
+                                                </div>
+                                                <div class="col-auto"><span class="badge" style="height: 2rem;background-color: {{ event.assignment.deadline|event_color }}"></span></div>
+                                                <div class="col text-truncate">
+                                                    <a href="{% if event.url %}{{ event.url }}{% else %}#{% endif %}"
+                                                       class="text-reset d-block">{{ event.assignment.title }}</a>
+                                                    <div class="d-block text-muted text-truncate mt-n1">Үй жұмысы
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    {% elif event.quiz %}
+                                        <div class="list-group-item">
+                                            <div class="row align-items-center">
+                                                <div class="col-4 text-center">
+                                                    <h2 class="text-reset mb-0">{{ event.quiz.end_time|date:"G:i" }}</h2>
+                                                    <h3 class="mb-0 ">{{ event.quiz.end_time|date:"d.m" }}</h3>
+                                                </div>
+                                                <div class="col-auto"><span class="badge"
+                                                                            style="height: 2rem; background-color: {{ event.quiz.end_time|event_color }}"></span>
+                                                </div>
+                                                <div class="col text-truncate">
+                                                    <a href="{% if event.url %}{{ event.url }}{% else %}#{% endif %}"
+                                                       class="text-reset d-block">{{ event.quiz.title }}</a>
+                                                    <div class="d-block text-muted text-truncate mt-n1">Бақылау
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 {% endfor %}
                             </div>
                         </div>

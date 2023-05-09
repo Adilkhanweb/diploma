@@ -1,3 +1,4 @@
+{% load quiz_tags %}
 {% load widget_tweaks %}
 {% load crispy_forms_filters %}
 {% if multipleChoiceForm %}
@@ -16,7 +17,7 @@
         {{ multipleChoiceForm.errors }}
         {{ m_choiceformset.management_form }}
 
-        <table class="table table-success table-striped">
+        <table class="table table-primary table-striped">
             {% for form in m_choiceformset.forms %}
                 {% if forloop.first %}
                     <thead>
@@ -32,7 +33,7 @@
                     </thead>
                 {% endif %}
                 <tr class="formset_row">
-                    <td>{{ forloop.counter }}</td>
+                    <td>{{ forloop.counter|to_char }}</td>
                     {% for field in form.visible_fields %}
                         <td>
                             {# Include the hidden fields in the form #}

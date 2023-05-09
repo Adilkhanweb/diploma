@@ -1,4 +1,5 @@
 {% extends 'base/content.html' %}
+{% load static %}
 {% load humanize %}
 {% load quiz_tags %}
 {% block body %}
@@ -94,67 +95,49 @@
             </div>
         </div>
     </div>
-    {#    {% with quiz.id|get_leaderboard_ordered:request.user.id as leadearboard %}#}
-    {#            {% for before in leadearboard.0 %}#}
-    {#                <div class="list-group-item">#}
-    {#                    <div class="row align-items-center">#}
-    {#                        <div class="col-auto"#}
-    {#                             style="font-weight: bold; font-size: 2rem;">{{ forloop.counter }}</div>#}
-    {#                        <div class="col-auto">#}
-    {#                            <a href="#">#}
-    {#                                            <span class="avatar"#}
-    {#                                                  style="background-image: url('{{ before.user.profile.picture.url }}')"></span>#}
-    {#                            </a>#}
-    {#                        </div>#}
-    {#                        <div class="col text-truncate">#}
-    {#                            <a href="#"#}
-    {#                               class="text-reset d-block">{{ before.user.get_full_name }}</a>#}
-    {#                            <div class="d-block text-muted text-truncate mt-n1">#}
-    {#                                Балл: {{ before.score }}</div>#}
-    {#                        </div>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            {% endfor %}#}
-    {#            <div class="list-group-item">#}
-    {#                <div class="row align-items-center">#}
-    {#                    <div class="col-auto"#}
-    {#                         style="font-weight: bold; font-size: 2rem; color: #0b956c;">{{ leadearboard.0.count|add:1 }}#}
-    {#                    </div>#}
-    {#                    <div class="col-auto">#}
-    {#                        <a href="#">#}
-    {#                                            <span class="avatar"#}
-    {#                                                  style="background-image: url('{{ request.user.profile.picture.url }}')"></span>#}
-    {#                        </a>#}
-    {#                    </div>#}
-    {#                    <div class="col text-truncate">#}
-    {#                        <a href="#"#}
-    {#                           class="text-reset d-block">{{ request.user.get_full_name }}</a>#}
-    {#                        <div class="d-block text-muted text-truncate mt-n1">#}
-    {#                            Балл: {{ leadearboard.1.score }}</div>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#            {% for after in leadearboard.2 %}#}
-    {#                <div class="list-group-item">#}
-    {#                    <div class="row align-items-center">#}
-    {#                        <div class="col-auto"#}
-    {#                             style="font-weight: bold; font-size: 2rem;">{{ forloop.counter|add:leadearboard.0.count|add:1 }}</div>#}
-    {#                        <div class="col-auto">#}
-    {#                            <a href="#">#}
-    {#                                            <span class="avatar"#}
-    {#                                                  style="background-image: url('{{ after.user.profile.picture.url }}')"></span>#}
-    {#                            </a>#}
-    {#                        </div>#}
-    {#                        <div class="col text-truncate">#}
-    {#                            <a href="#"#}
-    {#                               class="text-reset d-block">{{ after.user.get_full_name }}</a>#}
-    {#                            <div class="d-block text-muted text-truncate mt-n1">#}
-    {#                                Балл: {{ after.score }}</div>#}
-    {#                        </div>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            {% endfor %}#}
-    {#        {% endwith %}#}
+
+    {% if leaderboard.count > 0 %}
+
+
+        <div class="card my-3">
+            <div class="card-header gap-2">
+                <h3 class="card-title">Leaderboard</h3>
+                {% for user in leaderboard %}
+                    {% if user.email == request.user.email %}
+                        <p class="card-subtitle">Сіз {{ forloop.counter }} орындасыз</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="list-group list-group-flush list-group-hoverable">
+                {% for user in leaderboard %}
+                    <div class="list-group-item">
+                        <div class="row align-items-center">
+                            <div class="col-auto"
+                                 style="font-weight: bold; font-size: 2rem;">{{ forloop.counter }}
+                            </div>
+                            <div class="col-auto">
+
+                            <span class="avatar"
+                                  style="background-image: url('{% get_media_prefix %}{{ user.picture }}')"></span>
+                            </div>
+                            <div class="col text-truncate">
+                                <h3
+                                        class="text-reset d-block">{{ user.first_name }} {{ user.last_name }}</h3>
+                                <div class="d-block text-muted text-truncate mt-n1">
+                                    {{ user.email }}
+                                </div>
+
+                                <div class="d-block text-muted text-truncate mt-n1">
+                                    Балл: {{ user.score }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
     {% if attempts %}
         <h5>Жұмсалған Әрекеттер:</h5>
         <table class="table">

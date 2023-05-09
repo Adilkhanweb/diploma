@@ -7,41 +7,49 @@
     {% else %}
         <p>{{ quiz.fail_text|safe }}</p>
     {% endif %}
-    <p>Сіз {{ attempt.percentage }}% дұрыс жауап бердіңіз!</p>
+    <p>Сіз {{ attempt.percentage }}% дұрыс жауап бердіңіз: {{ attempt.get_attempt_score }} / {{ attempt.quiz.get_max_scores }}</p>
     <div class="card p-3">
         {% for attemptquestion in attempt.attemptquestion_set.all %}
-            <h5>{{ forloop.counter }}. {{ attemptquestion.question.content }}</h5>
-            {% if attemptquestion.question.figure %}
-                <img src="{{ attemptquestion.question.figure.url }}" alt="" width="200px">
-            {% endif %}
-            {% if attemptquestion.is_correct %}
-                <div class="answers p-2">
-                    {% for answer in attemptquestion.question.answers.all %}
-                        <p class="{% if answer.correct %}text-success{% endif %}">{{ forloop.counter }}) {{ answer.content }}</p>
-                    {% endfor %}
-                    <p class="text-success">Your answers:
-                        {% for given_answer in attemptquestion.given_answers.all %}
-                            {{ given_answer }}{% if not forloop.last %},
-                            {% endif %}
-                        {% endfor %}
-                    </p>
-                    <p class="text-success">Ұпай: {{ attemptquestion.score }}</p>
-                </div>
-            {% else %}
-                <div class="answers p-2">
-                    {% for answer in attemptquestion.question.answers.all %}
-                        <p class="{% if answer.correct %}text-success{% endif %}">{{ forloop.counter }}) {{ answer.content }}</p>
-                    {% endfor %}
-                    <p class="text-danger">Жауаптарыңыз: {% for given_answer in attemptquestion.given_answers.all %}
-                        <span class="{% if given_answer.correct %}text-success{% else %}text-danger{% endif %} ">{{ given_answer }}</span>
-                        {% if not forloop.last %},
+            <div class="mb-3">
+                <div class="d-flex pe-2">
+
+                    <div><label class="form-label"
+                                style="font-size: 1rem;">{{ forloop.counter }}.
+                        {{ attemptquestion.question.content }}
+                    </label>
+                        {% if attemptquestion.question.figure %}
+                            <img src="{{ attemptquestion.question.figure.url }}" alt=""
+                                 style="max-height: 200px; width: fit-content;">
                         {% endif %}
-                    {% endfor %}
-                    </p>
-                    <p class="text-danger">Ұпай: {{ attemptquestion.score }}</p>
+                    </div>
+                    <div class="ms-auto {% if attemptquestion.is_correct %}text-success{% else %}text-danger{% endif %}">
+                        Ұпай: {{ attemptquestion.score }}/{{ attemptquestion.question.score }}</div>
+
+
                 </div>
+                <div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
+                    {% for answer in attemptquestion.question.answers.all %}
+                        <label class="form-selectgroup-item flex-fill">
+                            <input type="radio" {% if answer in attemptquestion.given_answers.all %}checked{% endif %}
+                                   class="form-selectgroup-input" disabled>
+                            <div class="form-selectgroup-label d-flex align-items-center p-3 {% if answer.correct %}border-success{% elif answer in attemptquestion.given_answers.all and not answer.correct %}border-danger{% endif %}">
+                                <div class="me-3">
+                                    <span class="form-selectgroup-check"></span>
+                                </div>
+                                <div>
+                                    <span>{{ answer.content }}</span>
+                                </div>
+                            </div>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+            {% if attemptquestion.question.explanation %}
                 <h4>Түсіндірме:</h4>
                 <p class="lead">{{ attemptquestion.question.explanation|safe }}</p>
+            {% endif %}
+            {% if not forloop.last %}
+                <hr class="my-3">
             {% endif %}
         {% endfor %}
     </div>

@@ -6,6 +6,8 @@ import zipfile
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.forms import inlineformset_factory
+from django.contrib import messages
+from diploma_backend.utils import is_teacher_or_moderator
 from problems.models import Submission
 from users.models import User
 # Create your views here.
@@ -16,11 +18,11 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 
 @login_required
-def assignment_details(request, assignment_id, user_id):
+def assignment_details(request, assignment_id):
     assignment = get_object_or_404(Assignment, pk=assignment_id)
     AssignmentSubmissionFormSet = inlineformset_factory(Assignment, AssignmentSubmission, form=AssigmentSubmissionForm,
                                                         extra=0, can_delete=False)
-    user = User.objects.get(id=user_id)
+    user = request.user
     submission = AssignmentSubmission.objects.filter(assignment=assignment, user=user).last()
     if request.method == 'POST':
         formset = AssignmentSubmissionFormSet(request.POST, instance=assignment)
@@ -64,7 +66,7 @@ def grade_submissions(request, assignment_id):
                 obj = form.save(commit=False)
                 obj.graded = True
                 obj.save()
-            return redirect('assignments:assignment_detail', assignment_id=assignment_id, user_id=request.user.id)
+            return redirect('assignments:assignment_detail', assignment_id=assignment_id)
         return render(request, 'assignment/assignment_details.html',
                       {'assignment': assignment, 'formset': formset})
 
@@ -72,6 +74,10 @@ def grade_submissions(request, assignment_id):
 @login_required
 def assignments(request):
     assignments = Assignment.objects.all()
+
+    q = request.GET.get('q', None)
+    if q is not None:
+        assignments = assignments.filter(title__istartswith=q)
     context = {
         "assignments": assignments,
         "form": AssignmentForm()
@@ -122,8 +128,8 @@ def delete_assignment(request, pk):
 
 
 @login_required
-@user_passes_test(lambda u: u.groups.filter(name='Teacher').count() == 0, login_url='users:signin')
-def change_assignment(request, pk):
+@user_passes_test(is_teacher_or_moderator, login_url='users:signin')
+def htmx_change_assignment(request, pk):
     assignment = get_object_or_404(Assignment, pk=pk)
     assignments = Assignment.objects.filter(deadline__gt=datetime.datetime.now())
     if request.method == 'POST':
@@ -135,6 +141,20 @@ def change_assignment(request, pk):
     else:
         form = AssignmentForm(instance=assignment)
         return render(request, "assignment/partials/assignment-change-form.html",
+                      {'form': form, 'assignment': assignment})
+
+
+def change_assignment(request, pk):
+    assignment = get_object_or_404(Assignment, pk=pk)
+    if request.method == 'POST':
+        form = AssignmentForm(request.POST, request.FILES, instance=assignment)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, *(messages.SUCCESS, "Өзгерістер Сақталды!"))
+        return redirect('assignments:assignment_detail', assignment.id)
+    else:
+        form = AssignmentForm(instance=assignment)
+        return render(request, "assignment/change-assignment.html",
                       {'form': form, 'assignment': assignment})
 
 

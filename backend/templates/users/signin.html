@@ -20,17 +20,19 @@
                 <div class="wrap d-md-flex">
                     <div class="text-wrap p-4 p-lg-5 d-flex img align-items-center"
                          style="background-image: url({% static 'images/rec1.png' %});">
-                        <div class="text w-100" style="background-color: rgba(230,230,230,0.4); padding: 4rem">
-                            <h2 class="mb-4" style="font-size: xxx-large; color: #081940">JOO INFORMATICS</h2>
-                            <p style="font-size: xxx-large; line-height: 0.9; font-weight: bold">ҰБТ-ға дайындық
-                                платформасы</p>
+                        <div class="text w-100" style="background-color: rgba(230,230,230,0.4); padding: 4rem 2rem;display: flex; justify-content: center">
+                            <div>
+                                <h2 class="mb-4" style="font-size: 3rem; color: #081940">JOO INFORMATICS</h2>
+                                <p style="font-size: xx-large; line-height: 0.9; font-weight: bold">ҰБТ-ға дайындық
+                                    платформасы</p>
+                            </div>
                         </div>
                     </div>
                     <div class="login-wrap p-4 p-md-5">
                         <div class="row justify-content-center py-md-5">
                             <div class="col-lg-9">
                                 <div class="row">
-                                    <div class="col-md-8 offset-2 text-center mb-3">
+                                    <div class="col-12 col-md-8 offset-md-2 text-center mb-3">
                                         <img src="{% static 'images/logo-dark.svg' %}" alt="">
                                     </div>
                                 </div>
@@ -51,8 +53,9 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group text-center">
-                                                <button type="submit" class="btn btn-lg text-light font-weight-bold"
-                                                        style="padding: 0.6rem 4rem; font-size: 1.2rem; border-radius: 10rem; background-color: orange;">
+                                                <button type="submit"
+                                                        class="btn btn-lg text-light font-weight-bold btn-edu-orange"
+                                                        style="padding: 0.4rem 3rem; font-size: 1.2rem; border: none">
                                                     Кіру
                                                 </button>
                                             </div>
@@ -64,22 +67,18 @@
                                         <span>Немесе</span>
                                     </p>
                                     <p class="social-media d-flex justify-content-center">
-                                    <form action="/socialaccount/google/login/" method="post">
+                                    <form action="/socialaccount/google/login/" method="post" class="social-button">
                                         {% csrf_token %}
                                         <button type="submit"
-                                                class="btn btn-google ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                                 stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                <path d="M17.788 5.108a9 9 0 1 0 3.212 6.892h-8"></path>
-                                            </svg>
+                                                class="btn btn-google">
+                                            <img src="{% static 'images/Rectangle 10.png' %}" alt="">
+                                            <span class="text-muted">Google арқылы кіру</span>
                                         </button>
                                     </form>
                                     </p>
                                 </div>
 
-                                <div class="w-100">
+                                <div class="w-100 text-center">
                                     <p class="mt-4">Тіркелмегенсіз бе? <a href="{% url 'users:signup' %}">Тіркелу</a>
                                     </p>
                                 </div>

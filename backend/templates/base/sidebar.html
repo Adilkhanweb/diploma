@@ -118,7 +118,7 @@
                 </span>
             </a>
         </li>
-        {% if request.user|has_group:"Moderators" or request.user|has_group:"Teachers" or request.user.is_superuser %}
+        {% if request.user|has_group:"Moderators" or request.user.is_superuser %}
 
             <li class="nav-item {% if request.path == create_user_page %}active{% endif %}">
                 <a class="nav-link" href="{{ create_user_page }}">

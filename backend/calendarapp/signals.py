@@ -11,14 +11,13 @@ from quiz_apps.quiz.models import Quiz
 def create_event(sender, instance, created, **kwargs):
     """Create event when assignment will be created"""
     if created:
-        event, created = Event.objects.get_or_create(title=instance.title, start_time=instance.created_at,
-                                                     end_time=instance.deadline,
-                                                     url=reverse('assignments:assignment_detail',
-                                                                 kwargs={'assignment_id': instance.id}))
+        event, created = Event.objects.get_or_create(assignment=instance, url=reverse('assignments:assignment_detail',
+                                                                                      kwargs={
+                                                                                          'assignment_id': instance.id}))
 
 
 @receiver(post_save, sender=Quiz)
 def create_quiz_event(sender, instance, created, **kwargs):
-    if created and not instance.draft:
-        event = Event.objects.create(title=instance.title, start_time=instance.start_time, end_time=instance.end_time,
-                                     url=reverse('quiz:quiz_detail', kwargs={'url': instance.url}))
+    if not instance.draft:
+        Event.objects.get_or_create(quiz=instance,
+                                    url=reverse('quiz:quiz_detail', kwargs={'url': instance.url}))

@@ -6,7 +6,7 @@ from calendarapp import models
 class EventAdmin(admin.ModelAdmin):
     model = models.Event
     list_display = [
-        "title",
+        "__str__",
         "is_active",
         "is_deleted",
         "created_at",

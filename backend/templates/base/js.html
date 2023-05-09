@@ -4,13 +4,13 @@
 <script src="{% static 'js/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 <!-- The javascript plugin to display page loading on top-->
-<script src="{% static 'js/plugins/pace.min.js' %}"></script>
 <script src="{% static 'js/plugins/moment.min.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment-timer/lib/moment-timer.js"></script>
 <script src="{% static 'Tabler/dist/libs/apexcharts/dist/apexcharts.min.js' %}"></script>
 <!-- Tabler Core -->
 <script src="{% static 'Tabler/dist/js/tabler.min.js' %}"></script>
 <script src="{% static 'Tabler/dist/js/demo.min.js' %}"></script>
+<script src="{% static 'Tabler/dist/libs/tom-select/dist/js/tom-select.base.min.js' %}"></script>
 <script src="{% static 'calendar/vanilla-calendar.min.js' %}"></script>
 <script src="{% static 'calender/main.js' %}"></script>
 <script src="{% static 'calender/locales/kk.js' %}"></script>
@@ -18,7 +18,7 @@
 <script src="https://unpkg.com/htmx.org@1.1.0"></script>
 <script src="https://unpkg.com/hyperscript.org@0.9.8"></script>
 <script type="text/javascript" src="{% static 'js/core.js' %}"></script>
-
+<script type="text/javascript" src="{% static 'js/toasts.js' %}"></script>
 <script>
     document.body.addEventListener('htmx:configRequest', (event) => {
         event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';

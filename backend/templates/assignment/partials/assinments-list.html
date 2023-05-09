@@ -1,7 +1,7 @@
 {% load quiz_tags %}
 {% for assignment in assignments %}
     <tr>
-        <td><a href="{% url 'assignments:assignment_detail' assignment_id=assignment.id user_id=request.user.id %}"
+        <td><a href="{% url 'assignments:assignment_detail' assignment_id=assignment.id %}"
                class="link-dark">{{ assignment.title }}</a></td>
         <td>{{ assignment.deadline|date:"d F, H:i" }}</td>
         <td {% if not assignment.is_passed %}_="init js return moment('{{ assignment.deadline.isoformat }}').fromNow() end then put it into me"{% endif %}>
@@ -11,7 +11,7 @@
             <td>
                 <div class="d-flex gap-2">
                     <a class="btn btn-outline-edu"
-                       hx-get="{% url 'assignments:change-assignment' assignment.pk %}"
+                       hx-get="{% url 'assignments:htmx-change-assignment' assignment.pk %}"
                        hx-target="#assignment-form"
                        _="on htmx:afterRequest call reinitialize()">
                         <svg xmlns="http://www.w3.org/2000/svg"

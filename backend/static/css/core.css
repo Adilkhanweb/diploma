@@ -4,6 +4,33 @@
     suffix: " ";
 }
 
+@font-face {
+    font-family: "SF Pro Rounded Regular";
+    src: url("../fonts/SF PRO Rounded/ead4092f880f75ff0883ced1856b2c37.eot"); /* IE9*/
+    src: url("../fonts/SF PRO Rounded/ead4092f880f75ff0883ced1856b2c37.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */ url("../fonts/SF PRO Rounded/ead4092f880f75ff0883ced1856b2c37.woff2") format("woff2"), /* chrome、firefox */ url("../fonts/SF PRO Rounded/ead4092f880f75ff0883ced1856b2c37.woff") format("woff"), /* chrome、firefox */ url("../fonts/SF PRO Rounded/ead4092f880f75ff0883ced1856b2c37.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/ url("../fonts/SF PRO Rounded/ead4092f880f75ff0883ced1856b2c37.svg#SF Pro Rounded Regular") format("svg"); /* iOS 4.1- */
+}
+
+/*@font-face {*/
+/*    font-family: "SF Pro Rounded Bold";*/
+/*    src: url("../fonts/SF PRO Bold/511031ed9122c8ea1450b18b876221fe.eot"); !* IE9*!*/
+/*    src: url("../fonts/SF PRO Bold/511031ed9122c8ea1450b18b876221fe.eot?#iefix") format("embedded-opentype"), !* IE6-IE8 *! url("../fonts/SF PRO Bold/511031ed9122c8ea1450b18b876221fe.woff2") format("woff2"), !* chrome、firefox *! url("../fonts/SF PRO Bold/511031ed9122c8ea1450b18b876221fe.woff") format("woff"), !* chrome、firefox *! url("../fonts/SF PRO Bold/511031ed9122c8ea1450b18b876221fe.ttf") format("truetype"), !* chrome、firefox、opera、Safari, Android, iOS 4.2+*! url("../fonts/SF PRO Bold/511031ed9122c8ea1450b18b876221fe.svg#SF Pro Rounded Bold") format("svg"); !* iOS 4.1- *!*/
+/*}*/
+.btn-edu-orange {
+    background: linear-gradient(90deg, #FA5E37 21.45%, #FFBA77 92.25%);
+    border-radius: 20px;
+}
+
+.text-edu-primary {
+    color: var(--edu-primary);
+}
+.form-control:focus {
+    box-shadow: none;
+}
+* {
+    font-family: "SF Pro Rounded Regular", sans-serif !important;
+}
+
+
 :root {
     --edu-primary: #0a4368;
 }
@@ -15,6 +42,7 @@
 .btn-outline-edu {
     border: 1px dashed var(--edu-primary);
 }
+
 .btn-outline-edu:hover {
     background-color: var(--edu-primary);
     color: #fff;
@@ -102,7 +130,14 @@
     border: 0;
     padding-block: 1rem;
 }
-
+.tasks .list-group-item {
+    border: 0;
+    border-bottom: 1px solid #D9D9D9;
+    border-radius: 0;
+}
+.tasks .list-group-item:last-child {
+    border: 0;
+}
 .tasks > .list-group > .list-group-item {
     padding: 1.2rem;
     background-color: transparent;
@@ -160,6 +195,10 @@ thead.bg-edu-primary th {
     opacity: 1;
 }
 
+
+.profile-avatar {
+    border: 2px dashed var(--edu-primary);
+}
 .profile-avatar > svg {
     display: none;
     width: 64px;
@@ -171,6 +210,10 @@ thead.bg-edu-primary th {
 .profile-avatar:hover > svg {
     display: block !important;
     z-index: 2;
+}
+
+.image-upload-box {
+    border: 2px dashed rgba(98,105,118,.16);
 }
 
 .image-upload-box > svg {

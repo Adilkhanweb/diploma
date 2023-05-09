@@ -27,7 +27,8 @@ updated_at
     """
 
     class Meta:
-        deadline = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'auto_now_add': True}))
+        deadline = forms.DateTimeField(
+            widget=forms.DateTimeInput(attrs={'auto_now_add': True, 'type': 'datetime-local'}))
         model = Assignment
         fields = ['title', 'description', 'deadline']
 

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kk">
 {% load static %}
 <head>
     <meta name="description" content="Event Dashboard"/>
     <!-- Twitter meta-->
     <meta property="twitter:card" content="summary_large_image"/>
-    <meta property="twitter:site" content="@sajib1066"/>
-    <meta property="twitter:creator" content="@sajib1066"/>
+    <meta property="twitter:site" content="JOO High School"/>
+    <meta property="twitter:creator" content="JOO High School"/>
     <!-- Open Graph Meta-->
     <meta property="og:type" content="website"/>
-    <meta property="og:site_name" content="Vali Admin"/>
-    <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme"/>
-    <meta property="og:url" content="https://sajib1066.github.io/"/>
-    <meta property="og:image" content="https://sajib1066.github.io/images/me.jpg"/>
-    <meta property="og:description" content="Event Dashboard"/>
+    <meta property="og:site_name" content="JOO High School"/>
+    <meta property="og:title" content="JOO Informatics"/>
+    <meta property="og:url" content="https://joohs.jcloud.kz/"/>
+    <meta property="og:image" content="{% static 'images/logo-dark.svg' %}"/>
+    <meta property="og:description" content="JOO Informatics"/>
     <title>{% block title %}{% endblock title %}</title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -29,6 +29,7 @@
     <link href="{% static 'calender/main.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/core.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
 
     <script src="https://cdn.tiny.cloud/1/7td4b3p4zag9jdaz2ot398ds5hhtbq0x6u7z0aurdm6o8old/tinymce/6/tinymce.min.js"
             referrerpolicy="origin"></script>
@@ -44,6 +45,7 @@
 {% block content %}
 {% endblock %}
 <!-- Libs JS -->
+{% include "base/toasts.html" %}
 {% include 'base/js.html' %}
 {% block extrascripts %}
 {% endblock extrascripts %}

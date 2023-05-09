@@ -47,11 +47,6 @@ class User(AbstractUser):
     def __str__(self):
         return self.get_full_name() + ' ' + self.email
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        group, created = Group.objects.get_or_create(name="Students")
-        self.groups.add(group)
-
 
 class StudentManager(UserManager):
     def get_queryset(self, *args, **kwargs):

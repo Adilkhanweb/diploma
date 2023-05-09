@@ -1,6 +1,7 @@
 from django import forms
 
 from course.models import Lesson
+from django.db import models
 
 
 class LessonForm(forms.ModelForm):
@@ -16,3 +17,17 @@ class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
         fields = ['title', 'description', 'type', 'document', 'banner']
+
+
+class SearchForm(forms.Form):
+    page_choices = (
+        ('course-materials', 'Курс Материалдары'),
+        ('quiz', 'Бақылау'),
+        ('assignment', 'Үй жұмысы'),
+        ('discussion', 'Талқылау'),
+        ('programming', 'Бағдарламалау'),
+    )
+    page = forms.ChoiceField(choices=page_choices, widget=forms.Select(attrs={'class': 'form-select w-100 h-100',
+                                                                              'style': 'border-top-right-radius: 0; border-bottom-right-radius: 0;'}))
+    q = forms.CharField(max_length=120, widget=forms.TextInput(
+        attrs={'type': 'search', 'placeholder': 'Іздеу...', 'class': 'form-control form-control-lg bg-muted-lt'}), required=False)

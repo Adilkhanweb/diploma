@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator, PageNotAnInteger
 from django.http import JsonResponse, HttpResponse
 from django.db import transaction
+from django.db.models import Count, Sum, F
 from quiz_apps.multiplechoice.models import Attempt, AttemptQuestion, Answer, MultipleChoice
 from quiz_apps.quiz.forms import AttemptQuestionForm, QuizForm, ChoiceQuestionForm, MultipleChoiceQuestionForm, \
     MAnswerInlineFormset
@@ -16,7 +17,7 @@ from django.shortcuts import render
 
 from quiz_apps.quiz.utils import check_attempts, get_score, is_correct
 from django.forms import inlineformset_factory
-
+from django.contrib import messages
 from quiz_apps.singlechoice.admin import SingleCorrectAnswerInlineFormset
 from quiz_apps.singlechoice.models import Choice
 
@@ -51,8 +52,7 @@ def submit_attempt(request, url, attempt_id):
 
 @login_required
 def quiz_list(request):
-    # quizzes = Quiz.objects.filter(draft=False, end_time__gt=timezone.now())
-    quizzes = Quiz.objects.all()
+    quizzes = Quiz.objects.order_by('-end_time')
     if request.method == 'POST':
         form = QuizForm(request.POST)
         if form.is_valid():
@@ -60,12 +60,14 @@ def quiz_list(request):
             return redirect('quiz:quiz_list')
         else:
             return render(request, 'quiz/partials/quiz-add-form.html', {'form': form})
-    else:
-        form = QuizForm()
-        return render(request, "quiz/quiz_list.html", {
-            "quizzes": quizzes,
-            "form": form
-        })
+    q = request.GET.get('q', None)
+    if q is not None:
+        quizzes = quizzes.filter(title__istartswith=q)
+    form = QuizForm()
+    return render(request, "quiz/quiz_list.html", {
+        "quizzes": quizzes,
+        "form": form
+    })
 
 
 @login_required
@@ -84,7 +86,7 @@ def change_quiz(request, url):
 def delete_quiz(request, url):
     quiz = get_object_or_404(Quiz, url=url)
     quiz.delete()
-    quizzes = Quiz.objects.filter(draft=False)
+    quizzes = Quiz.objects.order_by('-end_time')
     return render(request, "quiz/partials/quizzes-tbody.html", {'quizzes': quizzes})
 
 
@@ -93,11 +95,16 @@ def quiz_detail(request, url):
     quiz = get_object_or_404(Quiz, url=url)
     attempts = Attempt.objects.filter(quiz=quiz, user=request.user)
     can_attempt = check_attempts(quiz, request.user)
+    leaderboard = quiz.leaderboard_of_this_quiz.values(email=F('user__email'), first_name=F('user__first_name'),
+                                                       last_name=F('user__last_name'),
+                                                       picture=F('user__profile__picture')).order_by(
+        'user').distinct().annotate(score=Sum('score')).order_by('-score')
     return render(request, "quiz/quiz_detail.html", {
         "quiz": quiz,
         "available_attempts": quiz.max_attempts - attempts.count(),
         "can_attempt": can_attempt,
-        "attempts": attempts
+        "attempts": attempts,
+        "leaderboard": leaderboard
     })
 
 
@@ -174,10 +181,9 @@ def add_single_question(request):
                 choiceQuestion = choiceForm.save()
                 choiceFormSet.instance = choiceQuestion
                 choiceFormSet.save()
+            messages.add_message(request, *(messages.SUCCESS, "Жаңа Сұрақ Сақталды!"))
             return redirect('quiz:add-single-question')
         else:
-            print(choiceForm.errors)
-            print(choiceFormSet.errors)
             return render(request, 'quiz/add_question.html', {'choiceForm': choiceForm, 'choiceFormSet': choiceFormSet})
     return render(request, "quiz/add_question.html",
                   {
@@ -204,6 +210,7 @@ def add_multiple_question(request):
                 multipleChoiceQuestion = multipleChoiceForm.save()
                 multipleChoiceFormSet.instance = multipleChoiceQuestion
                 multipleChoiceFormSet.save()
+            messages.add_message(request, *(messages.SUCCESS, "Жаңа Сұрақ Сақталды!"))
         return redirect('quiz:add-multiple-question')
     return render(request, "quiz/add_question.html",
                   {
