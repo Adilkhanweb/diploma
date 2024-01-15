@@ -27,7 +27,8 @@ SECRET_KEY = 'django-insecure-ct4o%=1k(=^7=&*pt5zj916+yync&p#_94_)4rr_%n1rrj)f3u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "joohs.jcloud.kz", "0.0.0.0", "192.168.1.113", "*"]
+# ALLOWED_HOSTS = ["127.0.0.1", "localhost", "joohs.jcloud.kz", "0.0.0.0", "192.168.1.113", "*"]
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -176,7 +177,8 @@ CKEDITOR_UPLOAD_PATH = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 
-JUDGE0_API_URL = 'http://localhost:2358'
+JUDGE0_API_URL = 'http://localhost:80'
+JUDGE0_LANG_ID = 71
 # JUDGE0_API_URL = 'https://judge0-ce.p.rapidapi.com'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -207,8 +207,13 @@ def add_multiple_question(request):
         multipleChoiceForm = MultipleChoiceQuestionForm(request.POST, request.FILES)
         if multipleChoiceForm.is_valid() and multipleChoiceFormSet.is_valid():
             with transaction.atomic():
-                multipleChoiceQuestion = multipleChoiceForm.save()
+                multipleChoiceQuestion = multipleChoiceForm.save(commit=False)
                 multipleChoiceFormSet.instance = multipleChoiceQuestion
+                multipleChoiceFormSet.save(commit=False)
+                filtered_forms = [form for form in multipleChoiceFormSet.forms if
+                                  form.cleaned_data['correct'] == True]
+                multipleChoiceQuestion.correct_answers_count = len(filtered_forms)
+                multipleChoiceQuestion.save()
                 multipleChoiceFormSet.save()
             messages.add_message(request, *(messages.SUCCESS, "Жаңа Сұрақ Сақталды!"))
         return redirect('quiz:add-multiple-question')

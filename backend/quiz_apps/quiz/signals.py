@@ -45,4 +45,5 @@ def update_score(sender, instance, *args, **kwargs):
     """
     mc = instance
     mc.score = 2
-    mc.correct_answers_count = mc.answers.filter(correct=True).count()
+    if mc.correct_answers_count == 0:
+        mc.correct_answers_count = mc.answers.filter(correct=True).count()

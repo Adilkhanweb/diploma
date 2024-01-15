@@ -141,7 +141,7 @@ def submit(request, slug):
             submission = api.submission.submit(
                 client,
                 bytes(code, "utf-8"),
-                10,
+                settings.JUDGE0_LANG_ID,
                 stdin=bytes(testcase.input, "utf-8"),
                 expected_output=bytes(testcase.expected_output, "utf-8"))
             submission.load(client)
@@ -189,7 +189,7 @@ def run_tests(request, slug):
             submission = api.submission.submit(
                 client,
                 bytes(code, "utf-8"),
-                10,
+                settings.JUDGE0_LANG_ID,
                 stdin=bytes(testcase.input, "utf-8"),
                 expected_output=bytes(testcase.expected_output, "utf-8"))
             submission.load(client)
@@ -208,7 +208,7 @@ def run_tests(request, slug):
 
 def test(request, slug):
     problem = Problem.objects.get(slug=slug)
-    client = api.Client(settings.JUDGE0_API_URL)
+    client = api.Client("http://localhost")
     client.wait = True
     if request.method == 'POST':
         code = request.POST.get('code')
@@ -216,8 +216,9 @@ def test(request, slug):
         submission = api.submission.submit(
             client,
             bytes(code, "utf-8"),
-            10,
-            stdin=bytes(test_input, "utf-8"))
+            settings.JUDGE0_LANG_ID,
+            stdin=bytes(test_input, "utf-8"),
+            wall_time_limit=5,)
         submission.load(client)
         stdout = ""
         if submission.stdout is not None:
